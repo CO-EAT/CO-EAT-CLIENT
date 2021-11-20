@@ -1,70 +1,93 @@
-# Getting Started with Create React App
+# SOPKATHON :fire:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 프로젝트 구성
 
-## Available Scripts
+1. React
+2. ESLint
+3. Prettier
+4. axios
+5. styled-components
+6. +etc
 
-In the project directory, you can run:
+## 디렉토리 구조
 
-### `yarn start`
+변경될 수 있습니다 ~ !
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```bash
+// src directory structure
+├── App.jsx
+├── assets
+├── components
+├── constants
+├── index.jsx
+├── libs
+├── pages
+│   ├── MainPage.jsx
+│   ├── PickPage.jsx
+│   └── ResultPage.jsx
+├── router.jsx
+└── styles
+    └── globalStyle.js
+``` 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 컨벤션
+### 커밋 컨벤션 
+|   Commit type              | Emoji                                         | Situation |
+|:---------------------------|:----------------------------------------------|:----|
+| Initial commit             | :tada: `:tada:`                               | 따단~~~~~ |
+| feat                | :sparkles: `:sparkles:`                       | 새로운 기능, UI 등 | 
+| bug                     | :bug: `:bug:`                                 |  버그 수정/리포트  |
+| Documentation              | :memo: `:memo:`                             | 문서화 |
+| refactor             | :hammer: `:hammer:`                           | 구조 변경, 리팩토링 |
+| style              | 🎨 : `:art:`                           | css 관련 |
+| remove or edit        | :fire: `:fire:`                               |  파일 삭제 및 수정 |
+| fix lint                       | :shirt: `:shirt:`                             | eslint 에러 수정 | 
+| init           | :construction:  `:construction:`              | 브랜치 첫 커밋 | 
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+## 브랜치 전략
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- 기능 추가 : feat/foodCard
+- 버그 수정 : fix/layout
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 팀원 정보
+<table>
+    <tr align="center">
+        <td style="min-width: 150px;">
+            <a href="https://github.com/KimKwon">
+              <img src="https://github.com/KimKwon.png" width="100">
+              <br />
+              <b>권혁진 (jjinny)</b>
+            </a>
+        </td>
+        <td style="min-width: 150px;">
+            <a href="https://github.com/q-bit-junior">
+              <img src="https://github.com/q-bit-junior.png" width="100">
+              <br />
+              <b>김규민 <br> (q-bit-junior)</b>
+            </a> 
+        </td>
+        <td style="min-width: 150px;">
+            <a href="https://github.com/younyikim">
+              <img src="https://github.com/younyikim.png" width="100">
+              <br />
+              <b>김연이 (Younyi)</b>
+            </a> 
+        </td>
+    </tr>
+    <tr align="center">
+        <td>
+            찌니<br/>
+            Web FE
+        </td>
+        <td>
+            귬니 <br />
+            Web FE
+        </td>
+        <td>
+            여니 <br />
+            Web FE
+        </td>
+    </tr>
+</table>
