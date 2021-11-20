@@ -38,38 +38,43 @@ const StyledMenuSelection = styled.article`
 
 const InvertedBorder = styled.i`
   border: 1px solid #dddddd;
-  ${(props) =>
-    props.top
-      ? css`
-          border-top: none;
-        `
-      : css`
-          border-bottom: none;
-        `};
   position: absolute;
   width: 2rem;
   height: 1rem;
-
+  transform: translateX(-50%);
   ${(props) =>
     props.bottom
       ? css`
           border-radius: 1rem 1rem 0 0;
+          border-bottom: none;
+          bottom: 0;
         `
       : css`
           border-radius: 0 0 1rem 1rem;
+          top: 0;
+          border-top: none;
         `};
 
   background-color: white;
-  ${(props) => (props.bottom ? 'bottom : 0' : 'top: 0')};
   left: 0;
-  ${(props) =>
-    props.bottom
-      ? css`
-          transform: translateX(-50%);
-        `
-      : css`
-          transform: translateX(-50%);
-        `}
+
+  &::after {
+    content: '';
+    background-color: white;
+    width: 100%;
+    height: 3px;
+    position: absolute;
+    ${(props) =>
+      props.bottom
+        ? css`
+            bottom: 0;
+            transform: translateY(50%);
+          `
+        : css`
+            top: 0;
+            transform: translateY(-50%);
+          `};
+  }
 `;
 
 const CardWrapper = styled.div`
