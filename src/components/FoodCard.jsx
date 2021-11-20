@@ -4,9 +4,15 @@ import { ReactComponent as Coffee } from 'assets/img/coffee.svg';
 import { ReactComponent as Meal } from 'assets/img/meal.svg';
 
 function FoodCard(props) {
-  const { type } = props; // types = 'coffee' or 'meal'
+  const { type, selectedCard, setSelectedCard } = props; // types = 'coffee' or 'meal'
+  const handleCheck = (e) => {
+    if (e.target.selected) {
+      setSelectedCard('');
+    } else setSelectedCard(type);
+  };
+
   return (
-    <StyledMenuSelection>
+    <StyledMenuSelection selected={selectedCard === type}>
       <LeftBox>
         <CardWrapper>
           {type === 'coffee' ? <Coffee /> : <Meal />}
@@ -18,9 +24,9 @@ function FoodCard(props) {
         </CardWrapper>
       </LeftBox>
       <RightBox>
-        <InvertedBorder top />
-        <InvertedBorder bottom />
-        <CustomRadio type="radio" />
+        <InvertedBorder selected={selectedCard === type} top />
+        <InvertedBorder selected={selectedCard === type} bottom />
+        <CustomRadio name="food" type="radio" onChange={handleCheck} selected={selectedCard === type} />
       </RightBox>
     </StyledMenuSelection>
   );
@@ -33,24 +39,38 @@ const StyledMenuSelection = styled.article`
   height: 35rem;
   border-radius: 8px;
   background-color: white;
-  border: 1px solid #dddddd;
+  ${(props) =>
+    props.selected
+      ? css`
+          border: 3px solid orange;
+        `
+      : css`
+          border: 1px solid #dddddd;
+        `};
 `;
 
 const InvertedBorder = styled.i`
-  border: 1px solid #dddddd;
+  ${(props) =>
+    props.selected
+      ? css`
+          border: 3px solid orange;
+        `
+      : css`
+          border: 1px solid #dddddd;
+        `};
   position: absolute;
-  width: 2rem;
-  height: 1rem;
+  width: 3rem;
+  height: 1.5rem;
   transform: translateX(-50%);
   ${(props) =>
     props.bottom
       ? css`
-          border-radius: 1rem 1rem 0 0;
+          border-radius: 1.5rem 1.5rem 0 0;
           border-bottom: none;
           bottom: 0;
         `
       : css`
-          border-radius: 0 0 1rem 1rem;
+          border-radius: 0 0 1.5rem 1.5rem;
           top: 0;
           border-top: none;
         `};
@@ -62,7 +82,14 @@ const InvertedBorder = styled.i`
     content: '';
     background-color: white;
     width: 100%;
-    height: 3px;
+    ${(props) =>
+      props.selected
+        ? css`
+            height: 6px;
+          `
+        : css`
+            height: 3px;
+          `};
     position: absolute;
     ${(props) =>
       props.bottom
