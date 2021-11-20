@@ -1,5 +1,9 @@
+import styled from 'styled-components';
+
 function MainPage() {
-  return <div>this is main page</div>;
+  return <StyledContainer>helo</StyledContainer>;
 }
+
+const StyledContainer = styled.div``;
 
 export default MainPage;
