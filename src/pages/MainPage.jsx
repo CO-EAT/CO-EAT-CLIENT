@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { ReactComponent as GoIcon } from 'assets/go.svg';
 
 function MainPage() {
   const [isFocus, setIsFocus] = useState(false);
@@ -9,10 +10,9 @@ function MainPage() {
     setUser(e.target.value);
   };
 
-  const handleAdd = (e) => {
+  const handleAdd = () => {
     if (!user) return;
     window.localStorage.setItem('user', user);
-
     setUser('');
   };
 
@@ -29,7 +29,10 @@ function MainPage() {
           onChange={handleChange}
         />
       </StyledInput>
-      <button onClick={handleAdd}>Let’s COEAT!</button>
+      <StyledButton>
+        <GoIcon />
+        <button onClick={handleAdd}>Let’s COEAT!</button>
+      </StyledButton>
     </StyledContainer>
   );
 }
@@ -39,18 +42,6 @@ const StyledContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  & > button {
-    border: 0;
-    border-radius: 0.2rem;
-    outline: 0;
-    width: 281px;
-    height: 78px;
-    background-color: #ff912d;
-    margin-bottom: 9.8rem;
-    font-size: 2.4rem;
-    font-weight: 700;
-  }
 `;
 
 const StyledInput = styled.div`
@@ -81,6 +72,30 @@ const StyledInput = styled.div`
   & > input::placeholder {
     font-size: 2rem;
     color: ${(prop) => (prop.isFocus ? '#ff912d' : '#989898')};
+  }
+`;
+
+const StyledButton = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  & > button {
+    border: 0;
+    border-radius: 0.2rem;
+    outline: 0;
+    width: 281px;
+    height: 78px;
+    background-color: #ff912d;
+    margin-bottom: 9.8rem;
+    font-size: 2.4rem;
+    font-weight: 700;
+  }
+
+  & > svg {
+    position: absolute;
+    top: -3rem;
+    right: -2rem;
   }
 `;
 
