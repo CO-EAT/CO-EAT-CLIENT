@@ -2,6 +2,7 @@ import { useLocation } from 'react-router';
 import styled from 'styled-components';
 import LogoImg from 'assets/logo.svg';
 import Search from 'assets/search.svg';
+import PickerCartModal from 'components/PickCartModal';
 import { useEffect, useState } from 'react';
 
 function PickPage() {
@@ -169,3 +170,5 @@ const StyledContainer = styled.div`
     margin-bottom: 3.6rem;
   }
 `;
+
+const PickPageWrapper = styled.div``;

@@ -11,7 +11,6 @@ const GlobalStyle = createGlobalStyle`
 
     font-size: 40%;
 
-    font-family: Roboto;
     scroll-behavior: smooth;
   }
 
