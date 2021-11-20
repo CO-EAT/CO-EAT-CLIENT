@@ -20,7 +20,7 @@ function MainPage() {
     window.localStorage.setItem('user', user);
     setUser('');
   };
-  
+
   return (
     <StyledContainer>
       <img className="logo_img" src={Logo} alt="logo" />
