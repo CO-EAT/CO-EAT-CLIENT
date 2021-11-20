@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
 
-    font-size: 62.5%;
+    font-size: 40%;
 
     font-family: Roboto;
     scroll-behavior: smooth;

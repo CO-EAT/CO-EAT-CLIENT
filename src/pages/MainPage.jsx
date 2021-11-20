@@ -4,9 +4,11 @@ import Logo from 'assets/logo.svg';
 import LogoPic from 'assets/logo-pic.svg';
 import Arrow from 'assets/arrow.png';
 import { ReactComponent as GoIcon } from 'assets/go.svg';
+import FoodCard from 'components/FoodCard';
 
 function MainPage() {
   const [isFocus, setIsFocus] = useState(false);
+  const [selectedCard, setSelectedCard] = useState('');
   const [user, setUser] = useState();
 
   const handleChange = (e) => {
@@ -28,7 +30,12 @@ function MainPage() {
       <div className="title">
         <span>함께 정하는 우리 메뉴</span>
       </div>
- <StyledInput isFocus={isFocus}>
+
+      <CardWrapper>
+        <FoodCard type="meal" selectedCard={selectedCard} setSelectedCard={setSelectedCard} />
+        <FoodCard type="coffee" selectedCard={selectedCard} setSelectedCard={setSelectedCard} />
+      </CardWrapper>
+      <StyledInput isFocus={isFocus}>
         <p>사용하실 닉네임을 입력해주세요.</p>
         <input
           type="text"
@@ -43,17 +50,16 @@ function MainPage() {
         <GoIcon />
         <button onClick={handleAdd}>Let’s COEAT!</button>
       </StyledButton>
-
     </StyledContainer>
   );
 }
 
 const StyledContainer = styled.div`
-
   width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: flex-end;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
   height: 100%;
   position: relative;
 
@@ -102,6 +108,7 @@ const StyledContainer = styled.div`
     height: 7.1rem;
     top: 12.9rem;
     left: 55.4rem;
+  }
 `;
 
 const StyledInput = styled.div`
@@ -117,7 +124,7 @@ const StyledInput = styled.div`
   }
 
   & > input {
-    width: 75rem;
+    width: 50rem;
     height: 6.4rem;
     border: ${(prop) => (prop.isFocus ? '1px solid #ff912d' : 0)};
     border-radius: 1.2rem;
@@ -144,8 +151,8 @@ const StyledButton = styled.div`
     border: 0;
     border-radius: 0.2rem;
     outline: 0;
-    width: 281px;
-    height: 78px;
+    width: 28.1rem;
+    height: 7.8rem;
     background-color: #ff912d;
     margin-bottom: 9.8rem;
     font-size: 2.4rem;
@@ -157,6 +164,11 @@ const StyledButton = styled.div`
     top: -3rem;
     right: -2rem;
   }
+`;
+
+const CardWrapper = styled.div`
+  display: flex;
+  gap: 2rem;
 `;
 
 export default MainPage;

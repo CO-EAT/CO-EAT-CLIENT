@@ -33,9 +33,8 @@ function FoodCard(props) {
 }
 
 const StyledMenuSelection = styled.article`
-  margin: 10rem;
   display: flex;
-  width: 35rem;
+  width: 40rem;
   height: 35rem;
   border-radius: 8px;
   background-color: white;
@@ -114,6 +113,10 @@ const CardWrapper = styled.div`
     width: 10rem;
     height: 10rem;
     margin-bottom: 3rem;
+  }
+
+  & > *:not(svg) {
+    margin-left: 1.5rem;
   }
 `;
 
