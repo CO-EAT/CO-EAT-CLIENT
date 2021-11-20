@@ -5,20 +5,30 @@ import LogoPic from 'assets/logo-pic.svg';
 import Arrow from 'assets/arrow.png';
 import { ReactComponent as GoIcon } from 'assets/go.svg';
 import FoodCard from 'components/FoodCard';
+import { useNavigate } from 'react-router';
 
 function MainPage() {
   const [isFocus, setIsFocus] = useState(false);
-  const [selectedCard, setSelectedCard] = useState('');
-  const [user, setUser] = useState();
+  const [selectedCard, setSelectedCard] = useState('rrr');
+  const [user, setUser] = useState('');
+  const navigator = useNavigate();
 
   const handleChange = (e) => {
     setUser(e.target.value);
   };
 
+  const mealCtgs = ['한식', '중식', '일식', '양식', '기타'];
+  const coffeeCtgs = ['Coffee', 'Non-coffee', '기타'];
+
   const handleAdd = () => {
     if (!user) return;
     window.localStorage.setItem('user', user);
     setUser('');
+    {
+      selectedCard === 'meal'
+        ? navigator('pick', { state: { selectedCard: selectedCard, categories: mealCtgs } })
+        : navigator('pick', { state: { selectedCard: selectedCard, categories: coffeeCtgs } });
+    }
   };
 
   return (
