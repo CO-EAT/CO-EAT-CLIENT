@@ -1,5 +1,9 @@
 # SOPKATHON :fire:
 
+## 서비스소개
+서비스 소개 : 모두가 행복한, 메뉴 취합 서비스
+한줄멘트 : 오늘 뭐 먹을래? 아무거나는 이제 그만! Let's COEAT!
+
 ## 프로젝트 구성
 
 1. React
@@ -79,15 +83,15 @@
     <tr align="center">
         <td>
             찌니<br/>
-            Web FE
+            메인 뷰 및 레이아웃
         </td>
         <td>
             귬니 <br />
-            Web FE
+            메인 페이지 레이아웃
         </td>
         <td>
             여니 <br />
-            Web FE
+            스크롤, 픽 페이지
         </td>
     </tr>
 </table>
