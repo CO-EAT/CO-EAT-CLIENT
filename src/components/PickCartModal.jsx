@@ -3,13 +3,27 @@ import { ReactComponent as ProfileIcon } from 'assets/profile.svg';
 import { ReactComponent as CartlBtnIcon } from 'assets/cartlBtn.svg';
 import FoodCartCard from 'components/FoodCartCard';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function PickCartModal({ coEatList, noEatList }) {
+  const navigator = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () => {
     setIsOpen(!isOpen);
   };
+
+  const getTotalEatList = (list) => {
+    let sum = 0;
+    Object.keys(list).forEach((key) => {
+      sum += list[key];
+    });
+    return sum;
+  };
+
+  useEffect(() => {
+    console.log(coEatList, noEatList);
+  }, [coEatList, noEatList]);
 
   return (
     <>
@@ -21,7 +35,7 @@ function PickCartModal({ coEatList, noEatList }) {
               <span>COEAT</span>
               <div></div>
             </div>
-            <span>{coEatList.keys ? coEatList.keys.length : 0}</span>
+            <span>{Object.keys(coEatList).length}</span>
           </div>
           <ul>
             <li>
@@ -44,7 +58,7 @@ function PickCartModal({ coEatList, noEatList }) {
               <span>NOEAT</span>
               <div></div>
             </div>
-            <span>{noEatList.keys ? noEatList.keys.length : 0}</span>
+            <span>{Object.keys(noEatList).length}</span>
           </div>
           <ul>
             <li>
@@ -69,13 +83,18 @@ function PickCartModal({ coEatList, noEatList }) {
         <span>유루리님</span>
         <StyledLine />
         <span>COEAT</span>
-        <span>{coEatList.keys ? coEatList.keys.length : 0}</span>
+        <span>{getTotalEatList(coEatList)}</span>
         <span>NOEAT</span>
-        <span>{noEatList.keys ? noEatList.keys.length : 0}</span>
+        <span>{getTotalEatList(noEatList)}</span>
         <button onClick={handleClick}>
           <CartlBtnIcon />
         </button>
-        <button>결과 화면</button>
+        <button
+          onClick={() => {
+            navigator('/result');
+          }}>
+          결과 화면
+        </button>
       </StyledCartWrapper>
     </>
   );

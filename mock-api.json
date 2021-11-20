@@ -1,116 +1,132 @@
 {
   "coffee": [
     {
-    "category": "Coffee",
-	  "drinkName": "아메리카노",
-	  "content": "무조권 얼죽아",
-	  "drinkImg": "drink/아이스아메리카노.png",
-	  "iceFlag": true
+      "id": 1,
+      "category": "Coffee",
+      "drinkName": "아메리카노",
+      "content": "무조권 얼죽아",
+      "drinkImg": "drink/아이스아메리카노.png",
+      "iceFlag": true
     },
     {
-    "category": "Coffee",
-    "drinkName": "아메리카노",
-    "content": "얼죽아 이해못해",
-    "drinkImg": "drink/핫아메리카노.png",
-    "iceFlag": false
+      "id": 2,
+      "category": "Coffee",
+      "drinkName": "아메리카노",
+      "content": "얼죽아 이해못해",
+      "drinkImg": "drink/핫아메리카노.png",
+      "iceFlag": false
     },
     {
-    "category": "Coffee",
-    "drinkName": "카페라떼",
-    "content": "차가운 라떼는 말이야~",
-    "drinkImg": "drink/아이스카페라떼.png",
-    "iceFlag": true
+      "id": 3,
+      "category": "Coffee",
+      "drinkName": "카페라떼",
+      "content": "차가운 라떼는 말이야~",
+      "drinkImg": "drink/아이스카페라떼.png",
+      "iceFlag": true
     },
     {
-    "category": "Coffee",
-    "drinkName": "카페라떼",
-    "content": "따땃한 라떼는 말이야~",
-    "drinkImg": "drink/핫카페라떼.png",
-    "iceFlag": false
+      "id": 4,
+      "category": "Coffee",
+      "drinkName": "카페라떼",
+      "content": "따땃한 라떼는 말이야~",
+      "drinkImg": "drink/핫카페라떼.png",
+      "iceFlag": false
     },
     {
-    "category": "Coffee",
-    "drinkName": "카푸치노",
-    "content": "차가운 카푸치노 마시노~",
-    "drinkImg": "drink/아이스카푸치노.png",
-    "iceFlag": true
+      "id": 5,
+      "category": "Coffee",
+      "drinkName": "카푸치노",
+      "content": "차가운 카푸치노 마시노~",
+      "drinkImg": "drink/아이스카푸치노.png",
+      "iceFlag": true
     },
     {
-    "category": "Coffee",
-    "drinkName": "카푸치노",
-    "content": "따땃한 카푸치노 마시노~",
-    "drinkImg": "drink/핫카푸치노.png",
-    "iceFlag": false
+      "id": 6,
+      "category": "Coffee",
+      "drinkName": "카푸치노",
+      "content": "따땃한 카푸치노 마시노~",
+      "drinkImg": "drink/핫카푸치노.png",
+      "iceFlag": false
     },
     {
-    "category": "Coffee",
-    "drinkName": "카페모카",
-    "content": "목화씨가 모카씨?",
-    "drinkImg": "drink/아이스카페모카.png",
-    "iceFlag": true
+      "id": 7,
+      "category": "Coffee",
+      "drinkName": "카페모카",
+      "content": "목화씨가 모카씨?",
+      "drinkImg": "drink/아이스카페모카.png",
+      "iceFlag": true
     },
     {
-    "category": "Coffee",
-    "drinkName": "카페모카",
-    "content": "목화씨가 모카씨?",
-    "drinkImg": "drink/핫카페모카.png",
-    "iceFlag": false
+      "id": 8,
+      "category": "Coffee",
+      "drinkName": "카페모카",
+      "content": "목화씨가 모카씨?",
+      "drinkImg": "drink/핫카페모카.png",
+      "iceFlag": false
     },
     {
-    "category": "Non-coffee",
-    "drinkName": "딸기 요거트 스무디",
-    "content": "달달한 딸기 시원한 요거트",
-    "drinkImg": "drink/딸기요거트스무디.png",
-    "iceFlag": true
+      "id": 9,
+      "category": "Non-coffee",
+      "drinkName": "딸기 요거트 스무디",
+      "content": "달달한 딸기 시원한 요거트",
+      "drinkImg": "drink/딸기요거트스무디.png",
+      "iceFlag": true
     },
     {
+      "id": 10,
       "category": "Non-coffee",
       "drinkName": "캐모마일",
       "content": "차가운 담백함",
       "drinkImg": "drink/아이스캐모마일.png",
       "iceFlag": true
-      },
-    {
-    "category": "Non-coffee",
-    "drinkName": "캐모마일",
-    "content": "따듯한 담백함",
-    "drinkImg": "drink/핫캐모마일.png",
-    "iceFlag": false
     },
     {
-    "category": "Non-coffee",
-    "drinkName": "얼그레이",
-    "content": "차가운 얼그레이 발그레이",
-    "drinkImg": "drink/아이스얼그레이.png",
-    "iceFlag": true
+      "id": 11,
+      "category": "Non-coffee",
+      "drinkName": "캐모마일",
+      "content": "따듯한 담백함",
+      "drinkImg": "drink/핫캐모마일.png",
+      "iceFlag": false
     },
     {
-    "category": "Non-coffee",
-    "drinkName": "얼그레이",
-    "content": "따듯한 얼그레이 발그레이",
-    "drinkImg": "drink/핫얼그레이.png",
-    "iceFlag": false
+      "id": 12,
+      "category": "Non-coffee",
+      "drinkName": "얼그레이",
+      "content": "차가운 얼그레이 발그레이",
+      "drinkImg": "drink/아이스얼그레이.png",
+      "iceFlag": true
     },
     {
-    "category": "Non-coffee",
-    "drinkName": "민트초코",
-    "content": "죄악 or 존맛?",
-    "drinkImg": "drink/민트초코.png",
-    "iceFlag": true
+      "id": 13,
+      "category": "Non-coffee",
+      "drinkName": "얼그레이",
+      "content": "따듯한 얼그레이 발그레이",
+      "drinkImg": "drink/핫얼그레이.png",
+      "iceFlag": false
     },
     {
-    "category": "Non-coffee",
-    "drinkName": "자몽허니블랙티",
-    "content": "인싸들이 먹는 그것",
-    "drinkImg": "drink/자몽허니블랙티.png",
-    "iceFlag": true
+      "id": 14,
+      "category": "Non-coffee",
+      "drinkName": "민트초코",
+      "content": "죄악 or 존맛?",
+      "drinkImg": "drink/민트초코.png",
+      "iceFlag": true
     },
     {
-    "category": "Non-coffee",
-    "drinkName": "녹차라떼",
-    "content": "녹떼는 말이야~",
-    "drinkImg": "drink/녹차라떼.png",
-    "iceFlag": true
+      "id": 15,
+      "category": "Non-coffee",
+      "drinkName": "자몽허니블랙티",
+      "content": "인싸들이 먹는 그것",
+      "drinkImg": "drink/자몽허니블랙티.png",
+      "iceFlag": true
+    },
+    {
+      "id": 16,
+      "category": "Non-coffee",
+      "drinkName": "녹차라떼",
+      "content": "녹떼는 말이야~",
+      "drinkImg": "drink/녹차라떼.png",
+      "iceFlag": true
     }
   ]
 }

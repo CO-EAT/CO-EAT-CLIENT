@@ -169,13 +169,9 @@ const StyledContainer = styled.div`
   }
 
   .ctgFoods {
-    /* margin: 0 auto; */
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 3rem;
-    /* display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap; */
   }
 `;
 

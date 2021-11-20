@@ -6,7 +6,6 @@ const DUMMY = { id: 1, name: '국밥', desc: '국밥은 든든하거든요' };
 
 function Card(props) {
   const { data = DUMMY, setCoEatList, setNoEatList } = props;
-  console.log(data);
   return (
     <StyledCard>
       <UpBox>
@@ -27,7 +26,10 @@ function Card(props) {
         <ButtonWrapper>
           <CoEatButton
             onClick={() => {
-              setCoEatList((list) => ({ ...list, [data.id]: (list[data.id] || 0) + 1 }));
+              setCoEatList((list) => {
+                console.log(list);
+                return { ...list, [data.id]: (list[data.id] || 0) + 1 };
+              });
             }}>
             COEAT
           </CoEatButton>
@@ -178,6 +180,10 @@ const BasicButton = styled.button`
   letter-spacing: -0.01rem;
   padding: 1rem 1rem;
   border: none;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 const CoEatButton = styled(BasicButton)`
