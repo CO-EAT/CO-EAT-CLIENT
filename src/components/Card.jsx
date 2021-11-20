@@ -6,17 +6,18 @@ const DUMMY = { id: 1, name: '국밥', desc: '국밥은 든든하거든요' };
 
 function Card(props) {
   const { data = DUMMY, setCoEatList, setNoEatList } = props;
+  console.log(data);
   return (
     <StyledCard>
       <UpBox>
         <CardWrapper>
-          <CardName>{data.name}</CardName>
-          <CardDesc>{data.desc}</CardDesc>
+          <CardName>{data.drinkName}</CardName>
+          <CardDesc>{data.content}</CardDesc>
         </CardWrapper>
         <ImageWrapper>
           <Plate />
           <MainDish>
-            <Bab />
+            <img src={`${process.env.PUBLIC_URL}/${data.drinkImg}`} alt="drink-img" />
           </MainDish>
         </ImageWrapper>
       </UpBox>
@@ -43,7 +44,6 @@ function Card(props) {
 }
 
 const StyledCard = styled.article`
-  margin: 3rem;
   display: flex;
   flex-direction: column;
   width: 28rem;
@@ -100,7 +100,8 @@ const CardWrapper = styled.div`
   justify-content: center;
   padding: 2rem 1.5rem;
 
-  & > svg {
+  & > svg,
+  & > img {
     width: 10rem;
     height: 10rem;
     margin-bottom: 3rem;
@@ -192,9 +193,13 @@ const MainDish = styled.div`
   position: absolute;
   top: 0;
   right: 0;
-  transform: translateX(-35%);
+  transform: translateX(-25%);
 
   width: 50%;
+
+  & > img {
+    max-width: 60%;
+  }
 `;
 
 export default Card;

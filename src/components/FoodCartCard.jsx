@@ -6,7 +6,7 @@ function FoodCard(props) {
   const { type, selectedCard } = props; // types = 'coffee' or 'meal'
 
   return (
-    <StyledMenuSelection selected={selectedCard === type}>
+    <StyledMenuSelection>
       <LeftBox>
         <div>
           <HambugerImg />
@@ -17,8 +17,8 @@ function FoodCard(props) {
         </div>
       </LeftBox>
       <RightBox>
-        <InvertedBorder selected={selectedCard === type} top />
-        <InvertedBorder selected={selectedCard === type} bottom />
+        <InvertedBorder top />
+        <InvertedBorder bottom />
         <CloseBtnImg />
       </RightBox>
     </StyledMenuSelection>

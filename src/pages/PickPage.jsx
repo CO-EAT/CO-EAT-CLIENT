@@ -1,16 +1,25 @@
+import { useEffect, useState, useRef } from 'react';
 import { useLocation } from 'react-router';
 import styled from 'styled-components';
 import LogoImg from 'assets/logo.svg';
-import Search from 'assets/search.svg';
 import PickerCartModal from 'components/PickCartModal';
-import { useEffect, useState } from 'react';
+import Card from 'components/Card';
+import Search from 'assets/search.svg';
+import useAPI from 'cores/hooks/useAPI';
 
 function PickPage() {
+  const { data, loading } = useAPI({
+    method: 'GET',
+    url: '/coffee',
+  });
+  const containerRef = useRef(null);
   const location = useLocation();
   const selectedCard = location.state.selectedCard;
   const categories = location.state.categories;
 
-  const [selectCtg, setSelectCtg] = useState('한식');
+  const [selectCtg, setSelectCtg] = useState(selectedCard === 'coffee' ? 'Coffee' : '한식');
+  const [coEatList, setCoEatList] = useState({});
+  const [noEatList, setNoEatList] = useState({});
 
   const handleClick = (e) => {
     setSelectCtg(e.target.innerText);
@@ -23,7 +32,7 @@ function PickPage() {
   }, []);
 
   return (
-    <StyledContainer>
+    <StyledContainer ref={containerRef}>
       <nav>
         <div className="wrapper">
           <div className="title">
@@ -48,15 +57,17 @@ function PickPage() {
         <div className="wrapper_section">
           {showCtg()}
           <article className="ctgFoods">
-            {/* FoodCard가 들어갈 곳 */}
-            <div>FoodCard</div>
-            <div>FoodCard</div>
-            <div>FoodCard</div>
-            <div>FoodCard</div>
-            <div>FoodCard</div>
+            {data &&
+              !loading &&
+              data
+                .filter((drink) => drink.category === selectCtg)
+                .map((drinkInfo) => (
+                  <Card key={drinkInfo.id} setCoEatList={setCoEatList} setNoEatList={setNoEatList} data={drinkInfo} />
+                ))}
           </article>
         </div>
       </section>
+      <PickerCartModal coEatList={coEatList} noEatList={noEatList} containerRef={containerRef} />
     </StyledContainer>
   );
 }
@@ -64,8 +75,8 @@ function PickPage() {
 export default PickPage;
 
 const StyledContainer = styled.div`
+  position: relative;
   width: 100%;
-  height: 100%;
 
   & > nav {
     display: flex;
@@ -158,16 +169,13 @@ const StyledContainer = styled.div`
   }
 
   .ctgFoods {
-    display: flex;
+    /* margin: 0 auto; */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+    /* display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
-  }
-
-  .ctgFoods div {
-    width: 28.2rem;
-    height: 36.2rem;
-    background-color: gray;
-    margin-bottom: 3.6rem;
+    flex-wrap: wrap; */
   }
 `;
 
