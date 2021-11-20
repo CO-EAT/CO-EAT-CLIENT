@@ -2,11 +2,18 @@ import styled from 'styled-components';
 import { ReactComponent as ProfileIcon } from 'assets/profile.svg';
 import { ReactComponent as CartlBtnIcon } from 'assets/cartlBtn.svg';
 import FoodCartCard from 'components/FoodCartCard';
+import { useState } from 'react';
 
 function PickCartModal() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClick = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <>
-      <StyledCartModalWrapper>
+      <StyledCartModalWrapper isOpen={isOpen}>
         <StyledCoEat>
           <div>
             <div>
@@ -54,15 +61,19 @@ function PickCartModal() {
           </ul>
         </StyledNoEat>
       </StyledCartModalWrapper>
+
       <StyledCartWrapper>
         <ProfileIcon />
+
         <span>유루리님</span>
         <StyledLine />
         <span>COEAT</span>
         <span>13</span>
         <span>NOEAT</span>
         <span>13</span>
-        <CartlBtnIcon />
+        <button onClick={handleClick}>
+          <CartlBtnIcon />
+        </button>
         <button>결과 화면</button>
       </StyledCartWrapper>
     </>
@@ -104,8 +115,11 @@ const StyledCartWrapper = styled.div`
 
   & > button {
     border: 0;
-    border-radius: 0.2rem;
     outline: 0;
+    background-color: transparent;
+  }
+  & > button:last-child {
+    border-radius: 0.2rem;
     width: 16.3rem;
     height: 4.9rem;
     background-color: #ff912d;
@@ -123,7 +137,7 @@ const StyledLine = styled.div`
 `;
 
 const StyledCartModalWrapper = styled.div`
-  display: flex;
+  display: ${(prop) => (prop.isOpen ? 'flex' : 'none')};
   justify-content: center;
   margin: 0 auto;
   width: 100%;

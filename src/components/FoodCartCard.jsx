@@ -3,12 +3,7 @@ import { ReactComponent as HambugerImg } from 'assets/hambuger.svg';
 import { ReactComponent as CloseBtnImg } from 'assets/closeBtn.svg';
 
 function FoodCard(props) {
-  const { type, selectedCard, setSelectedCard } = props; // types = 'coffee' or 'meal'
-  const handleCheck = (e) => {
-    if (e.target.selected) {
-      setSelectedCard('');
-    } else setSelectedCard(type);
-  };
+  const { type, selectedCard } = props; // types = 'coffee' or 'meal'
 
   return (
     <StyledMenuSelection selected={selectedCard === type}>
@@ -24,7 +19,6 @@ function FoodCard(props) {
       <RightBox>
         <InvertedBorder selected={selectedCard === type} top />
         <InvertedBorder selected={selectedCard === type} bottom />
-        {/* button  */}
         <CloseBtnImg />
       </RightBox>
     </StyledMenuSelection>
