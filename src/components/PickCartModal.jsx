@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import { ReactComponent as ProfileIcon } from 'assets/profile.svg';
 import { ReactComponent as CartlBtnIcon } from 'assets/cartlBtn.svg';
 import FoodCartCard from 'components/FoodCartCard';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-function PickCartModal() {
+function PickCartModal({ coEatList, noEatList }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () => {
@@ -14,13 +14,14 @@ function PickCartModal() {
   return (
     <>
       <StyledCartModalWrapper isOpen={isOpen}>
+        <CloseButton onClick={() => setIsOpen(false)}>X</CloseButton>
         <StyledCoEat>
           <div>
             <div>
               <span>COEAT</span>
               <div></div>
             </div>
-            <span>13</span>
+            <span>{coEatList.keys ? coEatList.keys.length : 0}</span>
           </div>
           <ul>
             <li>
@@ -43,7 +44,7 @@ function PickCartModal() {
               <span>NOEAT</span>
               <div></div>
             </div>
-            <span>13</span>
+            <span>{noEatList.keys ? noEatList.keys.length : 0}</span>
           </div>
           <ul>
             <li>
@@ -68,9 +69,9 @@ function PickCartModal() {
         <span>유루리님</span>
         <StyledLine />
         <span>COEAT</span>
-        <span>13</span>
+        <span>{coEatList.keys ? coEatList.keys.length : 0}</span>
         <span>NOEAT</span>
-        <span>13</span>
+        <span>{noEatList.keys ? noEatList.keys.length : 0}</span>
         <button onClick={handleClick}>
           <CartlBtnIcon />
         </button>
@@ -81,6 +82,14 @@ function PickCartModal() {
 }
 
 export default PickCartModal;
+
+const CloseButton = styled.button`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  border: 0;
+  background-color: transparent;
+`;
 
 const StyledCartWrapper = styled.div`
   display: flex;
@@ -137,6 +146,8 @@ const StyledLine = styled.div`
 `;
 
 const StyledCartModalWrapper = styled.div`
+  position: fixed;
+  bottom: 9.2rem;
   display: ${(prop) => (prop.isOpen ? 'flex' : 'none')};
   justify-content: center;
   margin: 0 auto;
