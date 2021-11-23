@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { ReactComponent as ProfileIcon } from 'assets/profile.svg';
 import { ReactComponent as CartlBtnIcon } from 'assets/cartlBtn.svg';
 import FoodCartCard from 'components/FoodCartCard';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function PickCartModal({ coEatList, noEatList }) {
@@ -20,10 +20,6 @@ function PickCartModal({ coEatList, noEatList }) {
     });
     return sum;
   };
-
-  useEffect(() => {
-    console.log(coEatList, noEatList);
-  }, [coEatList, noEatList]);
 
   return (
     <>

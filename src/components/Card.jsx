@@ -1,11 +1,8 @@
 import styled, { css } from 'styled-components';
 import { ReactComponent as Plate } from 'assets/img/plate.svg';
-import { ReactComponent as Bab } from 'assets/img/bab.svg';
-
-const DUMMY = { id: 1, name: '국밥', desc: '국밥은 든든하거든요' };
 
 function Card(props) {
-  const { data = DUMMY, setCoEatList, setNoEatList } = props;
+  const { data, setCoEatList, setNoEatList } = props;
   return (
     <StyledCard>
       <UpBox>
@@ -26,10 +23,7 @@ function Card(props) {
         <ButtonWrapper>
           <CoEatButton
             onClick={() => {
-              setCoEatList((list) => {
-                console.log(list);
-                return { ...list, [data.id]: (list[data.id] || 0) + 1 };
-              });
+              setCoEatList((list) => ({ ...list, [data.id]: (list[data.id] || 0) + 1 }));
             }}>
             COEAT
           </CoEatButton>
@@ -199,12 +193,14 @@ const MainDish = styled.div`
   position: absolute;
   top: 0;
   right: 0;
-  transform: translateX(-25%);
-
   width: 50%;
 
   & > img {
-    max-width: 60%;
+    max-width: 100%;
+    max-height: 14rem;
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
   }
 `;
 

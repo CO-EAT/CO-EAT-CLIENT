@@ -12,6 +12,9 @@ const GlobalStyle = createGlobalStyle`
     font-size: 40%;
 
     scroll-behavior: smooth;
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   * {

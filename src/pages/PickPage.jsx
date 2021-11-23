@@ -77,6 +77,7 @@ export default PickPage;
 const StyledContainer = styled.div`
   position: relative;
   width: 100%;
+  height: 100%;
 
   & > nav {
     display: flex;
@@ -174,5 +175,3 @@ const StyledContainer = styled.div`
     gap: 3rem;
   }
 `;
-
-const PickPageWrapper = styled.div``;

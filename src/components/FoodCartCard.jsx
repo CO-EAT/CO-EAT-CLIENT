@@ -2,9 +2,7 @@ import styled, { css } from 'styled-components';
 import { ReactComponent as HambugerImg } from 'assets/hambuger.svg';
 import { ReactComponent as CloseBtnImg } from 'assets/closeBtn.svg';
 
-function FoodCard(props) {
-  const { type, selectedCard } = props; // types = 'coffee' or 'meal'
-
+function FoodCard() {
   return (
     <StyledMenuSelection>
       <LeftBox>
