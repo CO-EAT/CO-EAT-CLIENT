@@ -21,6 +21,8 @@ function PickPage() {
   const [coEatList, setCoEatList] = useState({});
   const [noEatList, setNoEatList] = useState({});
 
+  const [isOpen, setIsOpen] = useState(false);
+
   const handleClick = (e) => {
     setSelectCtg(e.target.innerText);
   };
@@ -32,7 +34,7 @@ function PickPage() {
   }, []);
 
   return (
-    <StyledContainer ref={containerRef}>
+    <StyledContainer ref={containerRef} isOpen={isOpen}>
       <nav>
         <div className="wrapper">
           <div className="title">
@@ -67,7 +69,13 @@ function PickPage() {
           </article>
         </div>
       </section>
-      <PickeCartNav coEatList={coEatList} noEatList={noEatList} containerRef={containerRef} />
+      <PickeCartNav
+        coEatList={coEatList}
+        noEatList={noEatList}
+        containerRef={containerRef}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+      />
     </StyledContainer>
   );
 }
@@ -78,6 +86,7 @@ const StyledContainer = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
+  overflow: ${(prop) => (prop.isOpen ? 'hidden' : 'auto')};
 
   & > nav {
     display: flex;
