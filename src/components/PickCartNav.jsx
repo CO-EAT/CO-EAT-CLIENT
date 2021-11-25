@@ -2,15 +2,17 @@ import styled from 'styled-components';
 import { ReactComponent as ProfileIcon } from 'assets/profile.svg';
 import { ReactComponent as CartlBtnIcon } from 'assets/cartlBtn.svg';
 import FoodCartCard from 'components/FoodCartCard';
+import CartModal from 'components/CartModal';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function PickCartModal({ coEatList, noEatList }) {
+function PickCartModal({ coEatList, noEatList, isOpen, setIsOpen }) {
   const navigator = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
+  //   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () => {
     setIsOpen(!isOpen);
+    console.log('clicked');
   };
 
   const getTotalEatList = (list) => {
@@ -74,6 +76,7 @@ function PickCartModal({ coEatList, noEatList }) {
       </StyledCartModalWrapper> */}
 
       <StyledCartNavWrapper>
+        {isOpen && <CartModal />}
         <StyledCartNav>
           <StyledUserProfile>
             <ProfileIcon />
