@@ -74,23 +74,28 @@ function PickCartModal({ coEatList, noEatList }) {
       </StyledCartModalWrapper>
 
       <StyledCartWrapper>
-        <ProfileIcon />
-
-        <span>유루리님</span>
-        <StyledLine />
-        <span>COEAT</span>
-        <span>{getTotalEatList(coEatList)}</span>
-        <span>NOEAT</span>
-        <span>{getTotalEatList(noEatList)}</span>
-        <button onClick={handleClick}>
-          <CartlBtnIcon />
-        </button>
-        <button
-          onClick={() => {
-            navigator('/result');
-          }}>
-          결과 화면
-        </button>
+        <StyledCartNav>
+          <StyledUserProfile>
+            <ProfileIcon />
+            <span>유루리님</span>
+          </StyledUserProfile>
+          <StyledLine />
+          <StyledCartInfo>
+            <span>COEAT</span>
+            <span>{getTotalEatList(coEatList)}</span>
+            <span>NOEAT</span>
+            <span>{getTotalEatList(noEatList)}</span>
+          </StyledCartInfo>
+          <StyledOpenCartBtn onClick={handleClick}>
+            <CartlBtnIcon />
+          </StyledOpenCartBtn>
+          <StyledResultBtn
+            onClick={() => {
+              navigator('/result');
+            }}>
+            결과 화면
+          </StyledResultBtn>
+        </StyledCartNav>
       </StyledCartWrapper>
     </>
   );
@@ -109,55 +114,77 @@ const CloseButton = styled.button`
 const StyledCartWrapper = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   position: sticky;
   bottom: 0;
   width: 100%;
   height: 9.2rem;
-  padding: 2.4rem 0rem 2.6rem 36.4rem;
   background-color: #000;
   color: #fff;
   font-size: 2rem;
-  text-align: center;
-  line-height: 2.4rem;
+`;
+
+const StyledCartNav = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  width: 120rem;
+  height: 100%;
+`;
+
+const StyledUserProfile = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 50rem;
 
   & > svg {
-    height: 4.1rem;
+    width: 4.8rem;
   }
 
-  & > svg:last-child {
-    margin-left: 3.7rem;
-  }
-
-  & > span:nth-child(even) {
-    margin-right: 2.4rem;
-  }
-
-  & > span:nth-child(odd) {
-    color: #ff912d;
-    margin-right: 5.5rem;
-  }
-
-  & > button {
-    border: 0;
-    outline: 0;
-    background-color: transparent;
-  }
-  & > button:last-child {
-    border-radius: 0.2rem;
-    width: 16.3rem;
-    height: 4.9rem;
-    background-color: #ff912d;
-    margin: 0 36rem 0 42.2rem;
-    font-size: 2.4rem;
-    font-weight: 700;
+  & > span {
+    margin: 0 4rem 0 2.3rem;
   }
 `;
 
 const StyledLine = styled.div`
   width: 0.1rem;
-  height: 100%;
+  height: 70%;
   background-color: #fff;
-  margin: 0 4rem;
+  margin-right: 4rem;
+`;
+
+const StyledCartInfo = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 2.4rem;
+  height: 100%;
+
+  & > span + span {
+    margin-left: 2.4rem;
+  }
+
+  & > span:nth-child(even) {
+    margin-right: 3rem;
+    color: #ff912d;
+  }
+`;
+
+const StyledOpenCartBtn = styled.button`
+  border: 0;
+  outline: 0;
+  background-color: transparent;
+  margin-right: 42.2rem;
+`;
+
+const StyledResultBtn = styled.button`
+  border: 0;
+  outline: 0;
+  background-color: #ff912d;
+  width: 18em;
+  height: 4.9rem;
+  font-weight: bolder;
 `;
 
 const StyledCartModalWrapper = styled.div`
