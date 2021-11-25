@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useLocation } from 'react-router';
 import styled from 'styled-components';
 import LogoImg from 'assets/logo.svg';
-import PickerCartModal from 'components/PickCartModal';
+import PickeCartNav from 'components/PickCartNav';
 import Card from 'components/Card';
 import Search from 'assets/search.svg';
 import useAPI from 'cores/hooks/useAPI';
@@ -67,7 +67,7 @@ function PickPage() {
           </article>
         </div>
       </section>
-      <PickerCartModal coEatList={coEatList} noEatList={noEatList} containerRef={containerRef} />
+      <PickeCartNav coEatList={coEatList} noEatList={noEatList} containerRef={containerRef} />
     </StyledContainer>
   );
 }
