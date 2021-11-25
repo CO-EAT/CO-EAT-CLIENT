@@ -5,11 +5,11 @@ function CartModal({ coEatList, noEatList, setIsOpen }) {
   return (
     <StyledCartWrapper>
       <CloseButton onClick={() => setIsOpen(false)}>X</CloseButton>
-      <StyledListWrapper color="COEAT">
+      <StyledListWrapper COEAT>
         <div>
           <StyledTitle>
             <span>COEAT</span>
-            <StyledUnderLine color="COEAT" />
+            <StyledUnderLine COEAT />
           </StyledTitle>
           <span>{Object.keys(coEatList).length}</span>
         </div>
@@ -41,7 +41,7 @@ function CartModal({ coEatList, noEatList, setIsOpen }) {
         <div>
           <StyledTitle>
             <span>NOEAT</span>
-            <StyledUnderLine color="NOEAT" />
+            <StyledUnderLine NOEAT />
           </StyledTitle>
           <span>{Object.keys(noEatList).length}</span>
         </div>
@@ -98,7 +98,7 @@ const StyledTitle = styled.header`
 const StyledUnderLine = styled.div`
   width: 10rem;
   height: 0.8rem;
-  background: ${(prop) => (prop.color == 'COEAT' ? '#ff912d' : 'black')};
+  background: ${(prop) => (prop.COEAT ? '#ff912d' : 'black')};
   margin-top: 0.4rem;
 `;
 
@@ -116,6 +116,6 @@ const StyledListWrapper = styled.div`
     font-size: 2.4rem;
     text-align: center;
     margin-top: 4.6rem;
-    color: ${(prop) => (prop.color == 'COEAT' ? '#ff912d' : 'black')};
+    color: ${(prop) => (prop.COEAT ? '#ff912d' : 'black')};
   }
 `;
