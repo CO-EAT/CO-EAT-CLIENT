@@ -171,8 +171,9 @@ const StyledButton = styled.div`
 
   & > svg {
     position: absolute;
-    top: -3rem;
-    right: -2rem;
+    top: -4rem;
+    right: -4rem;
+    transform: rotate(10deg);
   }
 `;
 
