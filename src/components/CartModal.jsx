@@ -118,4 +118,15 @@ const StyledListWrapper = styled.div`
     margin-top: 4.6rem;
     color: ${(prop) => (prop.COEAT ? '#ff912d' : 'black')};
   }
+
+  & > ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    & > li + li {
+      margin-left: 1rem;
+    }
+  }
 `;
