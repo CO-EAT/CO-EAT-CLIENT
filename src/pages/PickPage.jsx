@@ -23,6 +23,8 @@ function PickPage() {
 
   const [isOpen, setIsOpen] = useState(false);
 
+  const toggleModal = () => setIsOpen(!isOpen);
+
   const handleClick = (e) => {
     setSelectCtg(e.target.innerText);
   };
@@ -74,7 +76,7 @@ function PickPage() {
         noEatList={noEatList}
         containerRef={containerRef}
         isOpen={isOpen}
-        setIsOpen={setIsOpen}
+        toggleModal={toggleModal}
       />
     </StyledContainer>
   );

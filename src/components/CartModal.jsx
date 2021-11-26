@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import FoodCartCard from 'components/FoodCartCard';
 
-function CartModal({ coEatList, noEatList, setIsOpen }) {
+function CartModal({ coEatList, noEatList, toggleModal }) {
   return (
     <StyledCartWrapper>
-      <CloseButton onClick={() => setIsOpen(false)}>X</CloseButton>
+      <CloseButton onClick={() => toggleModal(false)}>X</CloseButton>
       <StyledListWrapper COEAT>
         <div>
           <StyledTitle>

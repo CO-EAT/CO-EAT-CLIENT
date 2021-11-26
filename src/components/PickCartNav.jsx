@@ -4,12 +4,8 @@ import { ReactComponent as CartlBtnIcon } from 'assets/cartlBtn.svg';
 import CartModal from 'components/CartModal';
 import { useNavigate } from 'react-router-dom';
 
-function PickCartModal({ coEatList, noEatList, isOpen, setIsOpen }) {
+function PickCartModal({ coEatList, noEatList, isOpen, toggleModal }) {
   const navigator = useNavigate();
-
-  const handleClick = () => {
-    setIsOpen(!isOpen);
-  };
 
   const getTotalEatList = (list) => {
     let sum = 0;
@@ -22,7 +18,7 @@ function PickCartModal({ coEatList, noEatList, isOpen, setIsOpen }) {
   return (
     <>
       <StyledCartNavWrapper>
-        {isOpen && <CartModal coEatList={coEatList} noEatList={noEatList} setIsOpen={setIsOpen} />}
+        {isOpen && <CartModal coEatList={coEatList} noEatList={noEatList} toggleModal={toggleModal} />}
         <StyledCartNav>
           <StyledUserProfile>
             <ProfileIcon />
@@ -35,7 +31,7 @@ function PickCartModal({ coEatList, noEatList, isOpen, setIsOpen }) {
             <span>NOEAT</span>
             <span>{getTotalEatList(noEatList)}</span>
           </StyledCartInfo>
-          <StyledOpenModalBtn onClick={handleClick}>
+          <StyledOpenModalBtn onClick={() => toggleModal(!isOpen)}>
             <CartlBtnIcon />
           </StyledOpenModalBtn>
           <StyledResultBtn
