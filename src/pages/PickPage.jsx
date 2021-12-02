@@ -3,7 +3,7 @@ import { useLocation } from 'react-router';
 import styled from 'styled-components';
 import LogoImg from 'assets/logo.svg';
 import PickeCartNav from 'components/PickCartNav';
-import Card from 'components/Card';
+import FoodSelectionCard from 'components/FoodSelectionCard';
 import Search from 'assets/search.svg';
 import useAPI from 'cores/hooks/useAPI';
 import { colors } from 'constants/colors';
@@ -65,7 +65,12 @@ function PickPage() {
               data
                 .filter((drink) => drink.category === selectCtg)
                 .map((drinkInfo) => (
-                  <Card key={drinkInfo.id} setCoEatList={setCoEatList} setNoEatList={setNoEatList} data={drinkInfo} />
+                  <FoodSelectionCard
+                    key={drinkInfo.id}
+                    setCoEatList={setCoEatList}
+                    setNoEatList={setNoEatList}
+                    data={drinkInfo}
+                  />
                 ))}
           </article>
         </div>

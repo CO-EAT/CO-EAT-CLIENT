@@ -3,7 +3,7 @@ import { ReactComponent as HambugerImg } from 'assets/hambuger.svg';
 import { ReactComponent as CloseBtnImg } from 'assets/closeBtn.svg';
 import { colors } from 'constants/colors';
 
-function FoodCard() {
+function PickedCard() {
   return (
     <StyledMenuSelection>
       <LeftBox>
@@ -129,4 +129,4 @@ const RightBox = styled.div`
   }
 `;
 
-export default FoodCard;
+export default PickedCard;

@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { ReactComponent as Plate } from 'assets/img/plate.svg';
 import { colors } from 'constants/colors';
 
-function Card(props) {
+function FoodSelectionCard(props) {
   const { data, setCoEatList, setNoEatList } = props;
   return (
     <StyledCard>
@@ -95,6 +95,7 @@ const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 0.5rem;
   padding: 2rem 1.5rem;
 
   & > svg,
@@ -124,9 +125,7 @@ const CardDesc = styled.p`
   line-height: 2.4rem;
   letter-spacing: -0.01rem;
   color: #5b5b5b;
-  & b {
-    font-weight: bolder;
-  }
+  font-weight: lighter;
 `;
 
 const UpBox = styled.div`
@@ -206,4 +205,4 @@ const MainDish = styled.div`
   }
 `;
 
-export default Card;
+export default FoodSelectionCard;

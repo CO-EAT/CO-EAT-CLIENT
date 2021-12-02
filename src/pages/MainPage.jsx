@@ -4,7 +4,7 @@ import Logo from 'assets/logo.svg';
 import LogoPic from 'assets/logo-pic.svg';
 import Arrow from 'assets/arrow.png';
 import { ReactComponent as GoIcon } from 'assets/go.svg';
-import FoodCard from 'components/FoodCard';
+import EntryFoodCard from 'components/EntryFoodCard';
 import { useNavigate } from 'react-router';
 import { colors } from 'constants/colors';
 
@@ -36,8 +36,8 @@ function MainPage() {
       </div>
 
       <CardWrapper>
-        <FoodCard type="meal" selectedCard={selectedCard} setSelectedCard={setSelectedCard} />
-        <FoodCard type="coffee" selectedCard={selectedCard} setSelectedCard={setSelectedCard} />
+        <EntryFoodCard type="meal" selectedCard={selectedCard} setSelectedCard={setSelectedCard} />
+        <EntryFoodCard type="coffee" selectedCard={selectedCard} setSelectedCard={setSelectedCard} />
       </CardWrapper>
       <StyledInput isFocus={isFocus}>
         <p>사용하실 닉네임을 입력해주세요.</p>
