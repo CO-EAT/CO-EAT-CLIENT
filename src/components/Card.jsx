@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { ReactComponent as Plate } from 'assets/img/plate.svg';
+import { colors } from 'constants/colors';
 
 function Card(props) {
   const { data, setCoEatList, setNoEatList } = props;
@@ -45,11 +46,11 @@ const StyledCard = styled.article`
   width: 28rem;
   border-radius: 8px;
   background-color: white;
-  border: 1px solid #dddddd;
+  border: 1px solid ${colors.cardBorder};
 `;
 
 const InvertedBorder = styled.i`
-  border: 1px solid #dddddd;
+  border: 1px solid ${colors.cardBorder};
   position: absolute;
   width: 3rem;
   height: 1.5rem;
@@ -133,7 +134,7 @@ const UpBox = styled.div`
   display: flex;
   flex-direction: column;
 
-  border-bottom: 1px dashed #dddddd;
+  border-bottom: 1px dashed ${colors.cardBorder};
 `;
 const DownBox = styled.div`
   position: relative;
@@ -181,12 +182,12 @@ const BasicButton = styled.button`
 `;
 
 const CoEatButton = styled(BasicButton)`
-  background-color: #ff7a00;
-  color: white;
+  background-color: ${colors.orange};
+  color: ${colors.white};
 `;
 const NoEatButton = styled(BasicButton)`
-  background-color: #f5f5f5;
-  color: #888888;
+  background-color: ${colors.gray};
+  color: ${colors.darkGray};
 `;
 
 const MainDish = styled.div`

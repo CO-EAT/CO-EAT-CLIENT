@@ -3,6 +3,7 @@ import { ReactComponent as ProfileIcon } from 'assets/profile.svg';
 import { ReactComponent as CartlBtnIcon } from 'assets/cartlBtn.svg';
 import CartModal from 'components/CartModal';
 import { useNavigate } from 'react-router-dom';
+import { colors } from 'constants/colors';
 
 function PickCartModal({ coEatList, noEatList, isOpen, toggleModal }) {
   const navigator = useNavigate();
@@ -104,7 +105,7 @@ const StyledCartInfo = styled.div`
 
   & > span:nth-child(even) {
     margin-right: 3rem;
-    color: #ff912d;
+    color: ${colors.darkOrange};
   }
 `;
 
@@ -118,7 +119,7 @@ const StyledOpenModalBtn = styled.button`
 const StyledResultBtn = styled.button`
   border: 0;
   outline: 0;
-  background-color: #ff912d;
+  background-color: ${colors.darkOrange};
   width: 18em;
   height: 4.9rem;
   font-weight: bolder;

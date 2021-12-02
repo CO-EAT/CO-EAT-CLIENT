@@ -6,6 +6,7 @@ import PickeCartNav from 'components/PickCartNav';
 import Card from 'components/Card';
 import Search from 'assets/search.svg';
 import useAPI from 'cores/hooks/useAPI';
+import { colors } from 'constants/colors';
 
 function PickPage() {
   const { data, loading } = useAPI({
@@ -117,7 +118,7 @@ const StyledContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 0.1rem solid #f4f5f6;
+    border-bottom: 0.1rem solid ${colors.gray};
   }
 
   .category {
@@ -133,8 +134,8 @@ const StyledContainer = styled.div`
   }
 
   .category div:hover {
-    color: #ff7a00;
-    border-bottom: 0.5rem solid #ff7a00;
+    color: ${colors.orange};
+    border-bottom: 0.5rem solid ${colors.orange};
     font-weight: 700;
   }
   .search {
@@ -143,19 +144,19 @@ const StyledContainer = styled.div`
     justify-content: space-between;
     width: 45.1rem;
     height: 5.6rem;
-    background-color: #f4f5f6;
+    background-color: ${colors.gray};
     margin-bottom: 0.9rem;
     border-radius: 1rem;
   }
 
   .search input {
-    background-color: #f4f5f6;
+    background-color: ${colors.gray};
     height: 2.4rem;
     font-size: 2rem;
     border: none;
     outline: none;
     margin-left: 2.9rem;
-    color: #ff7a00;
+    color: ${colors.orange};
   }
   .search img {
     width: 2.1rem;

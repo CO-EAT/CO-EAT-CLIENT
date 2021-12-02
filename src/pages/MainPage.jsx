@@ -6,6 +6,7 @@ import Arrow from 'assets/arrow.png';
 import { ReactComponent as GoIcon } from 'assets/go.svg';
 import FoodCard from 'components/FoodCard';
 import { useNavigate } from 'react-router';
+import { colors } from 'constants/colors';
 
 function MainPage() {
   const [isFocus, setIsFocus] = useState(false);
@@ -136,19 +137,19 @@ const StyledInput = styled.div`
   & > input {
     width: 50rem;
     height: 6.4rem;
-    border: ${(prop) => (prop.isFocus ? '1px solid #ff912d' : 0)};
+    border: ${(prop) => (prop.isFocus ? `1px solid ${colors.darkOrange}` : 0)};
     border-radius: 1.2rem;
     outline: 0;
-    background-color: ${(prop) => (prop.isFocus ? '#fff' : '#f4f5f6')};
+    background-color: ${(prop) => (prop.isFocus ? colors.white : colors.gray)};
     padding: 2rem 2.5rem;
     margin-bottom: 8.4rem;
     font-size: 2rem;
-    color: ${(prop) => (prop.isFocus ? '#ff912d' : '#989898')};
+    color: ${(prop) => (prop.isFocus ? colors.darkOrange : colors.grayText)};
   }
 
   & > input::placeholder {
     font-size: 2rem;
-    color: ${(prop) => (prop.isFocus ? '#ff912d' : '#989898')};
+    color: ${(prop) => (prop.isFocus ? colors.darkOrange : colors.grayText)};
   }
 `;
 
@@ -163,7 +164,7 @@ const StyledButton = styled.div`
     outline: 0;
     width: 28.1rem;
     height: 7.8rem;
-    background-color: #ff912d;
+    background-color: ${colors.darkOrange};
     margin-bottom: 9.8rem;
     font-size: 2.4rem;
     font-weight: 700;
