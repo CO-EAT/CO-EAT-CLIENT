@@ -59,7 +59,7 @@ function PickPage() {
           <div className="categories">
             <div className="category">
               {CATEGORIES.map((category, idx) => (
-                <div onClick={handleClick} key={idx}>
+                <div onClick={handleClick} key={idx} className={category === selectCtg ? 'selected' : ''}>
                   {category}
                 </div>
               ))}
@@ -152,10 +152,15 @@ const StyledContainer = styled.div`
     border-bottom: 0.5rem solid ${colors.white};
   }
 
-  .category div:hover {
-    color: ${colors.orange};
+  .category > div.selected {
     border-bottom: 0.5rem solid ${colors.orange};
+    color: ${colors.orange};
     font-weight: 700;
+  }
+
+  .category div:hover {
+    transform: scale(1.1);
+    cursor: pointer;
   }
   .search {
     display: flex;
