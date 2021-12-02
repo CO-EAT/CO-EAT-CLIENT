@@ -7,18 +7,20 @@ import Card from 'components/Card';
 import Search from 'assets/search.svg';
 import useAPI from 'cores/hooks/useAPI';
 import { colors } from 'constants/colors';
+import { MEAL_CATEGORIES, COFFEE_CATEGORIES } from 'constants/categories';
 
 function PickPage() {
-  const { data, loading } = useAPI({
-    method: 'GET',
-    url: '/coffee',
-  });
   const containerRef = useRef(null);
   const location = useLocation();
-  const selectedCard = location.state.selectedCard;
-  const categories = location.state.categories;
+  const CURRENT_MODE = location.state.selectedCard;
+  const CATEGORIES = CURRENT_MODE === 'coffee' ? COFFEE_CATEGORIES : MEAL_CATEGORIES;
 
-  const [selectCtg, setSelectCtg] = useState(selectedCard === 'coffee' ? 'Coffee' : '한식');
+  const { data, loading } = useAPI({
+    method: 'GET',
+    url: `/${CURRENT_MODE}`,
+  });
+
+  const [selectCtg, setSelectCtg] = useState(CATEGORIES[0]);
   const [coEatList, setCoEatList] = useState({});
   const [noEatList, setNoEatList] = useState({});
 
@@ -45,7 +47,7 @@ function PickPage() {
           </div>
           <div className="categories">
             <div className="category">
-              {categories.map((category, idx) => (
+              {CATEGORIES.map((category, idx) => (
                 <div onClick={handleClick} key={idx}>
                   {category}
                 </div>
@@ -131,6 +133,7 @@ const StyledContainer = styled.div`
     font-size: 2.8rem;
     margin-right: 4.6rem;
     padding-bottom: 0.9rem;
+    border-bottom: 0.5rem solid ${colors.white};
   }
 
   .category div:hover {

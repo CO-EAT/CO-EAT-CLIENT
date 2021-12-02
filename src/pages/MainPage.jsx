@@ -10,7 +10,7 @@ import { colors } from 'constants/colors';
 
 function MainPage() {
   const [isFocus, setIsFocus] = useState(false);
-  const [selectedCard, setSelectedCard] = useState('rrr');
+  const [selectedCard, setSelectedCard] = useState(''); // meal or coffee
   const [user, setUser] = useState('');
   const navigator = useNavigate();
 
@@ -18,18 +18,11 @@ function MainPage() {
     setUser(e.target.value);
   };
 
-  const mealCtgs = ['한식', '중식', '일식', '양식', '기타'];
-  const coffeeCtgs = ['Coffee', 'Non-coffee', '기타'];
-
   const handleAdd = () => {
     if (!user) return;
     window.localStorage.setItem('user', user);
     setUser('');
-    {
-      selectedCard === 'meal'
-        ? navigator('pick', { state: { selectedCard: selectedCard, categories: mealCtgs } })
-        : navigator('pick', { state: { selectedCard: selectedCard, categories: coffeeCtgs } });
-    }
+    navigator('pick', { state: { selectedCard } });
   };
 
   return (
