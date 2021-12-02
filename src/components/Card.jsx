@@ -14,7 +14,7 @@ function Card(props) {
         <ImageWrapper>
           <Plate />
           <MainDish>
-            <img src={`${process.env.PUBLIC_URL}/${data.img}`} alt="drink-img" />
+            <img src={`${process.env.PUBLIC_URL}/${data.img}`} alt="food-img" />
           </MainDish>
         </ImageWrapper>
       </UpBox>
@@ -130,7 +130,6 @@ const CardDesc = styled.p`
 `;
 
 const UpBox = styled.div`
-  flex: 5;
   display: flex;
   flex-direction: column;
 
@@ -145,7 +144,7 @@ const DownBox = styled.div`
 
 const ImageWrapper = styled.div`
   position: relative;
-  padding-top: 14rem;
+  padding-top: calc(14rem + 2rem);
   width: 100%;
 
   display: flex;
@@ -193,15 +192,17 @@ const NoEatButton = styled(BasicButton)`
 const MainDish = styled.div`
   position: absolute;
   top: 0;
-  width: 40%;
+  width: 100%;
 
   & > img {
-    max-width: 100%;
-    max-height: 8rem;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 13.5rem;
+    height: 13.5rem;
     position: absolute;
     top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 55%;
+    transform: translate(-50%, 0);
   }
 `;
 
