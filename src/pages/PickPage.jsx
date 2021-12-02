@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useLocation } from 'react-router';
 import styled from 'styled-components';
 import LogoImg from 'assets/logo.svg';
-import PickerCartModal from 'components/PickCartModal';
+import PickeCartNav from 'components/PickCartNav';
 import Card from 'components/Card';
 import Search from 'assets/search.svg';
 import useAPI from 'cores/hooks/useAPI';
@@ -21,6 +21,10 @@ function PickPage() {
   const [coEatList, setCoEatList] = useState({});
   const [noEatList, setNoEatList] = useState({});
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleModal = () => setIsOpen(!isOpen);
+
   const handleClick = (e) => {
     setSelectCtg(e.target.innerText);
   };
@@ -32,7 +36,7 @@ function PickPage() {
   }, []);
 
   return (
-    <StyledContainer ref={containerRef}>
+    <StyledContainer ref={containerRef} isOpen={isOpen}>
       <nav>
         <div className="wrapper">
           <div className="title">
@@ -67,7 +71,13 @@ function PickPage() {
           </article>
         </div>
       </section>
-      <PickerCartModal coEatList={coEatList} noEatList={noEatList} containerRef={containerRef} />
+      <PickeCartNav
+        coEatList={coEatList}
+        noEatList={noEatList}
+        containerRef={containerRef}
+        isOpen={isOpen}
+        toggleModal={toggleModal}
+      />
     </StyledContainer>
   );
 }
@@ -78,6 +88,7 @@ const StyledContainer = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
+  overflow: ${(prop) => (prop.isOpen ? 'hidden' : 'auto')};
 
   & > nav {
     display: flex;
