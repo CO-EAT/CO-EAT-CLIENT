@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import PickedCard from 'components/PickedCard';
 
+const COEAT = 'COEAT';
+const NOEAT = 'NOEAT';
+
 function CartModal({ coEatList, noEatList, toggleModal }) {
   return (
     <StyledCartWrapper>
@@ -11,31 +14,13 @@ function CartModal({ coEatList, noEatList, toggleModal }) {
             <span>COEAT</span>
             <StyledUnderLine COEAT />
           </StyledTitle>
-          <span>{Object.keys(coEatList).length}</span>
+          <span>{coEatList.length}</span>
         </div>
-        <ul>
-          <li>
-            <PickedCard />
-          </li>
-          <li>
-            <PickedCard />
-          </li>
-          <li>
-            <PickedCard />
-          </li>
-          <li>
-            <PickedCard />
-          </li>
-          <li>
-            <PickedCard />
-          </li>
-          <li>
-            <PickedCard />
-          </li>
-          <li>
-            <PickedCard />
-          </li>
-        </ul>
+        <StyledList>
+          {coEatList.map((coEatFood) => (
+            <PickedCard type={COEAT} name={coEatFood.name} img={coEatFood.img} key={coEatFood.id} />
+          ))}
+        </StyledList>
       </StyledListWrapper>
       <StyledListWrapper>
         <div>
@@ -43,22 +28,13 @@ function CartModal({ coEatList, noEatList, toggleModal }) {
             <span>NOEAT</span>
             <StyledUnderLine NOEAT />
           </StyledTitle>
-          <span>{Object.keys(noEatList).length}</span>
+          <span>{noEatList.length}</span>
         </div>
-        <ul>
-          <li>
-            <PickedCard />
-          </li>
-          <li>
-            <PickedCard />
-          </li>
-          <li>
-            <PickedCard />
-          </li>
-          <li>
-            <PickedCard />
-          </li>
-        </ul>
+        <StyledList>
+          {noEatList.map((noEatFood) => (
+            <PickedCard type={NOEAT} name={noEatFood.name} img={noEatFood.img} key={noEatFood.id} />
+          ))}
+        </StyledList>
       </StyledListWrapper>
     </StyledCartWrapper>
   );
@@ -70,7 +46,7 @@ const StyledCartWrapper = styled.div`
   display: flex;
   position: absolute;
   bottom: 9.2rem;
-  height: 68.9rem;
+  height: 85rem;
   width: 100%;
   background-color: #f4f5f6;
   font-size: 8rem;
@@ -94,6 +70,7 @@ const StyledTitle = styled.header`
   line-height: 2.2rem;
   margin-right: 2.1rem;
   color: black;
+  font-family: 'Montserrat';
 `;
 
 const StyledUnderLine = styled.div`
@@ -118,16 +95,13 @@ const StyledListWrapper = styled.div`
     text-align: center;
     margin-top: 4.6rem;
     color: ${(prop) => (prop.COEAT ? '#ff912d' : 'black')};
-  }
 
-  & > ul {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-
-    & > li + li {
-      margin-left: 1rem;
-    }
+    margin-bottom: 5.2rem;
   }
+`;
+
+const StyledList = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
 `;

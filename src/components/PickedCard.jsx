@@ -1,37 +1,47 @@
 import styled, { css } from 'styled-components';
-import { ReactComponent as HambugerImg } from 'assets/hambuger.svg';
-import { ReactComponent as CloseBtnImg } from 'assets/closeBtn.svg';
+import { ImageWrapper, MainDish } from './FoodSelectionCard';
 import { colors } from 'constants/colors';
+import { ReactComponent as CloseBtnImg } from 'assets/closeBtn.svg';
+import { ReactComponent as Plate } from 'assets/img/plate.svg';
 
-function PickedCard() {
+const COEAT = 'COEAT';
+
+function PickedCard(props) {
+  const { name, img, type } = props;
+  const getPublicImagePath = () => `${process.env.PUBLIC_URL}/${img}`;
   return (
     <StyledMenuSelection>
       <LeftBox>
-        <div>
-          <HambugerImg />
-          <div>
-            <span>햄버거</span>
-            <div>COEAT</div>
-          </div>
-        </div>
+        <StyledImageWrapper>
+          <StyledPlate />
+          <StyledMainDish>
+            <img src={getPublicImagePath()} alt="picked-food-img" />
+          </StyledMainDish>
+        </StyledImageWrapper>
+
+        <FoodInfoWrapper>
+          <h2>{name}</h2>
+          <FoodInfoBadge badgeType={type}>{type}</FoodInfoBadge>
+        </FoodInfoWrapper>
       </LeftBox>
       <RightBox>
         <InvertedBorder top />
         <InvertedBorder bottom />
-        <CloseBtnImg />
+        <CloseBtn>
+          <CloseBtnImg />
+        </CloseBtn>
       </RightBox>
     </StyledMenuSelection>
   );
 }
 
-const StyledMenuSelection = styled.article`
+const StyledMenuSelection = styled.li`
   display: flex;
   width: 38rem;
   height: 16.844rem;
   border-radius: 8px;
   background-color: #fff;
   border: 1px solid ${colors.cardBorder};
-  margin-top: 5.2rem;
 `;
 
 const InvertedBorder = styled.i`
@@ -89,33 +99,6 @@ const LeftBox = styled.div`
   justify-content: flex-start;
 
   border-right: 1px dashed ${colors.cardBorder};
-
-  div {
-    display: flex;
-    align-items: center;
-
-    & > svg {
-      width: 17.1rem;
-    }
-
-    & > div {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      font-size: 2.8rem;
-
-      & > div {
-        width: 10rem;
-        height: 3.811rem;
-        border: 0;
-        margin-top: 1.2rem;
-        font-size: 1.6rem;
-        font-weight: 700;
-        color: #fff;
-        background-color: ${colors.darkOrange};
-      }
-    }
-  }
 `;
 const RightBox = styled.div`
   position: relative;
@@ -123,6 +106,65 @@ const RightBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  padding: 0 2rem;
+`;
+
+const FoodInfoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.8rem;
+
+  gap: 1rem;
+
+  & > h2 {
+    font-family: 'Pretendard Variable';
+    font-weight: bold;
+    letter-spacing: -0.01rem;
+  }
+`;
+
+const FoodInfoBadge = styled.div`
+  font-family: 'Montserrat';
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 10rem;
+  height: 3.811rem;
+  border: 0;
+
+  font-size: 1.6rem;
+  font-weight: 700;
+
+  color: ${colors.white};
+  background-color: ${(props) => (props.badgeType === COEAT ? colors.darkOrange : colors.black)};
+`;
+
+const StyledMainDish = styled(MainDish)`
+  & > img {
+    width: 10rem;
+    height: 10rem;
+  }
+`;
+
+const StyledPlate = styled(Plate)`
+  width: 66px;
+  height: 66px;
+`;
+
+const StyledImageWrapper = styled(ImageWrapper)`
+  padding-top: calc(10rem + 2rem);
+  margin: 0;
+  width: 50%;
+`;
+
+const CloseBtn = styled.button`
+  border: none;
+  background-color: transparent;
 
   & > svg {
     width: 3rem;

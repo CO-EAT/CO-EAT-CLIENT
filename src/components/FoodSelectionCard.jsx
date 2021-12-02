@@ -3,18 +3,19 @@ import { ReactComponent as Plate } from 'assets/img/plate.svg';
 import { colors } from 'constants/colors';
 
 function FoodSelectionCard(props) {
-  const { data, setCoEatList, setNoEatList } = props;
+  const { data, addCoEat, addNoEat } = props;
+  const { name, content, img, id } = data;
   return (
     <StyledCard>
       <UpBox>
         <CardWrapper>
-          <CardName>{data.name}</CardName>
-          <CardDesc>{data.content}</CardDesc>
+          <CardName>{name}</CardName>
+          <CardDesc>{content}</CardDesc>
         </CardWrapper>
         <ImageWrapper>
           <Plate />
           <MainDish>
-            <img src={`${process.env.PUBLIC_URL}/${data.img}`} alt="food-img" />
+            <img src={`${process.env.PUBLIC_URL}/${img}`} alt="food-img" />
           </MainDish>
         </ImageWrapper>
       </UpBox>
@@ -22,18 +23,8 @@ function FoodSelectionCard(props) {
         <InvertedBorder left />
         <InvertedBorder right />
         <ButtonWrapper>
-          <CoEatButton
-            onClick={() => {
-              setCoEatList((list) => ({ ...list, [data.id]: (list[data.id] || 0) + 1 }));
-            }}>
-            COEAT
-          </CoEatButton>
-          <NoEatButton
-            onClick={() => {
-              setNoEatList((list) => ({ ...list, [data.id]: (list[data.id] || 0) + 1 }));
-            }}>
-            NOEAT
-          </NoEatButton>
+          <CoEatButton onClick={() => addCoEat(id, name, img)}>COEAT</CoEatButton>
+          <NoEatButton onClick={() => addNoEat(id, name, img)}>NOEAT</NoEatButton>
         </ButtonWrapper>
       </DownBox>
     </StyledCard>
@@ -141,9 +132,9 @@ const DownBox = styled.div`
   align-items: center;
 `;
 
-const ImageWrapper = styled.div`
+export const ImageWrapper = styled.div`
   position: relative;
-  padding-top: calc(14rem + 2rem);
+  padding-top: calc(13.5rem + 2rem);
   width: 100%;
 
   display: flex;
@@ -188,7 +179,7 @@ const NoEatButton = styled(BasicButton)`
   color: ${colors.darkGray};
 `;
 
-const MainDish = styled.div`
+export const MainDish = styled.div`
   position: absolute;
   top: 0;
   width: 100%;

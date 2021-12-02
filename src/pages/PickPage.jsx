@@ -9,6 +9,9 @@ import useAPI from 'cores/hooks/useAPI';
 import { colors } from 'constants/colors';
 import { MEAL_CATEGORIES, COFFEE_CATEGORIES } from 'constants/categories';
 
+const COEAT = 'coeat';
+const NOEAT = 'noeat';
+
 function PickPage() {
   const containerRef = useRef(null);
   const location = useLocation();
@@ -21,10 +24,22 @@ function PickPage() {
   });
 
   const [selectCtg, setSelectCtg] = useState(CATEGORIES[0]);
-  const [coEatList, setCoEatList] = useState({});
-  const [noEatList, setNoEatList] = useState({});
+  const [coEatList, setCoEatList] = useState([]);
+  const [noEatList, setNoEatList] = useState([]);
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const isDuplicatedFoodId = (foodId, list) => new Set(list.map((elem) => elem.id)).has(foodId);
+
+  const addFoodToList = (type) => {
+    return (foodId, foodName, foodImg) => {
+      const list = type === COEAT ? coEatList : noEatList;
+      const setter = type === COEAT ? setCoEatList : setNoEatList;
+
+      if (isDuplicatedFoodId(foodId, list)) return;
+      setter([...list, { id: foodId, name: foodName, img: foodImg }]);
+    };
+  };
 
   const toggleModal = () => setIsOpen(!isOpen);
 
@@ -59,20 +74,20 @@ function PickPage() {
       <section>
         <div className="wrapper_section">
           {showCtg()}
-          <article className="ctgFoods">
+          <div className="ctgFoods">
             {data &&
               !loading &&
               data
-                .filter((drink) => drink.category === selectCtg)
-                .map((drinkInfo) => (
+                .filter((food) => food.category === selectCtg)
+                .map((foodInfo) => (
                   <FoodSelectionCard
-                    key={drinkInfo.id}
-                    setCoEatList={setCoEatList}
-                    setNoEatList={setNoEatList}
-                    data={drinkInfo}
+                    key={foodInfo.id}
+                    addCoEat={addFoodToList(COEAT)}
+                    addNoEat={addFoodToList(NOEAT)}
+                    data={foodInfo}
                   />
                 ))}
-          </article>
+          </div>
         </div>
       </section>
       <PickeCartNav
