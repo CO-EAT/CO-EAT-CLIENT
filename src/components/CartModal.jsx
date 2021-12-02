@@ -76,6 +76,7 @@ const StyledCartWrapper = styled.div`
   font-size: 8rem;
   color: black;
   overflow: scroll;
+  border-radius: 20px 20px 0 0;
 `;
 
 const CloseButton = styled.button`

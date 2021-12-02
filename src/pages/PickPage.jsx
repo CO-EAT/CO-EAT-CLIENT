@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useLocation } from 'react-router';
 import styled from 'styled-components';
 import LogoImg from 'assets/logo.svg';
@@ -33,10 +33,6 @@ function PickPage() {
   };
 
   const showCtg = () => <header>{selectCtg}</header>;
-
-  useEffect(() => {
-    showCtg();
-  }, []);
 
   return (
     <StyledContainer ref={containerRef} isOpen={isOpen}>

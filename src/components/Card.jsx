@@ -8,13 +8,13 @@ function Card(props) {
     <StyledCard>
       <UpBox>
         <CardWrapper>
-          <CardName>{data.drinkName}</CardName>
+          <CardName>{data.name}</CardName>
           <CardDesc>{data.content}</CardDesc>
         </CardWrapper>
         <ImageWrapper>
           <Plate />
           <MainDish>
-            <img src={`${process.env.PUBLIC_URL}/${data.drinkImg}`} alt="drink-img" />
+            <img src={`${process.env.PUBLIC_URL}/${data.img}`} alt="drink-img" />
           </MainDish>
         </ImageWrapper>
       </UpBox>
@@ -193,14 +193,14 @@ const NoEatButton = styled(BasicButton)`
 const MainDish = styled.div`
   position: absolute;
   top: 0;
-  right: 0;
-  width: 50%;
+  width: 40%;
 
   & > img {
     max-width: 100%;
-    max-height: 14rem;
+    max-height: 8rem;
     position: absolute;
     top: 0;
+    left: 50%;
     transform: translateX(-50%);
   }
 `;

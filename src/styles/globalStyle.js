@@ -12,13 +12,13 @@ const GlobalStyle = createGlobalStyle`
     font-size: 40%;
 
     scroll-behavior: smooth;
-    ::-webkit-scrollbar {
-      display: none;
-    }
   }
 
   * {
     box-sizing: border-box;
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   button:hover {

@@ -60,6 +60,7 @@ const StyledCartNavWrapper = styled.div`
   background-color: #000;
   color: #fff;
   font-size: 2rem;
+  border-bottom: 3px solid black;
 `;
 
 const StyledCartNav = styled.div`
