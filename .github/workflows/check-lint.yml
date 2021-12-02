@@ -1,0 +1,17 @@
+name: ESLint-Prettier Check
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  test:
+    name: ESLint-Prettier Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install packages
+        run: yarn
+      - name: Check ESLint
+        run: yarn check-lint
+      - name: Check Format
+        run: yarn check-format
