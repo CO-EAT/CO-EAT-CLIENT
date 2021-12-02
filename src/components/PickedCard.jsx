@@ -1,8 +1,9 @@
 import styled, { css } from 'styled-components';
 import { ReactComponent as HambugerImg } from 'assets/hambuger.svg';
 import { ReactComponent as CloseBtnImg } from 'assets/closeBtn.svg';
+import { colors } from 'constants/colors';
 
-function FoodCard() {
+function PickedCard() {
   return (
     <StyledMenuSelection>
       <LeftBox>
@@ -29,12 +30,12 @@ const StyledMenuSelection = styled.article`
   height: 16.844rem;
   border-radius: 8px;
   background-color: #fff;
-  border: 1px solid #dddddd;
+  border: 1px solid ${colors.cardBorder};
   margin-top: 5.2rem;
 `;
 
 const InvertedBorder = styled.i`
-  border: 1px solid #dddddd;
+  border: 1px solid ${colors.cardBorder};
   position: absolute;
   width: 3rem;
   height: 1.5rem;
@@ -87,7 +88,7 @@ const LeftBox = styled.div`
   align-items: center;
   justify-content: flex-start;
 
-  border-right: 1px dashed #dddddd;
+  border-right: 1px dashed ${colors.cardBorder};
 
   div {
     display: flex;
@@ -111,7 +112,7 @@ const LeftBox = styled.div`
         font-size: 1.6rem;
         font-weight: 700;
         color: #fff;
-        background-color: #ff912d;
+        background-color: ${colors.darkOrange};
       }
     }
   }
@@ -128,4 +129,4 @@ const RightBox = styled.div`
   }
 `;
 
-export default FoodCard;
+export default PickedCard;

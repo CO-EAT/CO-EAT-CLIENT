@@ -1,19 +1,20 @@
 import styled, { css } from 'styled-components';
 import { ReactComponent as Plate } from 'assets/img/plate.svg';
+import { colors } from 'constants/colors';
 
-function Card(props) {
+function FoodSelectionCard(props) {
   const { data, setCoEatList, setNoEatList } = props;
   return (
     <StyledCard>
       <UpBox>
         <CardWrapper>
-          <CardName>{data.drinkName}</CardName>
+          <CardName>{data.name}</CardName>
           <CardDesc>{data.content}</CardDesc>
         </CardWrapper>
         <ImageWrapper>
           <Plate />
           <MainDish>
-            <img src={`${process.env.PUBLIC_URL}/${data.drinkImg}`} alt="drink-img" />
+            <img src={`${process.env.PUBLIC_URL}/${data.img}`} alt="food-img" />
           </MainDish>
         </ImageWrapper>
       </UpBox>
@@ -45,11 +46,11 @@ const StyledCard = styled.article`
   width: 28rem;
   border-radius: 8px;
   background-color: white;
-  border: 1px solid #dddddd;
+  border: 1px solid ${colors.cardBorder};
 `;
 
 const InvertedBorder = styled.i`
-  border: 1px solid #dddddd;
+  border: 1px solid ${colors.cardBorder};
   position: absolute;
   width: 3rem;
   height: 1.5rem;
@@ -94,6 +95,7 @@ const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 0.5rem;
   padding: 2rem 1.5rem;
 
   & > svg,
@@ -123,17 +125,14 @@ const CardDesc = styled.p`
   line-height: 2.4rem;
   letter-spacing: -0.01rem;
   color: #5b5b5b;
-  & b {
-    font-weight: bolder;
-  }
+  font-weight: lighter;
 `;
 
 const UpBox = styled.div`
-  flex: 5;
   display: flex;
   flex-direction: column;
 
-  border-bottom: 1px dashed #dddddd;
+  border-bottom: 1px dashed ${colors.cardBorder};
 `;
 const DownBox = styled.div`
   position: relative;
@@ -144,7 +143,7 @@ const DownBox = styled.div`
 
 const ImageWrapper = styled.div`
   position: relative;
-  padding-top: 14rem;
+  padding-top: calc(14rem + 2rem);
   width: 100%;
 
   display: flex;
@@ -181,27 +180,29 @@ const BasicButton = styled.button`
 `;
 
 const CoEatButton = styled(BasicButton)`
-  background-color: #ff7a00;
-  color: white;
+  background-color: ${colors.orange};
+  color: ${colors.white};
 `;
 const NoEatButton = styled(BasicButton)`
-  background-color: #f5f5f5;
-  color: #888888;
+  background-color: ${colors.gray};
+  color: ${colors.darkGray};
 `;
 
 const MainDish = styled.div`
   position: absolute;
   top: 0;
-  right: 0;
-  width: 50%;
+  width: 100%;
 
   & > img {
-    max-width: 100%;
-    max-height: 14rem;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 13.5rem;
+    height: 13.5rem;
     position: absolute;
     top: 0;
-    transform: translateX(-50%);
+    left: 55%;
+    transform: translate(-50%, 0);
   }
 `;
 
-export default Card;
+export default FoodSelectionCard;

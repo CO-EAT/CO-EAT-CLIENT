@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import FoodCartCard from 'components/FoodCartCard';
+import PickedCard from 'components/PickedCard';
 
 function CartModal({ coEatList, noEatList, toggleModal }) {
   return (
@@ -15,25 +15,25 @@ function CartModal({ coEatList, noEatList, toggleModal }) {
         </div>
         <ul>
           <li>
-            <FoodCartCard />
+            <PickedCard />
           </li>
           <li>
-            <FoodCartCard />
+            <PickedCard />
           </li>
           <li>
-            <FoodCartCard />
+            <PickedCard />
           </li>
           <li>
-            <FoodCartCard />
+            <PickedCard />
           </li>
           <li>
-            <FoodCartCard />
+            <PickedCard />
           </li>
           <li>
-            <FoodCartCard />
+            <PickedCard />
           </li>
           <li>
-            <FoodCartCard />
+            <PickedCard />
           </li>
         </ul>
       </StyledListWrapper>
@@ -47,16 +47,16 @@ function CartModal({ coEatList, noEatList, toggleModal }) {
         </div>
         <ul>
           <li>
-            <FoodCartCard />
+            <PickedCard />
           </li>
           <li>
-            <FoodCartCard />
+            <PickedCard />
           </li>
           <li>
-            <FoodCartCard />
+            <PickedCard />
           </li>
           <li>
-            <FoodCartCard />
+            <PickedCard />
           </li>
         </ul>
       </StyledListWrapper>
@@ -76,6 +76,7 @@ const StyledCartWrapper = styled.div`
   font-size: 8rem;
   color: black;
   overflow: scroll;
+  border-radius: 20px 20px 0 0;
 `;
 
 const CloseButton = styled.button`
