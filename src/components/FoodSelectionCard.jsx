@@ -171,8 +171,8 @@ const BasicButton = styled.button`
 `;
 
 const CoEatButton = styled(BasicButton)`
-  background-color: ${colors.orange};
-  color: ${colors.white};
+  background-color: ${colors.lightOrange};
+  color: ${colors.orange};
 `;
 const NoEatButton = styled(BasicButton)`
   background-color: ${colors.gray};
