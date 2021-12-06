@@ -8,14 +8,6 @@ import { colors } from 'constants/colors';
 function PickCartModal({ coEatList, noEatList, isOpen, toggleModal }) {
   const navigator = useNavigate();
 
-  const getTotalEatList = (list) => {
-    let sum = 0;
-    Object.keys(list).forEach((key) => {
-      sum += list[key];
-    });
-    return sum;
-  };
-
   return (
     <>
       <StyledCartNavWrapper>
@@ -28,9 +20,9 @@ function PickCartModal({ coEatList, noEatList, isOpen, toggleModal }) {
           <StyledLine />
           <StyledCartInfo>
             <span>COEAT</span>
-            <span>{getTotalEatList(coEatList)}</span>
+            <span>{coEatList.length}</span>
             <span>NOEAT</span>
-            <span>{getTotalEatList(noEatList)}</span>
+            <span>{noEatList.length}</span>
           </StyledCartInfo>
           <StyledOpenModalBtn onClick={() => toggleModal(!isOpen)}>
             <CartlBtnIcon />

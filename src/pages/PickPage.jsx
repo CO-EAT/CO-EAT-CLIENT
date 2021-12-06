@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { useLocation } from 'react-router';
 import styled from 'styled-components';
 import LogoImg from 'assets/logo.svg';
@@ -9,10 +9,13 @@ import useAPI from 'cores/hooks/useAPI';
 import { colors } from 'constants/colors';
 import { MEAL_CATEGORIES, COFFEE_CATEGORIES } from 'constants/categories';
 
+const COEAT = 'coeat';
+const NOEAT = 'noeat';
+
 function PickPage() {
   const containerRef = useRef(null);
   const location = useLocation();
-  const CURRENT_MODE = location.state.selectedCard;
+  const CURRENT_MODE = (location.state && location.state.selectedCard) || 'meal';
   const CATEGORIES = CURRENT_MODE === 'coffee' ? COFFEE_CATEGORIES : MEAL_CATEGORIES;
 
   const { data, loading } = useAPI({
@@ -21,18 +24,59 @@ function PickPage() {
   });
 
   const [selectCtg, setSelectCtg] = useState(CATEGORIES[0]);
-  const [coEatList, setCoEatList] = useState({});
-  const [noEatList, setNoEatList] = useState({});
+  const [coEatList, setCoEatList] = useState([]);
+  const [noEatList, setNoEatList] = useState([]);
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const reduceDataByCategory = useCallback(
+    () =>
+      data.reduce((acc, cur) => {
+        if (!acc[cur.category]) acc[cur.category] = [];
+        acc[cur.category].push(cur);
+        return acc;
+      }, {}),
+    [data],
+  );
+
+  const isDuplicatedFoodId = (foodId, list) => new Set(list.map((elem) => elem.id)).has(foodId);
+
+  const addFoodToList = (type) => {
+    return (foodId, foodName, foodImg) => {
+      const list = type === COEAT ? coEatList : noEatList;
+      const setter = type === COEAT ? setCoEatList : setNoEatList;
+
+      if (isDuplicatedFoodId(foodId, list)) return;
+      setter([...list, { id: foodId, name: foodName, img: foodImg }]);
+    };
+  };
 
   const toggleModal = () => setIsOpen(!isOpen);
 
   const handleClick = (e) => {
-    setSelectCtg(e.target.innerText);
+    setSelectCtg(e.currentTarget.getAttribute('name'));
   };
 
-  const showCtg = () => <header>{selectCtg}</header>;
+  const showFoods = () => {
+    if (!(data && !loading)) return null;
+    const reducedDataByCategory = reduceDataByCategory();
+
+    return Object.entries(reducedDataByCategory).map(([foodCategory, foodInfo]) => (
+      <>
+        <header id={foodCategory}>{foodCategory}</header>
+        <div className="ctgFoods">
+          {foodInfo.map((food) => (
+            <FoodSelectionCard
+              key={food.id}
+              addCoEat={addFoodToList(COEAT)}
+              addNoEat={addFoodToList(NOEAT)}
+              data={food}
+            />
+          ))}
+        </div>
+      </>
+    ));
+  };
 
   return (
     <StyledContainer ref={containerRef} isOpen={isOpen}>
@@ -44,8 +88,12 @@ function PickPage() {
           <div className="categories">
             <div className="category">
               {CATEGORIES.map((category, idx) => (
-                <div onClick={handleClick} key={idx}>
-                  {category}
+                <div
+                  onClick={handleClick}
+                  name={category}
+                  key={idx}
+                  className={category === selectCtg ? 'selected' : ''}>
+                  <a href={`#${category}`}>{category}</a>
                 </div>
               ))}
             </div>
@@ -57,23 +105,7 @@ function PickPage() {
         </div>
       </nav>
       <section>
-        <div className="wrapper_section">
-          {showCtg()}
-          <article className="ctgFoods">
-            {data &&
-              !loading &&
-              data
-                .filter((drink) => drink.category === selectCtg)
-                .map((drinkInfo) => (
-                  <FoodSelectionCard
-                    key={drinkInfo.id}
-                    setCoEatList={setCoEatList}
-                    setNoEatList={setNoEatList}
-                    data={drinkInfo}
-                  />
-                ))}
-          </article>
-        </div>
+        <div className="wrapper_section">{showFoods()}</div>
       </section>
       <PickeCartNav
         coEatList={coEatList}
@@ -135,12 +167,22 @@ const StyledContainer = styled.div`
     margin-right: 4.6rem;
     padding-bottom: 0.9rem;
     border-bottom: 0.5rem solid ${colors.white};
+
+    & a {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+
+  .category > div.selected {
+    border-bottom: 0.5rem solid ${colors.orange};
+    color: ${colors.orange};
+    font-weight: 700;
   }
 
   .category div:hover {
-    color: ${colors.orange};
-    border-bottom: 0.5rem solid ${colors.orange};
-    font-weight: 700;
+    transform: scale(1.1);
+    cursor: pointer;
   }
   .search {
     display: flex;
@@ -171,7 +213,6 @@ const StyledContainer = styled.div`
     display: flex;
     justify-content: center;
     width: 100%;
-    height: 100%;
   }
   .wrapper_section {
     margin-top: 6rem;
@@ -189,5 +230,7 @@ const StyledContainer = styled.div`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 3rem;
+
+    margin-bottom: 10%;
   }
 `;
