@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { useLocation } from 'react-router';
 import styled from 'styled-components';
 import LogoImg from 'assets/logo.svg';
@@ -15,7 +15,7 @@ const NOEAT = 'noeat';
 function PickPage() {
   const containerRef = useRef(null);
   const location = useLocation();
-  const CURRENT_MODE = location.state.selectedCard;
+  const CURRENT_MODE = (location.state && location.state.selectedCard) || 'meal';
   const CATEGORIES = CURRENT_MODE === 'coffee' ? COFFEE_CATEGORIES : MEAL_CATEGORIES;
 
   const { data, loading } = useAPI({
@@ -28,6 +28,16 @@ function PickPage() {
   const [noEatList, setNoEatList] = useState([]);
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const reduceDataByCategory = useCallback(
+    () =>
+      data.reduce((acc, cur) => {
+        if (!acc[cur.category]) acc[cur.category] = [];
+        acc[cur.category].push(cur);
+        return acc;
+      }, {}),
+    [data],
+  );
 
   const isDuplicatedFoodId = (foodId, list) => new Set(list.map((elem) => elem.id)).has(foodId);
 
@@ -44,10 +54,29 @@ function PickPage() {
   const toggleModal = () => setIsOpen(!isOpen);
 
   const handleClick = (e) => {
-    setSelectCtg(e.target.innerText);
+    setSelectCtg(e.currentTarget.getAttribute('name'));
   };
 
-  const showCtg = () => <header>{selectCtg}</header>;
+  const showFoods = () => {
+    if (!(data && !loading)) return null;
+    const reducedDataByCategory = reduceDataByCategory();
+
+    return Object.entries(reducedDataByCategory).map(([foodCategory, foodInfo]) => (
+      <>
+        <header id={foodCategory}>{foodCategory}</header>
+        <div className="ctgFoods">
+          {foodInfo.map((food) => (
+            <FoodSelectionCard
+              key={food.id}
+              addCoEat={addFoodToList(COEAT)}
+              addNoEat={addFoodToList(NOEAT)}
+              data={food}
+            />
+          ))}
+        </div>
+      </>
+    ));
+  };
 
   return (
     <StyledContainer ref={containerRef} isOpen={isOpen}>
@@ -59,8 +88,12 @@ function PickPage() {
           <div className="categories">
             <div className="category">
               {CATEGORIES.map((category, idx) => (
-                <div onClick={handleClick} key={idx} className={category === selectCtg ? 'selected' : ''}>
-                  {category}
+                <div
+                  onClick={handleClick}
+                  name={category}
+                  key={idx}
+                  className={category === selectCtg ? 'selected' : ''}>
+                  <a href={`#${category}`}>{category}</a>
                 </div>
               ))}
             </div>
@@ -72,23 +105,7 @@ function PickPage() {
         </div>
       </nav>
       <section>
-        <div className="wrapper_section">
-          {showCtg()}
-          <div className="ctgFoods">
-            {data &&
-              !loading &&
-              data
-                .filter((food) => food.category === selectCtg)
-                .map((foodInfo) => (
-                  <FoodSelectionCard
-                    key={foodInfo.id}
-                    addCoEat={addFoodToList(COEAT)}
-                    addNoEat={addFoodToList(NOEAT)}
-                    data={foodInfo}
-                  />
-                ))}
-          </div>
-        </div>
+        <div className="wrapper_section">{showFoods()}</div>
       </section>
       <PickeCartNav
         coEatList={coEatList}
@@ -150,6 +167,11 @@ const StyledContainer = styled.div`
     margin-right: 4.6rem;
     padding-bottom: 0.9rem;
     border-bottom: 0.5rem solid ${colors.white};
+
+    & a {
+      text-decoration: none;
+      color: inherit;
+    }
   }
 
   .category > div.selected {
@@ -191,7 +213,6 @@ const StyledContainer = styled.div`
     display: flex;
     justify-content: center;
     width: 100%;
-    height: 100%;
   }
   .wrapper_section {
     margin-top: 6rem;
@@ -209,5 +230,7 @@ const StyledContainer = styled.div`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 3rem;
+
+    margin-bottom: 10%;
   }
 `;

@@ -132,10 +132,10 @@
   "meal": [
     {
       "id": 1,
-      "category": "일식",
-      "name": "덮밥류",
-      "content": "선택지 많은 데로 가자~",
-      "img": "food/텐동.jpeg"
+      "category": "한식",
+      "name": "찌개류",
+      "content": "집밥이 그리운 날엔",
+      "img": "food/부대찌개.jpeg"
     },
     {
       "id": 2,
@@ -160,10 +160,10 @@
     },
     {
       "id": 5,
-      "category": "한식",
-      "name": "찌개류",
-      "content": "집밥이 그리운 날엔",
-      "img": "food/부대찌개.jpeg"
+      "category": "일식",
+      "name": "덮밥류",
+      "content": "선택지 많은 데로 가자~",
+      "img": "food/텐동.jpeg"
     },
     {
       "id": 6,
