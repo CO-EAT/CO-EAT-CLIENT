@@ -5,10 +5,12 @@ import { ReactComponent as Clip } from 'assets/clip.svg';
 import { ReactComponent as RiceIcon } from 'assets/rice.svg';
 import { ReactComponent as GoIcon } from 'assets/go.svg';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 
 const MainPage = () => {
   const [isHost, setIsHost] = useState(false);
   const url = window.location.href;
+  let navigate = useNavigate();
 
   useEffect(() => {
     const paramSearch = new URLSearchParams(url).has('roomId');
@@ -23,6 +25,16 @@ const MainPage = () => {
       return '참여하기';
     }
   };
+
+  const handleClick = (e) => {
+    const host = e.target.value;
+    if (host) {
+      navigate('/create');
+    } else {
+      navigate('/setting');
+    }
+  };
+
   return (
     <StyledContainer>
       <StyledMainHeader>
@@ -65,11 +77,12 @@ const MainPage = () => {
         </StyledBodyContent>
       </StyledMainBody>
       <StyledMainButton isHost={isHost}>
-        <button>
+        <button onClick={handleClick} value={isHost}>
           <span>
             <SetButtonValue isHost={isHost} />
           </span>
         </button>
+        <SetButtonValue isHost={isHost} />
         <GoIcon />
       </StyledMainButton>
     </StyledContainer>
