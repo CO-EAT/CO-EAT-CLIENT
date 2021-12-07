@@ -17,8 +17,8 @@ const MainPage = () => {
     setIsHost(!paramSearch);
   }, []);
 
-  const SetButtonValue = (props) => {
-    const host = props.isHost;
+  const SetButtonValue = () => {
+    const host = isHost;
     if (host) {
       return '방 만들기';
     } else {
@@ -26,8 +26,8 @@ const MainPage = () => {
     }
   };
 
-  const handleClick = (e) => {
-    const host = e.target.value;
+  const handleClick = () => {
+    const host = isHost;
     if (host) {
       navigate('/create');
     } else {
@@ -76,13 +76,12 @@ const MainPage = () => {
           </StyledBodyDesc>
         </StyledBodyContent>
       </StyledMainBody>
-      <StyledMainButton isHost={isHost}>
-        <button onClick={handleClick} value={isHost}>
-          <span>
-            <SetButtonValue isHost={isHost} />
-          </span>
-        </button>
-        <SetButtonValue isHost={isHost} />
+      <StyledMainButton isHost={isHost} onClick={handleClick}>
+        {/* <button onClick={handleClick}> */}
+        <span>
+          <SetButtonValue />
+        </span>
+        {/* </button> */}
         <GoIcon />
       </StyledMainButton>
     </StyledContainer>
@@ -91,7 +90,7 @@ const MainPage = () => {
 
 export default MainPage;
 
-const StyledContainer = styled.section`
+export const StyledContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -99,14 +98,13 @@ const StyledContainer = styled.section`
   width: 100%;
   margin: 0 auto;
   height: 100%;
-  border: 1px solid black;
 `;
 
-const StyledMainHeader = styled.header`
+export const StyledMainHeader = styled.header`
   margin-top: 10rem;
 `;
 
-const StyledTitle = styled.div`
+export const StyledTitle = styled.div`
   display: flex;
   align-items: center;
   margin-right: 8rem;
@@ -118,7 +116,7 @@ const StyledTitle = styled.div`
   }
 `;
 
-const StyledContent = styled.div`
+export const StyledContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -219,31 +217,27 @@ const StyledRight = styled.div`
   top: -1rem;
 `;
 
-const StyledMainButton = styled.div`
+export const StyledMainButton = styled.button`
   display: flex;
   justify-content: center;
   position: relative;
   margin-top: 6rem;
   margin-bottom: 11rem;
+  width: 28rem;
+  height: 7.8rem;
+  padding: 2.4rem 9.3rem;
+  background-color: #ff7a00;
+  border: 0;
 
-  & > button {
-    border: 0;
-    width: 28rem;
-    height: 7.8rem;
-    padding: 2.4rem 9.3rem;
-    background-color: #ff7a00;
-
-    & > span {
-      font-size: 2.4rem;
-      font-weight: 700;
-      color: white;
-    }
+  & > span {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: white;
   }
-
   & > svg {
     position: absolute;
-    top: -5rem;
-    right: -4rem;
+    top: -5.8rem;
+    right: -3rem;
     width: 10rem;
     height: 10rem;
   }
