@@ -1,24 +1,330 @@
 {
   "coffee": [
     {
-      "id": "1",
-      "name": "아이스 아메리카노",
-      "thumbnail": "https://i.ytimg.com/vi/6aGIEFJi4tw/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBwAMEFct5EBxORxUXQ_UfAXnHgWA"
+      "id": 1,
+      "category": "Coffee",
+      "name": "아메리카노",
+      "content": "무조권 얼죽아",
+      "img": "drink/아이스아메리카노.png",
+      "iceFlag": true
+    },
+    {
+      "id": 2,
+      "category": "Coffee",
+      "name": "아메리카노",
+      "content": "얼죽아 이해못해",
+      "img": "drink/핫아메리카노.png",
+      "iceFlag": false
+    },
+    {
+      "id": 3,
+      "category": "Coffee",
+      "name": "카페라떼",
+      "content": "차가운 라떼는 말이야~",
+      "img": "drink/아이스카페라떼.png",
+      "iceFlag": true
+    },
+    {
+      "id": 4,
+      "category": "Coffee",
+      "name": "카페라떼",
+      "content": "따땃한 라떼는 말이야~",
+      "img": "drink/핫카페라떼.png",
+      "iceFlag": false
+    },
+    {
+      "id": 5,
+      "category": "Coffee",
+      "name": "카푸치노",
+      "content": "차가운 카푸치노 마시노~",
+      "img": "drink/아이스카푸치노.png",
+      "iceFlag": true
+    },
+    {
+      "id": 6,
+      "category": "Coffee",
+      "name": "카푸치노",
+      "content": "따땃한 카푸치노 마시노~",
+      "img": "drink/핫카푸치노.png",
+      "iceFlag": false
+    },
+    {
+      "id": 7,
+      "category": "Coffee",
+      "name": "카페모카",
+      "content": "목화씨가 모카씨?",
+      "img": "drink/아이스카페모카.png",
+      "iceFlag": true
+    },
+    {
+      "id": 8,
+      "category": "Coffee",
+      "name": "카페모카",
+      "content": "목화씨가 모카씨?",
+      "img": "drink/핫카페모카.png",
+      "iceFlag": false
+    },
+    {
+      "id": 9,
+      "category": "Non-coffee",
+      "name": "딸기 요거트 스무디",
+      "content": "달달한 딸기 시원한 요거트",
+      "img": "drink/딸기요거트스무디.png",
+      "iceFlag": true
+    },
+    {
+      "id": 10,
+      "category": "Non-coffee",
+      "name": "캐모마일",
+      "content": "차가운 담백함",
+      "img": "drink/아이스캐모마일.png",
+      "iceFlag": true
+    },
+    {
+      "id": 11,
+      "category": "Non-coffee",
+      "name": "캐모마일",
+      "content": "따듯한 담백함",
+      "img": "drink/핫캐모마일.png",
+      "iceFlag": false
+    },
+    {
+      "id": 12,
+      "category": "Non-coffee",
+      "name": "얼그레이",
+      "content": "차가운 얼그레이 발그레이",
+      "img": "drink/아이스얼그레이.png",
+      "iceFlag": true
+    },
+    {
+      "id": 13,
+      "category": "Non-coffee",
+      "name": "얼그레이",
+      "content": "따듯한 얼그레이 발그레이",
+      "img": "drink/핫얼그레이.png",
+      "iceFlag": false
+    },
+    {
+      "id": 14,
+      "category": "Non-coffee",
+      "name": "민트초코",
+      "content": "죄악 or 존맛?",
+      "img": "drink/민트초코.png",
+      "iceFlag": true
+    },
+    {
+      "id": 15,
+      "category": "Non-coffee",
+      "name": "자몽허니블랙티",
+      "content": "인싸들이 먹는 그것",
+      "img": "drink/자몽허니블랙티.png",
+      "iceFlag": true
+    },
+    {
+      "id": 16,
+      "category": "Non-coffee",
+      "name": "녹차라떼",
+      "content": "녹떼는 말이야~",
+      "img": "drink/녹차라떼.png",
+      "iceFlag": true
     }
   ],
   "meal": [
     {
-      "id": "6aGIEFJi4tw",
-      "name": "김치찌개",
-      "categories": "한식", 
-      "thumbnail": "https://i.ytimg.com/vi/6aGIEFJi4tw/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBwAMEFct5EBxORxUXQ_UfAXnHgWA"
-    }
-  ],
-  "users": [
+      "id": 1,
+      "category": "한식",
+      "name": "찌개류",
+      "content": "집밥이 그리운 날엔",
+      "img": "food/부대찌개.jpeg"
+    },
     {
-      "id": "3",
-      "thumbnail": "https://i.ytimg.com/vi/6aGIEFJi4tw/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBwAMEFct5EBxORxUXQ_UfAXnHgWA"
+      "id": 2,
+      "category": "일식",
+      "name": "초밥",
+      "content": "가볍게 먹고 싶을 때",
+      "img": "food/스시.jpeg"
+    },
+    {
+      "id": 3,
+      "category": "일식",
+      "name": "냉모밀",
+      "content": "너무 덥다 오늘..",
+      "img": "food/냉면.jpeg"
+    },
+    {
+      "id": 4,
+      "category": "일식",
+      "name": "텐동",
+      "content": "튀기면 신발도 맛있다던데",
+      "img": "food/텐동.jpeg"
+    },
+    {
+      "id": 5,
+      "category": "일식",
+      "name": "덮밥류",
+      "content": "선택지 많은 데로 가자~",
+      "img": "food/텐동.jpeg"
+    },
+    {
+      "id": 6,
+      "category": "한식",
+      "name": "순댓국",
+      "content": "다대기 푸시나요?",
+      "img": "food/국밥.jpeg"
+    },
+    {
+      "id": 7,
+      "category": "한식",
+      "name": "쭈꾸미",
+      "content": "매운맛 좀 보여줘?",
+      "img": "food/쭈꾸미.jpeg"
+    },
+    {
+      "id": 8,
+      "category": "한식",
+      "name": "보쌈",
+      "content": "막국수 필수",
+      "img": "food/보쌈.jpeg"
+    },
+    {
+      "id": 9,
+      "category": "한식",
+      "name": "족발",
+      "content": "콜라겐 덩어리!",
+      "img": "food/족발.jpeg"
+    },
+    {
+      "id": 10,
+      "category": "한식",
+      "name": "칼국수",
+      "content": "비가 오는 날엔~",
+      "img": "food/칼국수.jpeg"
+    },
+    {
+      "id": 11,
+      "category": "한식",
+      "name": "냉면",
+      "content": "물냉 vs 비냉?",
+      "img": "food/냉면.jpeg"
+    },
+    {
+      "id": 12,
+      "category": "한식",
+      "name": "닭갈비",
+      "content": "하이라이트는 K-디저트",
+      "img": "food/닭갈비.jpeg"
+    },
+    {
+      "id": 13,
+      "category": "한식",
+      "name": "샤브샤브",
+      "content": "마지막에 칼국수 vs 볶음밥?",
+      "img": "food/쌀국수.jpeg"
+    },
+    {
+      "id": 14,
+      "category": "분식",
+      "name": "떡볶이",
+      "content": "떡튀순 세트도 좋아",
+      "img": "food/김밥.jpeg"
+    },
+    {
+      "id": 15,
+      "category": "분식",
+      "name": "라면",
+      "content": "후루룩 짭짭 맛 좋은 라면~",
+      "img": "food/라면.jpeg"
+    },
+    {
+      "id": 16,
+      "category": "분식",
+      "name": "김밥",
+      "content": "떡튀순 세트도 좋아",
+      "img": "food/김밥.jpeg"
+    },
+    {
+      "id": 17,
+      "category": "분식",
+      "name": "쫄면",
+      "content": "쫄지마!",
+      "img": "food/쫄면.png"
+    },
+    {
+      "id": 18,
+      "category": "중식",
+      "name": "마라탕",
+      "content": "마라를 멈추지 마라",
+      "img": "food/마라탕.jpeg"
+    },
+    {
+      "id": 19,
+      "category": "중식",
+      "name": "짜장면",
+      "content": "짜증날 땐 짜장면~",
+      "img": "food/짜장면.png"
+    },
+    {
+      "id": 20,
+      "category": "중식",
+      "name": "탕수육",
+      "content": "탕탕탕탕 탕수육~",
+      "img": "food/탕수육.jpeg"
+    },
+    {
+      "id": 21,
+      "category": "중식",
+      "name": "짬뽕",
+      "content": "얼큰 시원",
+      "img": "food/짬뽕.png"
+    },
+    {
+      "id": 22,
+      "category": "베트남",
+      "name": "쌀국수",
+      "content": "분짜도 당연히 시켜드실거죠?",
+      "img": "food/쌀국수.jpeg"
+    },
+    {
+      "id": 23,
+      "category": "인도",
+      "name": "카레",
+      "content": "샨티 샨티 카레카레야~",
+      "img": "food/카레.jpeg"
+    },
+    {
+      "id": 24,
+      "category": "멕시코",
+      "name": "타코",
+      "content": "티키타코~",
+      "img": "food/타코.png"
+    },
+    {
+      "id": 25,
+      "category": "멕시코",
+      "name": "부리또",
+      "content": "포장해와도 좋을듯~",
+      "img": "food/브리또.png"
+    },
+    {
+      "id": 26,
+      "category": "일식",
+      "name": "라멘",
+      "content": "라멘에 아멘~",
+      "img": "food/라멘.jpeg"
+    },
+    {
+      "id": 27,
+      "category": "일식",
+      "name": "돈가스",
+      "content": "스윙스도 울고 갈",
+      "img": "food/치즈카츠.jpeg"
+    },
+    {
+      "id": 28,
+      "category": "한식",
+      "name": "감자탕",
+      "content": "마 니 감자 무봤나",
+      "img": "food/감자탕.jpeg"
     }
   ]
-
 }

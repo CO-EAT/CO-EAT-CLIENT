@@ -4,12 +4,15 @@ import Logo from 'assets/logo.svg';
 import LogoPic from 'assets/logo-pic.svg';
 import Arrow from 'assets/arrow.png';
 import { ReactComponent as GoIcon } from 'assets/go.svg';
-import FoodCard from 'components/FoodCard';
+import EntryFoodCard from 'components/EntryFoodCard';
+import { useNavigate } from 'react-router';
+import { colors } from 'constants/colors';
 
 function MainPage() {
   const [isFocus, setIsFocus] = useState(false);
-  const [selectedCard, setSelectedCard] = useState('');
-  const [user, setUser] = useState();
+  const [selectedCard, setSelectedCard] = useState(''); // meal or coffee
+  const [user, setUser] = useState('');
+  const navigator = useNavigate();
 
   const handleChange = (e) => {
     setUser(e.target.value);
@@ -19,6 +22,7 @@ function MainPage() {
     if (!user) return;
     window.localStorage.setItem('user', user);
     setUser('');
+    navigator('pick', { state: { selectedCard } });
   };
 
   return (
@@ -32,8 +36,8 @@ function MainPage() {
       </div>
 
       <CardWrapper>
-        <FoodCard type="meal" selectedCard={selectedCard} setSelectedCard={setSelectedCard} />
-        <FoodCard type="coffee" selectedCard={selectedCard} setSelectedCard={setSelectedCard} />
+        <EntryFoodCard type="meal" selectedCard={selectedCard} setSelectedCard={setSelectedCard} />
+        <EntryFoodCard type="coffee" selectedCard={selectedCard} setSelectedCard={setSelectedCard} />
       </CardWrapper>
       <StyledInput isFocus={isFocus}>
         <p>사용하실 닉네임을 입력해주세요.</p>
@@ -126,19 +130,19 @@ const StyledInput = styled.div`
   & > input {
     width: 50rem;
     height: 6.4rem;
-    border: ${(prop) => (prop.isFocus ? '1px solid #ff912d' : 0)};
+    border: ${(prop) => (prop.isFocus ? `1px solid ${colors.darkOrange}` : 0)};
     border-radius: 1.2rem;
     outline: 0;
-    background-color: ${(prop) => (prop.isFocus ? '#fff' : '#f4f5f6')};
+    background-color: ${(prop) => (prop.isFocus ? colors.white : colors.gray)};
     padding: 2rem 2.5rem;
     margin-bottom: 8.4rem;
     font-size: 2rem;
-    color: ${(prop) => (prop.isFocus ? '#ff912d' : '#989898')};
+    color: ${(prop) => (prop.isFocus ? colors.darkOrange : colors.grayText)};
   }
 
   & > input::placeholder {
     font-size: 2rem;
-    color: ${(prop) => (prop.isFocus ? '#ff912d' : '#989898')};
+    color: ${(prop) => (prop.isFocus ? colors.darkOrange : colors.grayText)};
   }
 `;
 
@@ -153,7 +157,7 @@ const StyledButton = styled.div`
     outline: 0;
     width: 28.1rem;
     height: 7.8rem;
-    background-color: #ff912d;
+    background-color: ${colors.darkOrange};
     margin-bottom: 9.8rem;
     font-size: 2.4rem;
     font-weight: 700;
@@ -161,8 +165,9 @@ const StyledButton = styled.div`
 
   & > svg {
     position: absolute;
-    top: -3rem;
-    right: -2rem;
+    top: -4rem;
+    right: -4rem;
+    transform: rotate(10deg);
   }
 `;
 
