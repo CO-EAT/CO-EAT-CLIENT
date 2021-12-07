@@ -4,8 +4,25 @@ import { ReactComponent as Sticker } from 'assets/sticker.svg';
 import { ReactComponent as Clip } from 'assets/clip.svg';
 import { ReactComponent as RiceIcon } from 'assets/rice.svg';
 import { ReactComponent as GoIcon } from 'assets/go.svg';
+import { useEffect, useState } from 'react';
 
 function MainPage() {
+  const [isHost, setIsHost] = useState(false);
+  const url = window.location.href;
+
+  useEffect(() => {
+    const paramSearch = new URLSearchParams(url).has('roomId');
+    setIsHost(!paramSearch);
+  }, []);
+
+  const SetButtonValue = (props) => {
+    const host = props.isHost;
+    if (host) {
+      return '방 만들기';
+    } else {
+      return '참여하기';
+    }
+  };
   return (
     <StyledContainer>
       <StyledMainHeader>
@@ -47,9 +64,11 @@ function MainPage() {
           </StyledBodyDesc>
         </StyledBodyContent>
       </StyledMainBody>
-      <StyledMainButton>
+      <StyledMainButton isHost={isHost}>
         <div>
-          <span>방 만들기</span>
+          <span>
+            <SetButtonValue isHost={isHost} />
+          </span>
         </div>
         <GoIcon />
       </StyledMainButton>
