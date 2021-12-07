@@ -6,7 +6,7 @@ import { ReactComponent as RiceIcon } from 'assets/rice.svg';
 import { ReactComponent as GoIcon } from 'assets/go.svg';
 import { useEffect, useState } from 'react';
 
-function MainPage() {
+const MainPage = () => {
   const [isHost, setIsHost] = useState(false);
   const url = window.location.href;
 
@@ -74,7 +74,7 @@ function MainPage() {
       </StyledMainButton>
     </StyledContainer>
   );
-}
+};
 
 export default MainPage;
 
