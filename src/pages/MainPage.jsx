@@ -65,11 +65,11 @@ const MainPage = () => {
         </StyledBodyContent>
       </StyledMainBody>
       <StyledMainButton isHost={isHost}>
-        <div>
+        <button>
           <span>
             <SetButtonValue isHost={isHost} />
           </span>
-        </div>
+        </button>
         <GoIcon />
       </StyledMainButton>
     </StyledContainer>
@@ -83,9 +83,10 @@ const StyledContainer = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: 40%;
+  width: 100%;
   margin: 0 auto;
   height: 100%;
+  border: 1px solid black;
 `;
 
 const StyledMainHeader = styled.header`
@@ -147,7 +148,7 @@ const StyledBodyTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 6rem;
+  margin-top: 4.5rem;
 
   & > svg {
     width: 8rem;
@@ -212,9 +213,8 @@ const StyledMainButton = styled.div`
   margin-top: 6rem;
   margin-bottom: 11rem;
 
-  & > div {
-    display: flex;
-    align-items: center;
+  & > button {
+    border: 0;
     width: 28rem;
     height: 7.8rem;
     padding: 2.4rem 9.3rem;
