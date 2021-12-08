@@ -1,14 +1,32 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import ResultCard from 'components/ResultCard';
+import PickInfo from 'components/PickInfo';
 import Logo from 'assets/logo.svg';
 import CuteLogo from 'assets/cute-meal-logo.png';
 import { ReactComponent as Tooltip } from 'assets/tooltip.svg';
 import { ReactComponent as RefreshBtn } from 'assets/refresh.svg';
+import { ReactComponent as CloseBtn } from 'assets/close.svg';
 import { ReactComponent as Clipboard } from 'assets/insert_link.svg';
 import { colors } from 'constants/colors';
-import PickInfo from 'components/PickInfo';
+import { LESS_NOEAT } from 'constants/noeat-tooltip-text';
+
+const parseFontWeightFromString = (string) => {
+  const [before, toBeBold, ...rest] = string.split('__');
+  return (
+    <>
+      {before}
+      <b>{toBeBold}</b>
+      {rest}
+    </>
+  );
+};
 
 function ResultPage() {
+  const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+
+  const toggleTooltip = () => setIsTooltipOpen(!isTooltipOpen);
+  const closeTooltip = () => setIsTooltipOpen(false);
   return (
     <Container>
       <img src={Logo} alt="" />
@@ -25,7 +43,20 @@ function ResultPage() {
       </ResultHeader>
       <SecondaryResult>
         더 많은 사람이 함께할 수 있는 <b>햄버거</b>는 어떠세요?
-        <StyledTooltip />
+        <StyledTooltip>
+          <TooltipBtn onClick={toggleTooltip}>
+            <Tooltip />
+          </TooltipBtn>
+          {isTooltipOpen && (
+            <TooltipText>
+              <h5>LESS NOEAT</h5>
+              <p>{parseFontWeightFromString(LESS_NOEAT)}</p>
+              <StyledCloseBtn onClick={closeTooltip}>
+                <CloseBtn />
+              </StyledCloseBtn>
+            </TooltipText>
+          )}
+        </StyledTooltip>
       </SecondaryResult>
       <ResultCardWrapper>
         <ColumnWrapper>
@@ -153,17 +184,58 @@ const ColumnWrapper = styled.div`
   gap: 2rem;
 `;
 
-const StyledTooltip = styled(Tooltip)`
-  width: 3rem;
-  height: 3rem;
+const StyledTooltip = styled.div`
+  & > svg {
+    width: 3rem;
+    height: 3rem;
+  }
   position: absolute;
   right: -5rem;
   top: 50%;
 
   transform: translateY(-50%);
+`;
 
-  &:hover {
-    cursor: pointer;
+const TooltipBtn = styled.button`
+  background-color: transparent;
+  border: none;
+`;
+
+const TooltipText = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  transform: translate(calc(100% - 3rem), 100%);
+
+  padding: 4rem;
+  width: 56.2rem;
+  background-color: ${colors.white};
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(143, 153, 163, 0.2);
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  & h5 {
+    color: ${colors.noEatProgress};
+    font-family: 'Montserrat';
+    font-size: 2.3rem;
+    font-weight: bold;
+    letter-spacing: -0.01rem;
+  }
+
+  & p {
+    font-size: 2rem;
+    line-height: 154%;
+    letter-spacing: -0.01rem;
+    color: ${colors.black};
+    white-space: pre-line;
+
+    b {
+      font-weight: bold;
+    }
   }
 `;
 
@@ -267,4 +339,13 @@ const CompleteBtn = styled.button`
   font-size: 2.4rem;
   font-family: 'Montserrat';
   letter-spacing: -0.01rem;
+`;
+
+const StyledCloseBtn = styled.button`
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+
+  background-color: transparent;
+  border: none;
 `;
