@@ -4,10 +4,10 @@ import { ReactComponent as GoIcon } from 'assets/go.svg';
 import CheckImg from 'assets/check.png';
 import CopyImg from 'assets/insert_link.png';
 import CloseImg from 'assets/close.png';
-
+import Papers from 'assets/img/index';
 import { StyledContainer, StyledMainHeader, StyledTitle, StyledContent, StyledMainButton } from 'pages/MainPage';
 import styled from 'styled-components';
-import { useRef, useState } from 'react';
+import { createRef, useEffect, useRef, useState } from 'react';
 
 const HostPage = () => {
   const [copySuccess, setCopySuccess] = useState(false);
@@ -29,6 +29,16 @@ const HostPage = () => {
 
   return (
     <StyledContainer>
+      <StyledDecoration>
+        <img src={Papers.paper} alt="" />
+        <img src={Papers.paper1} alt="" />
+        <img src={Papers.paper2} alt="" />
+        <img src={Papers.paper3} alt="" />
+        <img src={Papers.pape4} alt="" />
+        <img src={Papers.paper5} alt="" />
+        <img src={Papers.paper6} alt="" />
+        <img src={Papers.paper7} alt="" />
+      </StyledDecoration>
       <StyledMainHeader>
         <StyledTitle>
           <Sticker />
@@ -168,4 +178,11 @@ const StyledModalContainer = styled.div`
   justify-content: center;
   width: 100%;
   height: 7rem;
+`;
+
+const StyledDecoration = styled.div`
+  width: 50%;
+  height: 80rem;
+  position: absolute;
+  z-index: -1;
 `;

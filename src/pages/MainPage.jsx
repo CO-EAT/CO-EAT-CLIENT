@@ -77,11 +77,9 @@ const MainPage = () => {
         </StyledBodyContent>
       </StyledMainBody>
       <StyledMainButton isHost={isHost} onClick={handleClick}>
-        {/* <button onClick={handleClick}> */}
         <span>
           <SetButtonValue />
         </span>
-        {/* </button> */}
         <GoIcon />
       </StyledMainButton>
     </StyledContainer>
