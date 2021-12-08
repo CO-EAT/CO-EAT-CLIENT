@@ -6,20 +6,21 @@ import { ReactComponent as RiceIcon } from 'assets/rice.svg';
 import { ReactComponent as GoIcon } from 'assets/go.svg';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
+import { useSearchParams } from 'react-router-dom';
 
 const MainPage = () => {
   const [isHost, setIsHost] = useState(false);
-  const url = window.location.href;
-  let navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const paramSearch = new URLSearchParams(url).has('roomId');
-    setIsHost(!paramSearch);
+    const roomId = searchParams.get('roomId');
+    if (!roomId) setIsHost(true);
   }, []);
 
   const SetButtonValue = () => {
-    const host = isHost;
-    if (host) {
+    if (isHost) {
       return '방 만들기';
     } else {
       return '참여하기';
@@ -27,8 +28,7 @@ const MainPage = () => {
   };
 
   const handleClick = () => {
-    const host = isHost;
-    if (host) {
+    if (isHost) {
       navigate('/create');
     } else {
       navigate('/setting');
