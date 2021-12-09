@@ -33,18 +33,33 @@ const HostPage = () => {
     navigate('/setting');
   };
 
+  //   색종이를 랜덤으로 출력
+  const paperArr = [
+    Papers.paper1,
+    Papers.paper2,
+    Papers.paper3,
+    Papers.paper4,
+    Papers.paper5,
+    Papers.paper6,
+    Papers.paper7,
+    Papers.paper8,
+    Papers.paper9,
+  ];
+
+  const paperImgElArr = [];
+
+  const randomPaperFlakes = () => {
+    for (let i = 0; i < 20; i++) {
+      const imgSrc = paperArr[Math.floor(Math.random() * 10) - 1];
+      paperImgElArr.push(<img src={imgSrc} alt="" />);
+    }
+
+    return paperImgElArr;
+  };
+
   return (
     <StyledContainer>
-      <StyledDecoration>
-        <img src={Papers.paper} alt="" />
-        <img src={Papers.paper1} alt="" />
-        <img src={Papers.paper2} alt="" />
-        <img src={Papers.paper3} alt="" />
-        <img src={Papers.pape4} alt="" />
-        <img src={Papers.paper5} alt="" />
-        <img src={Papers.paper6} alt="" />
-        <img src={Papers.paper7} alt="" />
-      </StyledDecoration>
+      <StyledDecoration>{randomPaperFlakes()}</StyledDecoration>
       <StyledMainHeader>
         <StyledTitle>
           <Sticker />
@@ -187,8 +202,81 @@ const StyledModalContainer = styled.div`
 `;
 
 const StyledDecoration = styled.div`
+  display: flex;
+  justify-content: space-around;
   width: 50%;
   height: 80rem;
   position: absolute;
+  top: -6rem;
   z-index: -1;
+
+  & > img {
+    width: 6rem;
+    height: 6rem;
+    display: inline-block;
+    animation: paperflakes 2s linear 20;
+
+    &:nth-child(3n) {
+      animation-duration: 2s;
+      animation-iteration-count: 30;
+      transform-origin: right -45px;
+    }
+
+    &:nth-child(3n + 1) {
+      animation-duration: 4s;
+      animation-iteration-count: 45;
+      transform-origin: right -30px;
+    }
+
+    &:nth-child(3n + 2) {
+      animation-duration: 6s;
+      animation-iteration-count: 60;
+      transform-origin: right -15px;
+    }
+
+    /* 모두 같은 시간에 시작하지 않도록, 시간차이를 둔다. */
+    &:nth-child(7n) {
+      opacity: 0.3;
+      animation-delay: 0s;
+      animation-timing-function: ease-in;
+    }
+    &:nth-child(7n + 1) {
+      opacity: 0.4;
+      animation-delay: 0.1s;
+      animation-timing-function: ease-out;
+    }
+    &:nth-child(7n + 2) {
+      opacity: 0.5;
+      animation-delay: 0.2s;
+      animation-timing-function: linear;
+    }
+    &:nth-child(7n + 3) {
+      opacity: 0.6;
+      animation-delay: 0.3s;
+      animation-timing-function: ease-in;
+    }
+    &:nth-child(7n + 4) {
+      opacity: 0.7;
+      animation-delay: 0.4s;
+      animation-timing-function: linear;
+    }
+    &:nth-child(7n + 5) {
+      opacity: 0.8;
+      animation-delay: 0.5s;
+      animation-timing-function: ease-out;
+    }
+    &:nth-child(7n + 6) {
+      opacity: 0.9;
+      animation-delay: 1s;
+      animation-timing-function: ease-in;
+    }
+    @keyframes paperflakes {
+      0% {
+        transform: translate3d(0, 0, 0) rotate(0deg) scale(0.6);
+      }
+      100% {
+        transform: translate3d(15px, 1200px, 0px) rotate(180deg) scale(0.6);
+      }
+    }
+  }
 `;
