@@ -7,11 +7,13 @@ import CloseImg from 'assets/close.png';
 import Papers from 'assets/img/index';
 import { StyledContainer, StyledMainHeader, StyledTitle, StyledContent, StyledMainButton } from 'pages/MainPage';
 import styled from 'styled-components';
-import { createRef, useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router';
 
 const HostPage = () => {
   const [copySuccess, setCopySuccess] = useState(false);
   const linkRef = useRef();
+  const navigate = useNavigate();
 
   const handleCopy = () => {
     const link = linkRef.current.value;
@@ -25,6 +27,10 @@ const HostPage = () => {
 
   const handleClose = () => {
     setCopySuccess(false);
+  };
+
+  const handleClick = () => {
+    navigate('/setting');
   };
 
   return (
@@ -60,14 +66,14 @@ const HostPage = () => {
       </StyledLinkContainer>
       <StyledModalContainer>
         {copySuccess && (
-          <StyledCopySuccess onClick={handleClose}>
+          <StyledAlertBox onClick={handleClose}>
             <span>링크 복사가 완료되었어요 </span>
             <img src={CloseImg} alt="Close Img" />
-          </StyledCopySuccess>
+          </StyledAlertBox>
         )}
       </StyledModalContainer>
 
-      <CustomStyledMainButton>
+      <CustomStyledMainButton onClick={handleClick}>
         <span>Let`s COEAT!</span>
         <GoIcon />
       </CustomStyledMainButton>
@@ -144,7 +150,7 @@ const StyledLinkContainer = styled.div`
   }
 `;
 
-const StyledCopySuccess = styled.button`
+export const StyledAlertBox = styled.button`
   display: flex;
   align-items: center;
   justify-content: space-between;
