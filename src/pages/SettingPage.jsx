@@ -9,6 +9,7 @@ import { colors } from 'constants/colors';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 import anime from 'animejs/lib/anime.es.js';
+import Fade from 'react-reveal';
 
 const Setting = () => {
   const [isFocus, setIsFocus] = useState(false);
@@ -64,9 +65,6 @@ const Setting = () => {
     if (!user) {
       inputRef.current.forEach((a) => a.restart());
       setIsTextEmpty(true);
-      //   setTimeout(() => {
-      //     setIsTextEmpty(false);
-      //   }, 2000);
       return;
     }
     setUser('');
@@ -85,19 +83,21 @@ const Setting = () => {
           <p>이름이든, 별칭이든 다 괜찮아요</p>
         </CustomStyledContent>
       </StyledMainHeader>
-      <StyledInput isFocus={isFocus} ref={inputRef}>
-        <input
-          type="text"
-          maxLength="5"
-          placeholder="코잇쟁이"
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          value={user}
-          onChange={handleChange}
-          ref={inputRef2}
-        />
-        {!isTextEmpty && <p>*닉네임은 최대 다섯자까지만 가능해요 </p>}
-      </StyledInput>
+      <Fade top>
+        <StyledInput isFocus={isFocus} ref={inputRef}>
+          <input
+            type="text"
+            maxLength="5"
+            placeholder="코잇쟁이"
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
+            value={user}
+            onChange={handleChange}
+            ref={inputRef2}
+          />
+          {!isTextEmpty && <p>*닉네임은 최대 다섯자까지만 가능해요 </p>}
+        </StyledInput>
+      </Fade>
       <StyledWarnContainer>
         {isTextEmpty && (
           <CustomStyledAlertBox>
@@ -132,6 +132,7 @@ const StyledInput = styled.div`
   height: 8rem;
   background-color: ${colors.gray};
   border-radius: 2rem;
+  position: relative;
 
   & > input {
     width: 100%;
@@ -177,5 +178,5 @@ const CustomStyledMainButton = styled(StyledMainButton)`
   align-items: center;
   padding: 0;
   position: relative;
-  top: -13rem;
+  top: -15rem;
 `;
