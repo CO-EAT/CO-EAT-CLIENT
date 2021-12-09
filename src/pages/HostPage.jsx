@@ -51,7 +51,7 @@ const HostPage = () => {
   const randomPaperFlakes = () => {
     for (let i = 0; i < 20; i++) {
       const imgSrc = paperArr[Math.floor(Math.random() * 10) - 1];
-      paperImgElArr.push(<img src={imgSrc} alt="" />);
+      paperImgElArr.push(<img key={i} src={imgSrc} alt="" />);
     }
 
     return paperImgElArr;
@@ -129,7 +129,7 @@ const CustomStyledContent = styled(StyledContent)`
 const CustomStyledMainButton = styled(StyledMainButton)`
   display: flex;
   align-items: center;
-  padding: 0;
+  padding: 2rem 2rem;
 `;
 
 const StyledLinkContainer = styled.div`
