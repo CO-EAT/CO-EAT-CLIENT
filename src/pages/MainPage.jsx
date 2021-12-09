@@ -44,7 +44,7 @@ const MainPage = () => {
         </StyledTitle>
         <StyledContent>
           <p>우리 오늘 뭐 먹을래?</p>
-          <p>이젠, 코잇으로 정해보세요</p>
+          <p className="bold">이젠, 코잇으로 정해보세요</p>
         </StyledContent>
       </StyledMainHeader>
       <StyledMainBody>
@@ -125,7 +125,7 @@ export const StyledContent = styled.div`
     line-height: 4.5rem;
   }
 
-  & > p:last-child {
+  .bold {
     font-weight: 700;
   }
 `;
