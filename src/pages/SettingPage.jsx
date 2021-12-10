@@ -57,6 +57,11 @@ const Setting = () => {
     ];
   }, []);
 
+  //   maxLength가 적용되지 않는 경우를 위한 filter
+  const isUserValid = () => {
+    return !isTextEmpty && !isMaxLength;
+  };
+
   const handleChange = (e) => {
     setIsMaxLength(false);
 
@@ -73,8 +78,15 @@ const Setting = () => {
       setIsTextEmpty(true);
       return;
     }
-    setUser('');
-    navigate('/pick');
+
+    if (isUserValid()) {
+      setUser('');
+      navigate('/pick');
+    } else {
+      warnRefs.current.forEach((a) => a.restart());
+      setIsMaxLength(true);
+      return;
+    }
   };
 
   return (
