@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { ReactComponent as Coffee } from 'assets/img/coffee.svg';
 import { ReactComponent as Meal } from 'assets/img/meal.svg';
 
-function FoodCard(props) {
+function EntryFoodCard(props) {
   const { type, selectedCard, setSelectedCard } = props; // types = 'coffee' or 'meal'
   const handleCheck = (e) => {
     if (e.target.selected) {
@@ -163,4 +163,4 @@ const RightBox = styled.div`
 
 const CustomRadio = styled.input``;
 
-export default FoodCard;
+export default EntryFoodCard;

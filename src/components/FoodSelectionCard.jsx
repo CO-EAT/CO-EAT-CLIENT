@@ -1,22 +1,21 @@
 import styled, { css } from 'styled-components';
 import { ReactComponent as Plate } from 'assets/img/plate.svg';
-import { ReactComponent as Bab } from 'assets/img/bab.svg';
+import { colors } from 'constants/colors';
 
-const DUMMY = { id: 1, name: '국밥', desc: '국밥은 든든하거든요' };
-
-function Card(props) {
-  const { data = DUMMY, setCoEatList, setNoEatList } = props;
+function FoodSelectionCard(props) {
+  const { data, addCoEat, addNoEat } = props;
+  const { name, content, img, id } = data;
   return (
     <StyledCard>
       <UpBox>
         <CardWrapper>
-          <CardName>{data.drinkName}</CardName>
-          <CardDesc>{data.content}</CardDesc>
+          <CardName>{name}</CardName>
+          <CardDesc>{content}</CardDesc>
         </CardWrapper>
         <ImageWrapper>
           <Plate />
           <MainDish>
-            <img src={`${process.env.PUBLIC_URL}/${data.drinkImg}`} alt="drink-img" />
+            <img src={`${process.env.PUBLIC_URL}/${img}`} alt="food-img" />
           </MainDish>
         </ImageWrapper>
       </UpBox>
@@ -24,21 +23,8 @@ function Card(props) {
         <InvertedBorder left />
         <InvertedBorder right />
         <ButtonWrapper>
-          <CoEatButton
-            onClick={() => {
-              setCoEatList((list) => {
-                console.log(list);
-                return { ...list, [data.id]: (list[data.id] || 0) + 1 };
-              });
-            }}>
-            COEAT
-          </CoEatButton>
-          <NoEatButton
-            onClick={() => {
-              setNoEatList((list) => ({ ...list, [data.id]: (list[data.id] || 0) + 1 }));
-            }}>
-            NOEAT
-          </NoEatButton>
+          <CoEatButton onClick={() => addCoEat(id, name, img)}>COEAT</CoEatButton>
+          <NoEatButton onClick={() => addNoEat(id, name, img)}>NOEAT</NoEatButton>
         </ButtonWrapper>
       </DownBox>
     </StyledCard>
@@ -51,11 +37,11 @@ const StyledCard = styled.article`
   width: 28rem;
   border-radius: 8px;
   background-color: white;
-  border: 1px solid #dddddd;
+  border: 1px solid ${colors.cardBorder};
 `;
 
 const InvertedBorder = styled.i`
-  border: 1px solid #dddddd;
+  border: 1px solid ${colors.cardBorder};
   position: absolute;
   width: 3rem;
   height: 1.5rem;
@@ -100,6 +86,7 @@ const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 0.5rem;
   padding: 2rem 1.5rem;
 
   & > svg,
@@ -129,17 +116,14 @@ const CardDesc = styled.p`
   line-height: 2.4rem;
   letter-spacing: -0.01rem;
   color: #5b5b5b;
-  & b {
-    font-weight: bolder;
-  }
+  font-weight: lighter;
 `;
 
 const UpBox = styled.div`
-  flex: 5;
   display: flex;
   flex-direction: column;
 
-  border-bottom: 1px dashed #dddddd;
+  border-bottom: 1px dashed ${colors.cardBorder};
 `;
 const DownBox = styled.div`
   position: relative;
@@ -148,9 +132,9 @@ const DownBox = styled.div`
   align-items: center;
 `;
 
-const ImageWrapper = styled.div`
+export const ImageWrapper = styled.div`
   position: relative;
-  padding-top: 14rem;
+  padding-top: calc(13.5rem + 2rem);
   width: 100%;
 
   display: flex;
@@ -187,25 +171,29 @@ const BasicButton = styled.button`
 `;
 
 const CoEatButton = styled(BasicButton)`
-  background-color: #ff7a00;
-  color: white;
+  background-color: ${colors.lightOrange};
+  color: ${colors.orange};
 `;
 const NoEatButton = styled(BasicButton)`
-  background-color: #f5f5f5;
-  color: #888888;
+  background-color: ${colors.gray};
+  color: ${colors.darkGray};
 `;
 
-const MainDish = styled.div`
+export const MainDish = styled.div`
   position: absolute;
   top: 0;
-  right: 0;
-  transform: translateX(-25%);
-
-  width: 50%;
+  width: 100%;
 
   & > img {
-    max-width: 60%;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 13.5rem;
+    height: 13.5rem;
+    position: absolute;
+    top: 0;
+    left: 55%;
+    transform: translate(-50%, 0);
   }
 `;
 
-export default Card;
+export default FoodSelectionCard;

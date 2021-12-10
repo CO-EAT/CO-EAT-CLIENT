@@ -4,6 +4,7 @@ import tada from 'assets/img/tada.png';
 import hot from 'assets/hot.png';
 import ice from 'assets/ice.png';
 import logo from 'assets/log-pic-white.png';
+import { colors } from 'constants/colors';
 
 function ResultPage() {
   return (
@@ -92,7 +93,7 @@ const Container = styled.main`
 const ResultView = styled.div`
   padding: 4rem;
   position: relative;
-  border: 1px solid #dddddd;
+  border: 1px solid ${colors.cardBorder};
   width: 40%;
   display: flex;
   flex-direction: column;
@@ -108,7 +109,7 @@ const ResultTitle = styled.h2`
   font-weight: 400;
 
   & > strong {
-    color: #ff7a00;
+    color: ${colors.orange};
     font-weight: bolder;
   }
 
@@ -144,16 +145,16 @@ const ResultOrder = styled.div`
   width: 100%;
   margin-top: 8.5rem;
   padding-bottom: 9rem;
-  border-bottom: 1px dotted #dddddd;
+  border-bottom: 1px dotted ${colors.cardBorder};
 
   & > ul {
     & > li {
       padding: 2.7rem 0;
-      border-bottom: 1px dotted #dddddd;
+      border-bottom: 1px dotted ${colors.cardBorder};
     }
 
     & > li:last-child {
-      border-bottom: 1px solid #ff912d;
+      border-bottom: 1px solid ${colors.darkOrange};
     }
   }
 `;
@@ -178,7 +179,7 @@ const ResultCount = styled.div`
 
   & > span {
     margin-left: 1.1rem;
-    color: #ff912d;
+    color: ${colors.darkOrange};
     font-weight: bolder;
     font-size: 2.4rem;
     line-height: 2rem;
@@ -206,7 +207,7 @@ const ResultCountTotal = styled.div`
 
   & > span {
     margin-left: 1.1rem;
-    color: #ff912d;
+    color: ${colors.darkOrange};
     font-weight: bolder;
     font-size: 2.4rem;
     line-height: 3.8rem;
@@ -220,7 +221,7 @@ const ResultCompleteBtn = styled.button`
   height: 7.1rem;
   border: 0;
   margin-top: 6rem;
-  background-color: #ff912d;
+  background-color: ${colors.darkOrange};
 `;
 
 export default ResultPage;
