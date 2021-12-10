@@ -8,15 +8,5 @@ import paper7 from 'assets/img/papers/paper7.png';
 import paper8 from 'assets/img/papers/paper8.png';
 import paper9 from 'assets/img/papers/paper9.png';
 
-const papers = {
-  paper1,
-  paper2,
-  paper3,
-  paper4,
-  paper5,
-  paper6,
-  paper7,
-  paper8,
-  paper9,
-};
+const papers = [paper1, paper2, paper3, paper4, paper5, paper6, paper7, paper8, paper9];
 export default papers;

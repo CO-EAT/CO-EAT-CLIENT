@@ -34,23 +34,11 @@ const HostPage = () => {
   };
 
   //   색종이를 랜덤으로 출력
-  const paperArr = [
-    Papers.paper1,
-    Papers.paper2,
-    Papers.paper3,
-    Papers.paper4,
-    Papers.paper5,
-    Papers.paper6,
-    Papers.paper7,
-    Papers.paper8,
-    Papers.paper9,
-  ];
-
   const paperImgElArr = [];
 
   const randomPaperFlakes = () => {
     for (let i = 0; i < 20; i++) {
-      const imgSrc = paperArr[Math.floor(Math.random() * 9)];
+      const imgSrc = Papers[Math.floor(Math.random() * 9)];
       paperImgElArr.push(<img key={i} src={imgSrc} alt="" />);
     }
 
