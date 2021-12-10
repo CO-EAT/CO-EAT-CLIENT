@@ -16,15 +16,16 @@ const Setting = () => {
   const [isTextEmpty, setIsTextEmpty] = useState(false);
   const [isMaxLength, setIsMaxLength] = useState(false);
   const navigate = useNavigate();
-  const inputRef = useRef();
-  const inputRef2 = useRef();
+  const outerInputRef = useRef();
+  const innerInputRef = useRef();
+  const warnRefs = useRef(outerInputRef, innerInputRef);
 
   useEffect(() => {
     // input 미입력시, shake animation
     const xMax = 16;
-    inputRef.current = [
+    warnRefs.current = [
       anime({
-        targets: inputRef.current,
+        targets: outerInputRef.current,
         easing: 'easeInOutSine',
         duration: 550,
         translateX: [
@@ -47,7 +48,7 @@ const Setting = () => {
         autoplay: false,
       }),
       anime({
-        targets: inputRef2.current,
+        targets: innerInputRef.current,
         border: '1px solid red',
         easing: 'linear',
         duration: 500,
@@ -68,7 +69,7 @@ const Setting = () => {
 
   const handleAdd = () => {
     if (!user) {
-      inputRef.current.forEach((a) => a.restart());
+      warnRefs.current.forEach((a) => a.restart());
       setIsTextEmpty(true);
       return;
     }
@@ -88,7 +89,7 @@ const Setting = () => {
           <p>이름이든, 별칭이든 다 괜찮아요</p>
         </CustomStyledContent>
       </StyledMainHeader>
-      <StyledInput isFocus={isFocus} ref={inputRef}>
+      <StyledInput isFocus={isFocus} ref={outerInputRef}>
         <input
           type="text"
           maxLength="5"
@@ -97,7 +98,7 @@ const Setting = () => {
           onBlur={() => setIsFocus(false)}
           value={user}
           onChange={handleChange}
-          ref={inputRef2}
+          ref={innerInputRef}
         />
         {isMaxLength && <p>*닉네임은 최대 다섯자까지만 가능해요 </p>}
       </StyledInput>
