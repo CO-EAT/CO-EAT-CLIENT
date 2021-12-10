@@ -8,8 +8,10 @@ function PickInfo(props) {
 
   return (
     <StyledPickInfo>
-      <StyledNickname>{nickName}</StyledNickname>
-      <Delimiter />
+      <NameWrapper>
+        <StyledNickname>{nickName}</StyledNickname>
+        <Delimiter />
+      </NameWrapper>
       <PickWrapper>
         <CoEatTitle>COEAT</CoEatTitle>
         <PickList>
@@ -38,12 +40,15 @@ const StyledPickInfo = styled.li`
 
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
 
+  padding: 0 5rem;
   border: 1px solid ${colors.cardBorder};
 `;
 
 const StyledNickname = styled.div`
+  width: 60%;
+  text-align: center;
   font-size: 2.8rem;
   line-height: 3.4rem;
   letter-spacing: -0.01rem;
@@ -82,7 +87,17 @@ const PickElement = styled.li`
 
 const PickWrapper = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
+  gap: 3.5rem;
+  flex: 3;
+`;
+
+const NameWrapper = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex: 1;
   gap: 3.5rem;
 `;
 

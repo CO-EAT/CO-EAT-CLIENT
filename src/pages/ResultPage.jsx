@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import { useState } from 'react';
+import styled, { css } from 'styled-components';
 import ResultCard from 'components/ResultCard';
 import PickInfo from 'components/PickInfo';
 import Logo from 'assets/logo.svg';
@@ -11,6 +11,7 @@ import { ReactComponent as Clipboard } from 'assets/insert_link.svg';
 import { colors } from 'constants/colors';
 import { LESS_NOEAT } from 'constants/noeat-tooltip-text';
 import useAPI from 'cores/hooks/useAPI';
+import Loader from 'components/common/Loader';
 
 const parseFontWeightFromString = (string) => {
   const [before, toBeBold, ...rest] = string.split('__');
@@ -24,7 +25,7 @@ const parseFontWeightFromString = (string) => {
 };
 
 function ResultPage() {
-  const { data, loading } = useAPI({
+  const { data, loading, mutate } = useAPI({
     method: 'GET',
     url: '/result',
   });
@@ -34,8 +35,12 @@ function ResultPage() {
   const toggleTooltip = () => setIsTooltipOpen(!isTooltipOpen);
   const closeTooltip = () => setIsTooltipOpen(false);
 
-  if (!data || loading) {
-    return <Container>loading ...</Container>;
+  if (!data) {
+    return (
+      <Container>
+        <Loader />
+      </Container>
+    );
   }
 
   return (
@@ -91,7 +96,7 @@ function ResultPage() {
       </ResultCardWrapper>
       <RefreshWrapper>
         <RefreshText>아직 결과가 안나왔나요? 새로고침을 눌러보세요!</RefreshText>
-        <StyeldRefreshBtn>
+        <StyeldRefreshBtn onClick={mutate} isLoading={loading}>
           <RefreshBtn />
         </StyeldRefreshBtn>
       </RefreshWrapper>
@@ -283,6 +288,22 @@ const StyeldRefreshBtn = styled.button`
     width: 2.6rem;
     height: 2.6rem;
   }
+
+  @keyframes rotate360 {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  ${(props) =>
+    props.isLoading &&
+    css`
+      animation: rotate360 ease-in-out infinite 1s;
+    `};
 `;
 
 const TotalEatWrapper = styled.div`
