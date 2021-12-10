@@ -15,6 +15,7 @@ const Setting = () => {
   const [isFocus, setIsFocus] = useState(false);
   const [user, setUser] = useState('');
   const [isTextEmpty, setIsTextEmpty] = useState(false);
+  const [isMaxLength, setIsMaxLength] = useState(false);
   const navigate = useNavigate();
   const inputRef = useRef();
   const inputRef2 = useRef();
@@ -57,6 +58,11 @@ const Setting = () => {
   }, []);
 
   const handleChange = (e) => {
+    setIsMaxLength(false);
+
+    if (e.target.value.length >= 5) {
+      setIsMaxLength(true);
+    }
     setIsTextEmpty(false);
     setUser(e.target.value);
   };
@@ -95,7 +101,7 @@ const Setting = () => {
             onChange={handleChange}
             ref={inputRef2}
           />
-          {!isTextEmpty && <p>*닉네임은 최대 다섯자까지만 가능해요 </p>}
+          {isMaxLength && <p>*닉네임은 최대 다섯자까지만 가능해요 </p>}
         </StyledInput>
       </Fade>
       <StyledWarnContainer>

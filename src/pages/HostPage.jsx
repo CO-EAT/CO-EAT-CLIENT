@@ -51,7 +51,7 @@ const HostPage = () => {
 
   const randomPaperFlakes = () => {
     for (let i = 0; i < 20; i++) {
-      const imgSrc = paperArr[Math.floor(Math.random() * 10) - 1];
+      const imgSrc = paperArr[Math.floor(Math.random() * 9)];
       paperImgElArr.push(<img key={i} src={imgSrc} alt="" />);
     }
 
