@@ -3,17 +3,20 @@ import { ReactComponent as Plate } from 'assets/img/plate.svg';
 import { colors } from 'constants/colors';
 
 function ResultCard(props) {
-  const { coEatCount = 22, noEatCount = 6 } = props;
+  const { coEatCount = 22, noEatCount = 6, imgSrc, foodName } = props;
+
+  const calcCoEatRatio = () => (coEatCount / (coEatCount + noEatCount)) * 100;
+
   return (
     <StyledCard>
       <UpBox>
         <CardWrapper>
-          <CardName>짬뽕</CardName>
+          <CardName>{foodName}</CardName>
         </CardWrapper>
         <ImageWrapper>
           <Plate />
           <MainDish>
-            <img src={`${process.env.PUBLIC_URL}/food/짬뽕.png`} alt="food-img" />
+            <img src={`${process.env.PUBLIC_URL}/${imgSrc}`} alt="food-img" />
           </MainDish>
         </ImageWrapper>
       </UpBox>
@@ -24,7 +27,7 @@ function ResultCard(props) {
           <span>{`COEAT ${coEatCount}`}</span>
           <span>{`NOEAT ${noEatCount}`}</span>
         </CONOResult>
-        <CONOProgress coEatRatio="80" />
+        <CONOProgress coEatRatio={calcCoEatRatio(coEatCount, noEatCount)} />
       </DownBox>
     </StyledCard>
   );

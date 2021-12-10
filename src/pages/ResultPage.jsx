@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ResultCard from 'components/ResultCard';
 import PickInfo from 'components/PickInfo';
@@ -10,6 +10,7 @@ import { ReactComponent as CloseBtn } from 'assets/close.svg';
 import { ReactComponent as Clipboard } from 'assets/insert_link.svg';
 import { colors } from 'constants/colors';
 import { LESS_NOEAT } from 'constants/noeat-tooltip-text';
+import useAPI from 'cores/hooks/useAPI';
 
 const parseFontWeightFromString = (string) => {
   const [before, toBeBold, ...rest] = string.split('__');
@@ -23,10 +24,20 @@ const parseFontWeightFromString = (string) => {
 };
 
 function ResultPage() {
+  const { data, loading } = useAPI({
+    method: 'GET',
+    url: '/result',
+  });
+
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
 
   const toggleTooltip = () => setIsTooltipOpen(!isTooltipOpen);
   const closeTooltip = () => setIsTooltipOpen(false);
+
+  if (!data || loading) {
+    return <Container>loading ...</Container>;
+  }
+
   return (
     <Container>
       <img src={Logo} alt="" />
@@ -34,7 +45,7 @@ function ResultPage() {
         <img src={CuteLogo} alt="" />
         <ResultTitle>
           <p>
-            <b>오늘 코잇하실 식사</b>는 <strong>불고기</strong>에요.
+            <b>오늘 코잇하실 식사</b>는 <strong>{data.mostCoeatMenuName}</strong>에요.
           </p>
           <p>
             <b>다함께 코잇</b>하러 가보실까요?
@@ -42,7 +53,7 @@ function ResultPage() {
         </ResultTitle>
       </ResultHeader>
       <SecondaryResult>
-        더 많은 사람이 함께할 수 있는 <b>햄버거</b>는 어떠세요?
+        더 많은 사람이 함께할 수 있는 <b>{data.lessNoeatMenuName}</b> 어떠세요?
         <StyledTooltip>
           <TooltipBtn onClick={toggleTooltip}>
             <Tooltip />
@@ -61,15 +72,25 @@ function ResultPage() {
       <ResultCardWrapper>
         <ColumnWrapper>
           <ResultCardHeader orange>MOST COEAT</ResultCardHeader>
-          <ResultCard />
+          <ResultCard
+            coEatCount={data.mostCoeatCount}
+            noEatCount={data.mostNoeatCount}
+            imgSrc={data.mostCoeatMenuImg}
+            foodName={data.mostCoeatMenuName}
+          />
         </ColumnWrapper>
         <ColumnWrapper>
           <ResultCardHeader>LESS NOEAT</ResultCardHeader>
-          <ResultCard />
+          <ResultCard
+            coEatCount={data.lessCoeatCount}
+            noEatCount={data.lessNoeatCount}
+            imgSrc={data.lessNoeatMenuImg}
+            foodName={data.lessNoeatMenuName}
+          />
         </ColumnWrapper>
       </ResultCardWrapper>
       <RefreshWrapper>
-        <RefreshText>아직 결과가 나오지 안나왔나요? 새로고침을 눌러보세요!</RefreshText>
+        <RefreshText>아직 결과가 안나왔나요? 새로고침을 눌러보세요!</RefreshText>
         <StyeldRefreshBtn>
           <RefreshBtn />
         </StyeldRefreshBtn>
@@ -79,7 +100,7 @@ function ResultPage() {
           <LeftBox>
             <TotalEatTitle>모든 코잇 확인하기</TotalEatTitle>
             <Delimiter />
-            <TotalMembers>참여 인원수 5명</TotalMembers>
+            <TotalMembers>참여 인원수 {data.peopleCount}명</TotalMembers>
           </LeftBox>
           <RightBox>
             <label>링크공유</label>
@@ -89,12 +110,12 @@ function ResultPage() {
           </RightBox>
         </TotalEatHeader>
         <TotalEatGrid>
-          <PickInfo />
-          <PickInfo />
-          <PickInfo />
+          {data.resultList.map((result) => (
+            <PickInfo key={result.nickName} resultInfo={result} />
+          ))}
         </TotalEatGrid>
       </TotalEatWrapper>
-      <CompleteBtn>COEAT COMPLETE</CompleteBtn>
+      {data.isHost && <CompleteBtn>COEAT COMPLETE</CompleteBtn>}
     </Container>
   );
 }

@@ -2,18 +2,18 @@ import styled, { css } from 'styled-components';
 
 import { colors } from 'constants/colors';
 
-const COEAT_LIST = ['스파게티', '국밥', '햄버거', '등촌', '마라탕'];
-const NOEAT_LIST = ['닭발', '스테이크', '백숙', '연근', '미더덕'];
+function PickInfo(props) {
+  const { resultInfo } = props;
+  const { nickName, likedMenu, unlikedMenu } = resultInfo;
 
-function PickInfo() {
   return (
     <StyledPickInfo>
-      <StyledNickname>김루리</StyledNickname>
+      <StyledNickname>{nickName}</StyledNickname>
       <Delimiter />
       <PickWrapper>
         <CoEatTitle>COEAT</CoEatTitle>
         <PickList>
-          {COEAT_LIST.map((coeat) => (
+          {likedMenu.map((coeat) => (
             <PickElement coeat key={coeat}>
               {coeat}
             </PickElement>
@@ -23,7 +23,7 @@ function PickInfo() {
       <PickWrapper>
         <NoEatTitle>NOEAT</NoEatTitle>
         <PickList>
-          {NOEAT_LIST.map((noeat) => (
+          {unlikedMenu.map((noeat) => (
             <PickElement key={noeat}>{noeat}</PickElement>
           ))}
         </PickList>
