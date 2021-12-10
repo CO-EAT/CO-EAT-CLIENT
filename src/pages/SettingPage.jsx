@@ -9,7 +9,6 @@ import { colors } from 'constants/colors';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 import anime from 'animejs/lib/anime.es.js';
-import Fade from 'react-reveal';
 
 const Setting = () => {
   const [isFocus, setIsFocus] = useState(false);
@@ -89,21 +88,19 @@ const Setting = () => {
           <p>이름이든, 별칭이든 다 괜찮아요</p>
         </CustomStyledContent>
       </StyledMainHeader>
-      <Fade top>
-        <StyledInput isFocus={isFocus} ref={inputRef}>
-          <input
-            type="text"
-            maxLength="5"
-            placeholder="코잇쟁이"
-            onFocus={() => setIsFocus(true)}
-            onBlur={() => setIsFocus(false)}
-            value={user}
-            onChange={handleChange}
-            ref={inputRef2}
-          />
-          {isMaxLength && <p>*닉네임은 최대 다섯자까지만 가능해요 </p>}
-        </StyledInput>
-      </Fade>
+      <StyledInput isFocus={isFocus} ref={inputRef}>
+        <input
+          type="text"
+          maxLength="5"
+          placeholder="코잇쟁이"
+          onFocus={() => setIsFocus(true)}
+          onBlur={() => setIsFocus(false)}
+          value={user}
+          onChange={handleChange}
+          ref={inputRef2}
+        />
+        {isMaxLength && <p>*닉네임은 최대 다섯자까지만 가능해요 </p>}
+      </StyledInput>
       <StyledWarnContainer>
         {isTextEmpty && (
           <CustomStyledAlertBox>

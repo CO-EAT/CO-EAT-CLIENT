@@ -9,7 +9,6 @@ import { StyledContainer, StyledMainHeader, StyledTitle, StyledContent, StyledMa
 import styled from 'styled-components';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
-import Fade from 'react-reveal/Fade';
 
 const HostPage = () => {
   const [copySuccess, setCopySuccess] = useState(false);
@@ -76,14 +75,12 @@ const HostPage = () => {
           <p className="small">식사메뉴를 함께 정해보세요!</p>
         </CustomStyledContent>
       </StyledMainHeader>
-      <Fade top>
-        <StyledLinkContainer>
-          <input ref={linkRef} readOnly value="www.coeat.com/roomid=123kjdl"></input>
-          <button onClick={handleCopy}>
-            <img src={CopyImg} alt="Copy Img" />
-          </button>
-        </StyledLinkContainer>
-      </Fade>
+      <StyledLinkContainer>
+        <input ref={linkRef} readOnly value="www.coeat.com/roomid=123kjdl"></input>
+        <button onClick={handleCopy}>
+          <img src={CopyImg} alt="Copy Img" />
+        </button>
+      </StyledLinkContainer>
       <StyledModalContainer>
         {copySuccess && (
           <StyledAlertBox onClick={handleClose}>
