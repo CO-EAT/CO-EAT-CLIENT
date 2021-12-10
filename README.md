@@ -4,6 +4,17 @@
 서비스 소개 : 모두가 행복한, 메뉴 취합 서비스
 한줄멘트 : 오늘 뭐 먹을래? 아무거나는 이제 그만! Let's COEAT!
 
+    오늘 이 메뉴만큼은 피하고 싶다! 하면 NOEAT을 눌러주세요.
+    하단바를 클릭하면 다른 팀원들의 선택지를 참고할 수 있습니다.
+
+    팀원들의 선택을 바탕으로 오늘 코잇할 메뉴가 정해지면
+    못 먹는 메뉴는 제외하고, 함께 먹고 싶은 메뉴를 최종 결정해주세요.
+
+    이젠 간단하게 COEAT 할 메뉴만 선택해주세요, 
+    커피 못 드시는 분들도 걱정 마세요! 맘편히 논커피메뉴 COEAT하세요~ 
+    메뉴 쌓기는 코잇이 해드릴게요~ 
+    모두의 취향을 반영한 코잇 명세서로 간편하게 모아서 주문하세요!
+
 ## 프로젝트 구성
 
 1. React
@@ -55,6 +66,34 @@
 - 기능 추가 : feat/foodCard
 - 버그 수정 : fix/layout
 
+## 기술 스택 및 라이브러리
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-responsive": "9.0.0-beta.4",
+    "react-router-dom": "6.0.2",
+    "react-scripts": "4.0.3",
+    "styled-components": "5.3.3",
+    "styled-reset": "4.3.4",
+    
+    "eslint": "^7.11.0",
+    "json-server": "0.17.0",
+    "prettier": "2.4.1"
+    
+## 개발 담당 파트
+**찌니  (프로젝트 참여여부 : ⭕️)**<br /> Landing Page Card <br/> Pick Page Card, data GET/POST  <br/> Result Page       
+ 
+**귬니  (프로젝트 참여여부 : ⭕️)**<br /> Landing Page Header <br/> Pick Page Header, data GET/POST       
+
+**여니 (프로젝트 참여여부 : ⭕️)**<br /> Landig Input <br/>  Pick Footer, Modal <br/> Result Page         
+
+## View 완성도 및 서버 연결 코드 완성도
+
+1. Landing View : 100% / 100%
+2. Pick View : 90% / 100%
+3. Result View : 60% 100%
+4. 서버 연결 코드 완성도 (json-server 사용) : 90% / 100% 
+
+
 ## 팀원 정보
 <table>
     <tr align="center">
@@ -82,16 +121,15 @@
     </tr>
     <tr align="center">
         <td>
-            찌니<br/>
-            메인 뷰 및 레이아웃
+            찌니
         </td>
         <td>
-            귬니 <br />
-            메인 페이지 레이아웃
+            귬니 
         </td>
         <td>
-            여니 <br />
-            스크롤, 픽 페이지
+            여니
         </td>
     </tr>
 </table>
+
+
