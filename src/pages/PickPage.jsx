@@ -81,12 +81,12 @@ function PickPage() {
   return (
     <StyledContainer ref={containerRef} isOpen={isOpen}>
       <nav>
-        <div className="wrapper">
-          <div className="title">
+        <StyledNav>
+          <StyledTitle>
             <img src={LogoImg} alt="logo" />
-          </div>
-          <div className="categories">
-            <div className="category">
+          </StyledTitle>
+          <StyledCategories>
+            <StyledCategory>
               {CATEGORIES.map((category, idx) => (
                 <div
                   onClick={handleClick}
@@ -96,16 +96,16 @@ function PickPage() {
                   <a href={`#${category}`}>{category}</a>
                 </div>
               ))}
-            </div>
-            <div className="search">
+            </StyledCategory>
+            <StyledSearch>
               <input type="text" placeholder="검색하기" />
               <img src={Search} alt="search" />
-            </div>
-          </div>
-        </div>
+            </StyledSearch>
+          </StyledCategories>
+        </StyledNav>
       </nav>
       <section>
-        <div className="wrapper_section">{showFoods()}</div>
+        <StyledSection>{showFoods()}</StyledSection>
       </section>
       <PickeCartNav
         coEatList={coEatList}
@@ -134,96 +134,10 @@ const StyledContainer = styled.div`
     height: 26rem;
   }
 
-  .wrapper {
-    width: 120rem;
-    height: 100%;
-  }
-
-  .title {
-    margin-top: 4rem;
-    padding: 6.3rem 0;
-  }
-
-  .title img {
-    width: 10.9rem;
-    height: 3.7rem;
-  }
-
-  .categories {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 0.1rem solid ${colors.gray};
-  }
-
-  .category {
-    display: flex;
-    width: 100%;
-  }
-
-  .category div {
-    color: #989898;
-    font-size: 2.8rem;
-    margin-right: 4.6rem;
-    padding-bottom: 0.9rem;
-    border-bottom: 0.5rem solid ${colors.white};
-
-    & a {
-      text-decoration: none;
-      color: inherit;
-    }
-  }
-
-  .category > div.selected {
-    border-bottom: 0.5rem solid ${colors.orange};
-    color: ${colors.orange};
-    font-weight: 700;
-  }
-
-  .category div:hover {
-    transform: scale(1.1);
-    cursor: pointer;
-  }
-  .search {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 45.1rem;
-    height: 5.6rem;
-    background-color: ${colors.gray};
-    margin-bottom: 0.9rem;
-    border-radius: 1rem;
-  }
-
-  .search input {
-    background-color: ${colors.gray};
-    height: 2.4rem;
-    font-size: 2rem;
-    border: none;
-    outline: none;
-    margin-left: 2.9rem;
-    color: ${colors.orange};
-  }
-  .search img {
-    width: 2.1rem;
-    margin-right: 1.7rem;
-  }
-
   & > section {
     display: flex;
     justify-content: center;
     width: 100%;
-  }
-  .wrapper_section {
-    margin-top: 6rem;
-    margin-bottom: 2.1rem;
-    width: 120rem;
-    font-size: 2.4rem;
-    font-weight: 700;
-  }
-
-  .wrapper_section header {
-    margin-bottom: 2.1rem;
   }
 
   .ctgFoods {
@@ -232,5 +146,93 @@ const StyledContainer = styled.div`
     gap: 3rem;
 
     margin-bottom: 10%;
+  }
+`;
+
+const StyledNav = styled.div`
+  width: 120rem;
+  height: 100%;
+`;
+
+const StyledTitle = styled.div`
+  margin-top: 4rem;
+  padding: 6.3rem 0;
+
+  & > img {
+    width: 10.9rem;
+    height: 3.7rem;
+  }
+`;
+const StyledCategories = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 0.1rem solid ${colors.gray};
+`;
+
+const StyledCategory = styled.div`
+  display: flex;
+  width: 100%;
+
+  & > div {
+    color: #989898;
+    font-size: 2.8rem;
+    margin-right: 4.6rem;
+    padding-bottom: 0.9rem;
+    border-bottom: 0.5rem solid ${colors.white};
+  }
+
+  & > div.selected {
+    border-bottom: 0.5rem solid ${colors.orange};
+    color: ${colors.orange};
+    font-weight: 700;
+  }
+
+  & > div > a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  & > div:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+`;
+
+const StyledSearch = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 45.1rem;
+  height: 5.6rem;
+  background-color: ${colors.gray};
+  margin-bottom: 0.9rem;
+  border-radius: 1rem;
+
+  & > input {
+    background-color: ${colors.gray};
+    height: 2.4rem;
+    font-size: 2rem;
+    border: none;
+    outline: none;
+    margin-left: 2.9rem;
+    color: ${colors.orange};
+  }
+
+  & > img {
+    width: 2.1rem;
+    margin-right: 1.7rem;
+  }
+`;
+
+const StyledSection = styled.div`
+  margin-top: 6rem;
+  margin-bottom: 2.1rem;
+  width: 120rem;
+  font-size: 2.4rem;
+  font-weight: 700;
+
+  & > header {
+    margin-bottom: 2.1rem;
   }
 `;
