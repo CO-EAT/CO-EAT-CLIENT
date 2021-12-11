@@ -2,12 +2,15 @@ import { useState, useRef, useCallback } from 'react';
 import { useLocation } from 'react-router';
 import styled from 'styled-components';
 import LogoImg from 'assets/logo.svg';
-import PickeCartNav from 'components/PickCartNav';
+import PickCartNav from 'components/PickCartNav';
 import FoodSelectionCard from 'components/FoodSelectionCard';
 import Search from 'assets/search.svg';
 import useAPI from 'cores/hooks/useAPI';
 import { colors } from 'constants/colors';
 import { MEAL_CATEGORIES, COFFEE_CATEGORIES } from 'constants/categories';
+import ReactModal from 'react-modal';
+import { modalStyles } from 'components/common/WarnModal';
+import WarnModal from 'components/common/WarnModal';
 
 const COEAT = 'coeat';
 const NOEAT = 'noeat';
@@ -28,6 +31,7 @@ function PickPage() {
   const [noEatList, setNoEatList] = useState([]);
 
   const [isOpen, setIsOpen] = useState(false);
+  const [restrictModal, setRestrictModal] = useState(false);
 
   const reduceDataByCategory = useCallback(
     () =>
@@ -48,6 +52,10 @@ function PickPage() {
 
       if (isDuplicatedFoodId(foodId, list)) return;
       setter([...list, { id: foodId, name: foodName, img: foodImg }]);
+
+      if (list.length > 4) {
+        setRestrictModal(true);
+      }
     };
   };
 
@@ -107,13 +115,16 @@ function PickPage() {
       <section>
         <StyledSection>{showFoods()}</StyledSection>
       </section>
-      <PickeCartNav
+      <PickCartNav
         coEatList={coEatList}
         noEatList={noEatList}
         containerRef={containerRef}
         isOpen={isOpen}
         toggleModal={toggleModal}
       />
+      <ReactModal style={modalStyles} isOpen={restrictModal} onRequestClose={() => setRestrictModal(false)}>
+        <WarnModal />
+      </ReactModal>
     </StyledContainer>
   );
 }
@@ -144,7 +155,6 @@ const StyledContainer = styled.div`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 3rem;
-
     margin-bottom: 10%;
   }
 `;
