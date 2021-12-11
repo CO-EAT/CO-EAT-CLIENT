@@ -57,6 +57,7 @@ function PickPage() {
       if (list.length > 4) {
         setRestrictModal(true);
         setCheckType(list === coEatList ? '코잇' : '노잇');
+        setter(list.filter((el, idx) => idx < list.length));
       }
     };
   };
