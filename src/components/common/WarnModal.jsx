@@ -27,12 +27,12 @@ export const modalStyles = {
   },
 };
 
-const WarnModal = () => {
+const WarnModal = ({ restrictModal, setRestrictModal, checkType }) => {
   return (
     <StyledWrapper>
-      <div>코잇 한도 초과</div>
-      <div>코잇은 5개까지만 가능해요!</div>
-      <div>
+      <div>{checkType} 한도 초과</div>
+      <div>{checkType}은 5개까지만 가능해요!</div>
+      <div onClick={() => setRestrictModal(!restrictModal)}>
         <span>확인</span>
       </div>
     </StyledWrapper>

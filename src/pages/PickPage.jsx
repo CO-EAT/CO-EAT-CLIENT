@@ -32,6 +32,7 @@ function PickPage() {
 
   const [isOpen, setIsOpen] = useState(false);
   const [restrictModal, setRestrictModal] = useState(false);
+  const [checkType, setCheckType] = useState('');
 
   const reduceDataByCategory = useCallback(
     () =>
@@ -55,6 +56,7 @@ function PickPage() {
 
       if (list.length > 4) {
         setRestrictModal(true);
+        setCheckType(list === coEatList ? '코잇' : '노잇');
       }
     };
   };
@@ -123,7 +125,7 @@ function PickPage() {
         toggleModal={toggleModal}
       />
       <ReactModal style={modalStyles} isOpen={restrictModal} onRequestClose={() => setRestrictModal(false)}>
-        <WarnModal />
+        <WarnModal restrictModal={restrictModal} setRestrictModal={setRestrictModal} checkType={checkType} />
       </ReactModal>
     </StyledContainer>
   );
