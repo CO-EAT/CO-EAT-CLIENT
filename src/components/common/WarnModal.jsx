@@ -12,10 +12,9 @@ export const modalStyles = {
   },
   content: {
     position: 'absolute',
-    top: '45rem',
-    left: '85rem',
-    right: '85rem',
-    bottom: '46rem',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
     background: '#FFFFFF',
     overflow: 'auto',
     WebkitOverflowScrolling: 'touch',
@@ -23,7 +22,9 @@ export const modalStyles = {
     borderRadius: '2rem',
     outline: 'none',
     boxShadow: 'rgb(0,0,0, 0.4) 0 0 5rem 0',
-    padding: '5rem 0',
+    padding: '5rem 15rem',
+    height: 'fit-content',
+    width: 'fit-content',
   },
 };
 
