@@ -12,8 +12,8 @@ import ReactModal from 'react-modal';
 import { modalStyles } from 'components/common/WarnModal';
 import WarnModal from 'components/common/WarnModal';
 
-const COEAT = 'coeat';
-const NOEAT = 'noeat';
+const COEAT = 'COEAT';
+const NOEAT = 'NOEAT';
 
 function PickPage() {
   const containerRef = useRef(null);
@@ -59,6 +59,15 @@ function PickPage() {
         setCheckType(list === coEatList ? '코잇' : '노잇');
         setter(list.filter((el, idx) => idx < list.length));
       }
+    };
+  };
+
+  const removeFoodFromList = (type) => {
+    return (foodId) => {
+      const list = type === COEAT ? coEatList : noEatList;
+      const setter = type === COEAT ? setCoEatList : setNoEatList;
+
+      if (isDuplicatedFoodId(foodId, list)) setter(list.filter((food) => food.id !== foodId));
     };
   };
 
@@ -121,6 +130,7 @@ function PickPage() {
       <PickCartNav
         coEatList={coEatList}
         noEatList={noEatList}
+        onRemoveFood={removeFoodFromList}
         containerRef={containerRef}
         isOpen={isOpen}
         toggleModal={toggleModal}

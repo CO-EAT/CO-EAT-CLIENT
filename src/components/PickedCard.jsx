@@ -7,7 +7,8 @@ import { ReactComponent as Plate } from 'assets/img/plate.svg';
 const COEAT = 'COEAT';
 
 function PickedCard(props) {
-  const { name, img, type } = props;
+  const { type, foodInfo, onRemoveFood } = props;
+  const { name, img, id } = foodInfo;
   const getPublicImagePath = () => `${process.env.PUBLIC_URL}/${img}`;
   return (
     <StyledMenuSelection>
@@ -27,7 +28,7 @@ function PickedCard(props) {
       <RightBox>
         <InvertedBorder top />
         <InvertedBorder bottom />
-        <CloseBtn>
+        <CloseBtn onClick={() => onRemoveFood(id)}>
           <CloseBtnImg />
         </CloseBtn>
       </RightBox>

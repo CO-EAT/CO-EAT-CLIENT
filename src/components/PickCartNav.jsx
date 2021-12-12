@@ -5,13 +5,20 @@ import CartModal from 'components/CartModal';
 import { useNavigate } from 'react-router-dom';
 import { colors } from 'constants/colors';
 
-function PickCartModal({ coEatList, noEatList, isOpen, toggleModal }) {
+function PickCartModal({ coEatList, noEatList, isOpen, toggleModal, onRemoveFood }) {
   const navigator = useNavigate();
 
   return (
     <>
       <StyledCartNavWrapper>
-        {isOpen && <CartModal coEatList={coEatList} noEatList={noEatList} toggleModal={toggleModal} />}
+        {isOpen && (
+          <CartModal
+            coEatList={coEatList}
+            noEatList={noEatList}
+            onRemoveFood={onRemoveFood}
+            toggleModal={toggleModal}
+          />
+        )}
         <StyledCartNav>
           <StyledUserProfile>
             <ProfileIcon />
