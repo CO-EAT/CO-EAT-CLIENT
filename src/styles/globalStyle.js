@@ -10,8 +10,6 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
 
     font-size: 40%;
-
-    scroll-behavior: smooth;
   }
 
   * {
