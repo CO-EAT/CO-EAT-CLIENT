@@ -43,6 +43,7 @@ const StyledMenuSelection = styled.li`
   border-radius: 8px;
   background-color: #fff;
   border: 1px solid ${colors.cardBorder};
+  margin-bottom: 1.7rem;
 `;
 
 const InvertedBorder = styled.i`

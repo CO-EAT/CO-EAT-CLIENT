@@ -31,13 +31,15 @@ function PickCartModal({ coEatList, noEatList, isOpen, toggleModal, onRemoveFood
             <StyledLine />
             <ProfileIcon />
             <span>유루리님</span>
-            <StyledResultBtn
-              onClick={() => {
-                navigator('/result');
-              }}
-              isOpen={isOpen}>
-              완료하기
-            </StyledResultBtn>
+            {isOpen && (
+              <StyledResultBtn
+                onClick={() => {
+                  navigator('/result');
+                }}
+                isOpen={isOpen}>
+                완료하기
+              </StyledResultBtn>
+            )}
           </StyledUserProfile>
         </StyledCartNav>
       </StyledCartNavWrapper>
@@ -109,14 +111,6 @@ const StyledCartInfo = styled.div`
 `;
 
 const StyledResultBtn = styled.button`
-  ${(props) =>
-    props.isOpen
-      ? css`
-          display: '';
-        `
-      : css`
-          display: none;
-        `}
   border: 0;
   outline: 0;
   background-color: #ff7a00;

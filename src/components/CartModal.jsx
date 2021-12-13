@@ -64,7 +64,7 @@ const StyledCartWrapper = styled.div`
   display: flex;
   position: absolute;
   bottom: 9.2rem;
-  height: 85rem;
+  height: 107rem;
   width: 100%;
   background-color: #f4f5f6;
   font-size: 8rem;
@@ -119,7 +119,7 @@ const StyledListWrapper = styled.div`
 `;
 
 const StyledList = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
