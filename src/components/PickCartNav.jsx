@@ -18,20 +18,21 @@ function PickCartModal({ coEatList, noEatList, isOpen, toggleModal, onRemoveFood
           />
         )}
         <StyledCartNav>
-          <StyledUserProfile>
-            <ProfileIcon />
-            <span>유루리님</span>
-          </StyledUserProfile>
-          <StyledLine />
           <StyledCartInfo>
             <span>COEAT</span>
-            <span>{coEatList.length}</span>
+            <span>{coEatList.length}/5</span>
             <span>NOEAT</span>
-            <span>{noEatList.length}</span>
+            <span>{noEatList.length}/5</span>
           </StyledCartInfo>
           <StyledOpenModalBtn onClick={() => toggleModal(!isOpen)}>
             <CartlBtnIcon />
           </StyledOpenModalBtn>
+
+          <StyledUserProfile>
+            <StyledLine />
+            <ProfileIcon />
+            <span>유루리님</span>
+          </StyledUserProfile>
         </StyledCartNav>
       </StyledCartNavWrapper>
     </>
@@ -66,29 +67,29 @@ const StyledCartNav = styled.div`
 const StyledUserProfile = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  width: 50rem;
+  /* justify-content: center; */
 
   & > svg {
     width: 4.8rem;
   }
 
   & > span {
-    margin: 0 4rem 0 2.3rem;
+    margin-left: 2.3rem;
   }
 `;
 
 const StyledLine = styled.div`
   width: 0.2rem;
-  height: 70%;
+  height: 3.5rem;
   background-color: #585858;
-  margin-right: 4rem;
+  margin-right: 2rem;
 `;
 
 const StyledCartInfo = styled.div`
   display: flex;
   align-items: center;
   font-size: 2.4rem;
+  font-weight: bold;
   height: 100%;
 
   & > span + span {
@@ -102,8 +103,15 @@ const StyledCartInfo = styled.div`
 `;
 
 const StyledOpenModalBtn = styled.button`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 0;
   outline: 0;
   background-color: transparent;
-  margin-right: 42.2rem;
+  /* margin-right: 42.2rem; */
 `;
