@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import LogoImg from 'assets/logo.svg';
 import PickCartNav from 'components/PickCartNav';
 import FoodSelectionCard from 'components/FoodSelectionCard';
-import Search from 'assets/search.svg';
 import useAPI from 'cores/hooks/useAPI';
 import { colors } from 'constants/colors';
 import { MEAL_CATEGORIES, COFFEE_CATEGORIES } from 'constants/categories';
 import ReactModal from 'react-modal';
 import WarnModal, { modalStyles } from 'components/common/WarnModal';
+import { useNavigate } from 'react-router-dom';
 
 const COEAT = 'COEAT';
 const NOEAT = 'NOEAT';
@@ -17,6 +17,7 @@ const NOEAT = 'NOEAT';
 function PickPage() {
   const containerRef = useRef(null);
   const location = useLocation();
+  const navigator = useNavigate();
   const CURRENT_MODE = (location.state && location.state.selectedCard) || 'meal';
   const CATEGORIES = CURRENT_MODE === 'coffee' ? COFFEE_CATEGORIES : MEAL_CATEGORIES;
 
@@ -117,10 +118,12 @@ function PickPage() {
                 </div>
               ))}
             </StyledCategory>
-            <StyledSearch>
-              <input type="text" placeholder="검색하기" />
-              <img src={Search} alt="search" />
-            </StyledSearch>
+            <StyledResultBtn
+              onClick={() => {
+                navigator('/result');
+              }}>
+              완료하기
+            </StyledResultBtn>
           </StyledCategories>
         </StyledNav>
       </nav>
@@ -223,30 +226,15 @@ const StyledCategory = styled.div`
   }
 `;
 
-const StyledSearch = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 45.1rem;
-  height: 5.6rem;
-  background-color: ${colors.gray};
-  margin-bottom: 0.9rem;
-  border-radius: 1rem;
-
-  & > input {
-    background-color: ${colors.gray};
-    height: 2.4rem;
-    font-size: 2rem;
-    border: none;
-    outline: none;
-    margin-left: 2.9rem;
-    color: ${colors.orange};
-  }
-
-  & > img {
-    width: 2.1rem;
-    margin-right: 1.7rem;
-  }
+const StyledResultBtn = styled.button`
+  border: 0;
+  outline: 0;
+  background-color: #ff7a00;
+  width: 19.4rem;
+  height: 6.4rem;
+  font-size: 2.2rem;
+  font-weight: bolder;
+  color: white;
 `;
 
 const StyledSection = styled.div`

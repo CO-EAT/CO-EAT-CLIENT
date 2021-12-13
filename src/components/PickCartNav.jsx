@@ -2,12 +2,10 @@ import styled from 'styled-components';
 import { ReactComponent as ProfileIcon } from 'assets/profile.svg';
 import { ReactComponent as CartlBtnIcon } from 'assets/cartlBtn.svg';
 import CartModal from 'components/CartModal';
-import { useNavigate } from 'react-router-dom';
+
 import { colors } from 'constants/colors';
 
 function PickCartModal({ coEatList, noEatList, isOpen, toggleModal, onRemoveFood }) {
-  const navigator = useNavigate();
-
   return (
     <>
       <StyledCartNavWrapper>
@@ -34,12 +32,6 @@ function PickCartModal({ coEatList, noEatList, isOpen, toggleModal, onRemoveFood
           <StyledOpenModalBtn onClick={() => toggleModal(!isOpen)}>
             <CartlBtnIcon />
           </StyledOpenModalBtn>
-          <StyledResultBtn
-            onClick={() => {
-              navigator('/result');
-            }}>
-            결과 화면
-          </StyledResultBtn>
         </StyledCartNav>
       </StyledCartNavWrapper>
     </>
@@ -114,13 +106,4 @@ const StyledOpenModalBtn = styled.button`
   outline: 0;
   background-color: transparent;
   margin-right: 42.2rem;
-`;
-
-const StyledResultBtn = styled.button`
-  border: 0;
-  outline: 0;
-  background-color: ${colors.darkOrange};
-  width: 18em;
-  height: 4.9rem;
-  font-weight: bolder;
 `;
