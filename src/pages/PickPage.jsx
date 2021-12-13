@@ -72,6 +72,7 @@ function PickPage() {
   };
 
   const toggleModal = () => setIsOpen(!isOpen);
+  const toggleWarnModal = () => setRestrictModal(!restrictModal);
 
   const handleClick = (e) => {
     setSelectCtg(e.currentTarget.getAttribute('name'));
@@ -136,7 +137,7 @@ function PickPage() {
         toggleModal={toggleModal}
       />
       <ReactModal style={modalStyles} isOpen={restrictModal} onRequestClose={() => setRestrictModal(false)}>
-        <WarnModal restrictModal={restrictModal} setRestrictModal={setRestrictModal} checkType={checkType} />
+        <WarnModal toggleWarnModal={toggleWarnModal} checkType={checkType} />
       </ReactModal>
     </StyledContainer>
   );

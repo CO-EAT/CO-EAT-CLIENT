@@ -28,12 +28,12 @@ export const modalStyles = {
   },
 };
 
-const WarnModal = ({ restrictModal, setRestrictModal, checkType }) => {
+const WarnModal = ({ toggleWarnModal, checkType }) => {
   return (
     <StyledWrapper>
       <div>{checkType} 한도 초과</div>
       <div>{checkType}은 5개까지만 가능해요!</div>
-      <button onClick={() => setRestrictModal(!restrictModal)}>
+      <button onClick={() => toggleWarnModal()}>
         <span>확인</span>
       </button>
     </StyledWrapper>
