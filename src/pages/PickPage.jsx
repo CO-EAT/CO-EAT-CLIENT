@@ -9,8 +9,7 @@ import useAPI from 'cores/hooks/useAPI';
 import { colors } from 'constants/colors';
 import { MEAL_CATEGORIES, COFFEE_CATEGORIES } from 'constants/categories';
 import ReactModal from 'react-modal';
-import { modalStyles } from 'components/common/WarnModal';
-import WarnModal from 'components/common/WarnModal';
+import WarnModal, { modalStyles } from 'components/common/WarnModal';
 
 const COEAT = 'COEAT';
 const NOEAT = 'NOEAT';
@@ -52,13 +51,13 @@ function PickPage() {
       const setter = type === COEAT ? setCoEatList : setNoEatList;
 
       if (isDuplicatedFoodId(foodId, list)) return;
-      setter([...list, { id: foodId, name: foodName, img: foodImg }]);
 
-      if (list.length > 4) {
+      if (list.length >= 5) {
         setRestrictModal(true);
         setCheckType(list === coEatList ? '코잇' : '노잇');
-        setter(list.filter((el, idx) => idx < list.length));
+        return;
       }
+      setter([...list, { id: foodId, name: foodName, img: foodImg }]);
     };
   };
 
