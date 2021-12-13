@@ -1,11 +1,10 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { ReactComponent as ProfileIcon } from 'assets/profile.svg';
 import { ReactComponent as CartlBtnIcon } from 'assets/cartlBtn.svg';
 import CartModal from 'components/CartModal';
-
 import { colors } from 'constants/colors';
 
-function PickCartModal({ coEatList, noEatList, isOpen, toggleModal, onRemoveFood }) {
+function PickCartModal({ coEatList, noEatList, isOpen, toggleModal, onRemoveFood, navigator }) {
   return (
     <>
       <StyledCartNavWrapper>
@@ -24,14 +23,21 @@ function PickCartModal({ coEatList, noEatList, isOpen, toggleModal, onRemoveFood
             <span>NOEAT</span>
             <span>{noEatList.length}/5</span>
           </StyledCartInfo>
-          <StyledOpenModalBtn onClick={() => toggleModal(!isOpen)}>
+          <StyledOpenModalBtn onClick={() => toggleModal(!isOpen)} isOpen={isOpen}>
             <CartlBtnIcon />
+            <span>{isOpen ? '더 둘러보기' : '선택 목록보기'}</span>
           </StyledOpenModalBtn>
-
           <StyledUserProfile>
             <StyledLine />
             <ProfileIcon />
             <span>유루리님</span>
+            <StyledResultBtn
+              onClick={() => {
+                navigator('/result');
+              }}
+              isOpen={isOpen}>
+              완료하기
+            </StyledResultBtn>
           </StyledUserProfile>
         </StyledCartNav>
       </StyledCartNavWrapper>
@@ -102,16 +108,53 @@ const StyledCartInfo = styled.div`
   }
 `;
 
+const StyledResultBtn = styled.button`
+  ${(props) =>
+    props.isOpen
+      ? css`
+          display: '';
+        `
+      : css`
+          display: none;
+        `}
+  border: 0;
+  outline: 0;
+  background-color: #ff7a00;
+  width: 19.4rem;
+  height: 6.4rem;
+  font-size: 2.2rem;
+  font-weight: bolder;
+  color: white;
+  margin-left: 4.3rem;
+`;
+
 const StyledOpenModalBtn = styled.button`
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   border: 0;
   outline: 0;
   background-color: transparent;
-  /* margin-right: 42.2rem; */
+
+  & > svg {
+    ${(props) =>
+      props.isOpen
+        ? css`
+            transform: rotate(180deg);
+            order: 1;
+          `
+        : css`
+            transform: rotate(0);
+          `};
+    width: 2.6rem;
+  }
+
+  & > span {
+    color: #b3b3b3;
+    font-size: 2rem;
 `;

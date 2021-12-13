@@ -137,6 +137,7 @@ function PickPage() {
         containerRef={containerRef}
         isOpen={isOpen}
         toggleModal={toggleModal}
+        navigator={navigator}
       />
       <ReactModal style={modalStyles} isOpen={restrictModal} onRequestClose={() => setRestrictModal(false)}>
         <WarnModal toggleWarnModal={toggleWarnModal} checkType={checkType} />
@@ -171,7 +172,7 @@ const StyledContainer = styled.div`
   .ctgFoods {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 3rem;
+    gap: 2.65rem;
     margin-bottom: 10%;
   }
 `;
