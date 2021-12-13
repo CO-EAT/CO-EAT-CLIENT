@@ -33,9 +33,9 @@ const WarnModal = ({ restrictModal, setRestrictModal, checkType }) => {
     <StyledWrapper>
       <div>{checkType} 한도 초과</div>
       <div>{checkType}은 5개까지만 가능해요!</div>
-      <div onClick={() => setRestrictModal(!restrictModal)}>
+      <button onClick={() => setRestrictModal(!restrictModal)}>
         <span>확인</span>
-      </div>
+      </button>
     </StyledWrapper>
   );
 };
@@ -60,13 +60,11 @@ const StyledWrapper = styled.div`
     margin-bottom: 4rem;
   }
 
-  & > div:last-child {
+  & > button {
     width: 16.3rem;
     height: 5.8rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background-color: #ff7a00;
+    border: none;
     font-size: 2.2rem;
     color: white;
     font-weight: 700;
