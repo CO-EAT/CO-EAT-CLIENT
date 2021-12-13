@@ -3,7 +3,7 @@ import { ReactComponent as Sticker } from 'assets/sticker.svg';
 import { ReactComponent as GoIcon } from 'assets/go.svg';
 import CloseImg from 'assets/close.png';
 import { StyledContainer, StyledMainHeader, StyledTitle, StyledContent, StyledMainButton } from 'pages/MainPage';
-import { StyledAlertBox } from 'pages/HostPage';
+import { StyledAlertBox } from 'components/LinkCopy';
 import styled from 'styled-components';
 import { colors } from 'constants/colors';
 import { useEffect, useRef, useState } from 'react';
