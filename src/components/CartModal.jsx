@@ -4,10 +4,18 @@ import PickedCard from 'components/PickedCard';
 const COEAT = 'COEAT';
 const NOEAT = 'NOEAT';
 
-function CartModal({ coEatList, noEatList, toggleModal }) {
+function CartModal({ coEatList, noEatList, onRemoveFood, toggleModal }) {
+  const getFoodInfo = (foodInfoList) => {
+    return {
+      name: foodInfoList.name,
+      img: foodInfoList.img,
+      id: foodInfoList.id,
+    };
+  };
+
   return (
     <StyledCartWrapper>
-      <CloseButton onClick={() => toggleModal(false)}>X</CloseButton>
+      <CloseButton onClick={toggleModal}>X</CloseButton>
       <StyledListWrapper COEAT>
         <div>
           <StyledTitle>
@@ -18,7 +26,12 @@ function CartModal({ coEatList, noEatList, toggleModal }) {
         </div>
         <StyledList>
           {coEatList.map((coEatFood) => (
-            <PickedCard type={COEAT} name={coEatFood.name} img={coEatFood.img} key={coEatFood.id} />
+            <PickedCard
+              type={COEAT}
+              foodInfo={getFoodInfo(coEatFood)}
+              key={coEatFood.id}
+              onRemoveFood={onRemoveFood(COEAT)}
+            />
           ))}
         </StyledList>
       </StyledListWrapper>
@@ -32,7 +45,12 @@ function CartModal({ coEatList, noEatList, toggleModal }) {
         </div>
         <StyledList>
           {noEatList.map((noEatFood) => (
-            <PickedCard type={NOEAT} name={noEatFood.name} img={noEatFood.img} key={noEatFood.id} />
+            <PickedCard
+              type={NOEAT}
+              foodInfo={getFoodInfo(noEatFood)}
+              key={noEatFood.id}
+              onRemoveFood={onRemoveFood(NOEAT)}
+            />
           ))}
         </StyledList>
       </StyledListWrapper>
@@ -46,7 +64,7 @@ const StyledCartWrapper = styled.div`
   display: flex;
   position: absolute;
   bottom: 9.2rem;
-  height: 85rem;
+  height: 107rem;
   width: 100%;
   background-color: #f4f5f6;
   font-size: 8rem;
@@ -101,7 +119,7 @@ const StyledListWrapper = styled.div`
 `;
 
 const StyledList = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
