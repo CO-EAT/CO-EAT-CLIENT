@@ -1,14 +1,16 @@
 import styled, { css } from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { ReactComponent as ProfileIcon } from 'assets/profile.svg';
 import { ReactComponent as CartlBtnIcon } from 'assets/cartlBtn.svg';
 import CartModal from 'components/CartModal';
 import { colors } from 'constants/colors';
 
-function PickCartModal({ coEatList, noEatList, isOpen, toggleModal, onRemoveFood, navigator }) {
+function PickCartModal({ coEatList, noEatList, isCartOpen, toggleModal, onRemoveFood }) {
+  const navigator = useNavigate();
   return (
     <>
       <StyledCartNavWrapper>
-        {isOpen && (
+        {isCartOpen && (
           <CartModal
             coEatList={coEatList}
             noEatList={noEatList}
@@ -23,20 +25,16 @@ function PickCartModal({ coEatList, noEatList, isOpen, toggleModal, onRemoveFood
             <span>NOEAT</span>
             <span>{noEatList.length}/5</span>
           </StyledCartInfo>
-          <StyledOpenModalBtn onClick={() => toggleModal(!isOpen)} isOpen={isOpen}>
+          <StyledOpenModalBtn onClick={toggleModal} isOpen={isCartOpen}>
             <CartlBtnIcon />
-            <span>{isOpen ? '더 둘러보기' : '선택 목록보기'}</span>
+            <span>{isCartOpen ? '더 둘러보기' : '선택 목록보기'}</span>
           </StyledOpenModalBtn>
           <StyledUserProfile>
             <StyledLine />
             <ProfileIcon />
             <span>유루리님</span>
-            {isOpen && (
-              <StyledResultBtn
-                onClick={() => {
-                  navigator('/result');
-                }}
-                isOpen={isOpen}>
+            {isCartOpen && (
+              <StyledResultBtn onClick={() => navigator('/result')} isOpen={isCartOpen}>
                 완료하기
               </StyledResultBtn>
             )}
@@ -151,4 +149,5 @@ const StyledOpenModalBtn = styled.button`
   & > span {
     color: #b3b3b3;
     font-size: 2rem;
+  }
 `;

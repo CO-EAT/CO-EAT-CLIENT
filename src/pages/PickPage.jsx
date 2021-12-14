@@ -1,12 +1,11 @@
 import { useState, useRef, useCallback } from 'react';
-import { useLocation } from 'react-router';
 import styled from 'styled-components';
 import LogoImg from 'assets/logo.svg';
 import PickCartNav from 'components/PickCartNav';
 import FoodSelectionCard from 'components/FoodSelectionCard';
 import useAPI from 'cores/hooks/useAPI';
 import { colors } from 'constants/colors';
-import { MEAL_CATEGORIES, COFFEE_CATEGORIES } from 'constants/categories';
+import { MEAL_CATEGORIES } from 'constants/categories';
 import ReactModal from 'react-modal';
 import WarnModal, { modalStyles } from 'components/common/WarnModal';
 import { useNavigate } from 'react-router-dom';
@@ -16,21 +15,17 @@ const NOEAT = 'NOEAT';
 
 function PickPage() {
   const containerRef = useRef(null);
-  const location = useLocation();
   const navigator = useNavigate();
-  const CURRENT_MODE = (location.state && location.state.selectedCard) || 'meal';
-  const CATEGORIES = CURRENT_MODE === 'coffee' ? COFFEE_CATEGORIES : MEAL_CATEGORIES;
-
   const { data, loading } = useAPI({
     method: 'GET',
-    url: `/${CURRENT_MODE}`,
+    url: `/meal`,
   });
 
-  const [selectCtg, setSelectCtg] = useState(CATEGORIES[0]);
+  const [selectCtg, setSelectCtg] = useState(MEAL_CATEGORIES[0]);
   const [coEatList, setCoEatList] = useState([]);
   const [noEatList, setNoEatList] = useState([]);
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const [restrictModal, setRestrictModal] = useState(false);
   const [checkType, setCheckType] = useState('');
 
@@ -71,7 +66,7 @@ function PickPage() {
     };
   };
 
-  const toggleModal = () => setIsOpen(!isOpen);
+  const toggleModal = () => setIsCartOpen(!isCartOpen);
   const toggleWarnModal = () => setRestrictModal(!restrictModal);
 
   const handleClick = (e) => {
@@ -100,7 +95,7 @@ function PickPage() {
   };
 
   return (
-    <StyledContainer ref={containerRef} isOpen={isOpen}>
+    <StyledContainer ref={containerRef} isCartOpen={isCartOpen}>
       <nav>
         <StyledNav>
           <StyledTitle>
@@ -108,7 +103,7 @@ function PickPage() {
           </StyledTitle>
           <StyledCategories>
             <StyledCategory>
-              {CATEGORIES.map((category, idx) => (
+              {MEAL_CATEGORIES.map((category, idx) => (
                 <div
                   onClick={handleClick}
                   name={category}
@@ -118,12 +113,7 @@ function PickPage() {
                 </div>
               ))}
             </StyledCategory>
-            <StyledResultBtn
-              onClick={() => {
-                navigator('/result');
-              }}>
-              완료하기
-            </StyledResultBtn>
+            <StyledResultBtn onClick={() => navigator('/result')}>완료하기</StyledResultBtn>
           </StyledCategories>
         </StyledNav>
       </nav>
@@ -135,9 +125,8 @@ function PickPage() {
         noEatList={noEatList}
         onRemoveFood={removeFoodFromList}
         containerRef={containerRef}
-        isOpen={isOpen}
+        isCartOpen={isCartOpen}
         toggleModal={toggleModal}
-        navigator={navigator}
       />
       <ReactModal style={modalStyles} isOpen={restrictModal} onRequestClose={() => setRestrictModal(false)}>
         <WarnModal toggleWarnModal={toggleWarnModal} checkType={checkType} />
@@ -152,7 +141,7 @@ const StyledContainer = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
-  overflow: ${(prop) => (prop.isOpen ? 'hidden' : 'auto')};
+  overflow: ${(prop) => (prop.isCartOpen ? 'hidden' : 'auto')};
   scroll-behavior: smooth;
 
   & > nav {

@@ -15,7 +15,7 @@ function CartModal({ coEatList, noEatList, onRemoveFood, toggleModal }) {
 
   return (
     <StyledCartWrapper>
-      <CloseButton onClick={() => toggleModal(false)}>X</CloseButton>
+      <CloseButton onClick={toggleModal}>X</CloseButton>
       <StyledListWrapper COEAT>
         <div>
           <StyledTitle>
