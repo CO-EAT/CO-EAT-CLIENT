@@ -326,5 +326,39 @@
       "content": "마 니 감자 무봤나",
       "img": "food/감자탕.jpeg"
     }
-  ]
+  ],
+  "result": {
+    "mostCoeatMenuName": "돈가스",
+    "mostCoeatMenuImg": "food/치즈카츠.jpeg",
+    "mostCoeatCount": 6,
+    "mostNoeatCount": 4,
+    "lessNoeatMenuName": "마라탕",
+    "lessNoeatMenuImg": "food/마라탕.jpeg",
+    "lessCoeatCount": 3,
+    "lessNoeatCount": 0,
+    "resultList" : [
+      {
+        "nickName": "아이유",
+        "likedMenu": ["스파게티", "국밥", "김치찌개"],
+        "unlikedMenu": ["밥", "국", "반찬"]
+      },
+      {
+        "nickName": "옥택연",
+        "likedMenu": ["동그랑땡", "밥", "콩"],
+        "unlikedMenu": ["밥", "국", "반찬"]
+      },
+      {
+        "nickName": "라랄루",
+        "likedMenu": ["마라샹궈", "국밥", "김치찌개"],
+        "unlikedMenu": ["밥", "국", "닭발"]
+      },
+      {
+        "nickName": "자이언티",
+        "likedMenu": ["회전목마", "국밥", "빙빙"],
+        "unlikedMenu": ["밥", "국", "반찬"]
+      }
+    ],
+    "peopleCount": 6,
+    "isHost": true
+  }
 }

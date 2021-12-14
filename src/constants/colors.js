@@ -8,4 +8,6 @@ export const colors = {
   grayText: '#989898',
   white: '#FFFFFF',
   cardBorder: '#dddddd',
+  noEatProgress: '#909090',
+  subText: '#666666',
 };

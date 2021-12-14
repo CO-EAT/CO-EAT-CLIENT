@@ -10,6 +10,9 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
 
     font-size: 40%;
+    @media screen and (min-width: 1920px) {
+      font-size: 62.5%;
+    }
 
     scroll-behavior: smooth;
   }
