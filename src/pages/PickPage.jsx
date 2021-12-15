@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useMemo } from 'react';
 import styled from 'styled-components';
 import LogoImg from 'assets/logo.svg';
 import PickCartNav from 'components/PickCartNav';
@@ -29,15 +29,14 @@ function PickPage() {
   const [restrictModal, setRestrictModal] = useState(false);
   const [checkType, setCheckType] = useState('');
 
-  const reduceDataByCategory = useCallback(
-    () =>
-      data.reduce((acc, cur) => {
-        if (!acc[cur.category]) acc[cur.category] = [];
-        acc[cur.category].push(cur);
-        return acc;
-      }, {}),
-    [data],
-  );
+  const reduceDataByCategory = useMemo(() => {
+    if (!data) return {};
+    return data.reduce((acc, cur) => {
+      if (!acc[cur.category]) acc[cur.category] = [];
+      acc[cur.category].push(cur);
+      return acc;
+    }, {});
+  }, [data]);
 
   const isDuplicatedFoodId = (foodId, list) => new Set(list.map((elem) => elem.id)).has(foodId);
 
@@ -75,9 +74,8 @@ function PickPage() {
 
   const showFoods = () => {
     if (!(data && !loading)) return null;
-    const reducedDataByCategory = reduceDataByCategory();
 
-    return Object.entries(reducedDataByCategory).map(([foodCategory, foodInfo]) => (
+    return Object.entries(reduceDataByCategory).map(([foodCategory, foodInfo]) => (
       <>
         <span id={foodCategory} className="toBeScroll" />
         <header>{foodCategory}</header>
