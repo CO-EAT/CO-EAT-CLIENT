@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
 
     font-size: 40%;
 
-    @media screen and (min-width: 1920px) {
+    @media screen and (min-width: 1921px) {
       font-size: 62.5%;
     }
   }

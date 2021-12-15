@@ -79,7 +79,8 @@ function PickPage() {
 
     return Object.entries(reducedDataByCategory).map(([foodCategory, foodInfo]) => (
       <>
-        <header id={foodCategory}>{foodCategory}</header>
+        <span id={foodCategory} className="toBeScroll" />
+        <header>{foodCategory}</header>
         <div className="ctgFoods">
           {foodInfo.map((food) => (
             <FoodSelectionCard
@@ -150,6 +151,11 @@ const StyledContainer = styled.div`
     justify-content: center;
     width: 100%;
     height: 26rem;
+
+    position: sticky;
+    z-index: 1004;
+    top: 0;
+    background-color: white;
   }
 
   & > section {
@@ -185,6 +191,7 @@ const StyledCategories = styled.div`
   justify-content: space-between;
   align-items: center;
   border-bottom: 0.1rem solid ${colors.gray};
+  background-color: white;
 `;
 
 const StyledCategory = styled.div`
@@ -236,5 +243,12 @@ const StyledSection = styled.div`
 
   & > header {
     margin-bottom: 2.1rem;
+  }
+
+  & .toBeScroll {
+    display: block;
+    height: calc(26rem + 2.4rem);
+    margin-top: calc(-26rem - 2.4rem);
+    visibility: hidden;
   }
 `;

@@ -64,7 +64,7 @@ const StyledCartWrapper = styled.div`
   display: flex;
   position: absolute;
   bottom: 9.2rem;
-  height: 107rem;
+  height: calc(100vh - 26rem - 9.2rem - 1.5rem);
   width: 100%;
   background-color: #f4f5f6;
   font-size: 8rem;
