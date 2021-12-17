@@ -7,7 +7,7 @@ import { StyledAlertBox } from 'components/LinkCopy';
 import styled from 'styled-components';
 import { colors } from 'constants/colors';
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import anime from 'animejs/lib/anime.es.js';
 
 const Setting = () => {
@@ -16,6 +16,8 @@ const Setting = () => {
   const [isTextEmpty, setIsTextEmpty] = useState(false);
   const [isMaxLength, setIsMaxLength] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const isHost = location.state;
   const outerInputRef = useRef();
   const innerInputRef = useRef();
   const warnRefs = useRef(outerInputRef, innerInputRef);
@@ -81,7 +83,11 @@ const Setting = () => {
 
     if (isUserValid()) {
       setUser('');
-      navigate('/pick');
+      if (isHost) {
+        navigate('/create');
+      } else {
+        navigate('/pick');
+      }
     } else {
       warnRefs.current.forEach((a) => a.restart());
       setIsMaxLength(true);

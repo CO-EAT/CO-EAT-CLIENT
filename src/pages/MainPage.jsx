@@ -29,9 +29,9 @@ const MainPage = () => {
 
   const handleClick = () => {
     if (isHost) {
-      navigate('/create');
+      navigate('/setting', { state: isHost });
     } else {
-      navigate('/setting');
+      navigate('/setting', { state: isHost });
     }
   };
 

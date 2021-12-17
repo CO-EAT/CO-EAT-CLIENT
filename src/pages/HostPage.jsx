@@ -12,7 +12,7 @@ const HostPage = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/setting');
+    navigate('/pick');
   };
 
   //   색종이를 랜덤으로 출력
