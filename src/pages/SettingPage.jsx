@@ -9,6 +9,7 @@ import { colors } from 'constants/colors';
 import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import anime from 'animejs/lib/anime.es.js';
+import { client } from 'libs/api';
 
 const Setting = () => {
   const [isFocus, setIsFocus] = useState(false);
@@ -17,7 +18,8 @@ const Setting = () => {
   const [isMaxLength, setIsMaxLength] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const isHost = location.state;
+  const isHost = location.state[0];
+  const inviteCode = location.state[1];
   const outerInputRef = useRef();
   const innerInputRef = useRef();
   const warnRefs = useRef(outerInputRef, innerInputRef);
@@ -59,6 +61,16 @@ const Setting = () => {
     ];
   }, []);
 
+  const createUser = async () => {
+    if (isHost) {
+      //Host 유저 생성
+      const hostUser = await client.post(`/group`, { hostName: user });
+      return hostUser.data.data[0].inviteCode;
+    } else {
+      // 일반 유저 생성
+      await client.post(`/user/${inviteCode}`, { nickname: user });
+    }
+  };
   //   maxLength가 적용되지 않는 경우를 위한 filter
   const isUserValid = () => {
     return !isTextEmpty && !isMaxLength;
@@ -74,7 +86,7 @@ const Setting = () => {
     setUser(e.target.value);
   };
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     if (!user) {
       warnRefs.current.forEach((a) => a.restart());
       setIsTextEmpty(true);
@@ -82,12 +94,16 @@ const Setting = () => {
     }
 
     if (isUserValid()) {
-      setUser('');
       if (isHost) {
-        navigate('/create');
+        // Host 유저를 생성한다.
+        const newInviteCode = await createUser();
+        navigate('/create', { state: newInviteCode });
       } else {
+        // 일반 유저 생성
+        await createUser();
         navigate('/pick');
       }
+      setUser('');
     } else {
       warnRefs.current.forEach((a) => a.restart());
       setIsMaxLength(true);

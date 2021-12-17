@@ -5,11 +5,13 @@ import CheckImg from 'assets/check.png';
 import Papers from 'assets/img/index';
 import { StyledContainer, StyledMainHeader, StyledTitle, StyledContent, StyledMainButton } from 'pages/MainPage';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import LinkCopy from 'components/LinkCopy';
 
 const HostPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const inviteCode = location.state;
 
   const handleClick = () => {
     navigate('/pick');
@@ -43,7 +45,7 @@ const HostPage = () => {
           <p className="small">식사메뉴를 함께 정해보세요!</p>
         </CustomStyledContent>
       </StyledMainHeader>
-      <LinkCopy />
+      <LinkCopy inviteCode={inviteCode} />
       <CustomStyledMainButton onClick={handleClick}>
         <span>Let`s COEAT!</span>
         <GoIcon />
