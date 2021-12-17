@@ -67,7 +67,7 @@ const Setting = () => {
   const handleChange = (e) => {
     setIsMaxLength(false);
 
-    if (e.target.value.length >= 5) {
+    if (e.target.value.length > 5) {
       setIsMaxLength(true);
     }
     setIsTextEmpty(false);
@@ -110,7 +110,6 @@ const Setting = () => {
       <StyledInput isFocus={isFocus} ref={outerInputRef}>
         <input
           type="text"
-          maxLength="5"
           placeholder="코잇쟁이"
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
