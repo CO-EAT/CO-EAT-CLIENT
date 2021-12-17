@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export const client = axios.create({
-  baseURL: 'http://localhost:4000',
+  baseURL: 'https://asia-northeast3-co-eat-server.cloudfunctions.net/api',
 });
