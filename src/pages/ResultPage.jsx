@@ -32,10 +32,10 @@ function ResultPage() {
 
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
 
-  const toggleTooltip = () => setIsTooltipOpen(!isTooltipOpen);
+  const openTooltip = () => setIsTooltipOpen(true);
   const closeTooltip = () => setIsTooltipOpen(false);
 
-  if (!data) {
+  if (!data || loading) {
     return (
       <Container>
         <Loader />
@@ -60,7 +60,7 @@ function ResultPage() {
       <SecondaryResult>
         더 많은 사람이 함께할 수 있는 <b>{data.lessNoeatMenuName}</b> 어떠세요?
         <StyledTooltip>
-          <TooltipBtn onClick={toggleTooltip}>
+          <TooltipBtn onMouseEnter={openTooltip} onMouseLeave={closeTooltip}>
             <Tooltip />
           </TooltipBtn>
           {isTooltipOpen && (
