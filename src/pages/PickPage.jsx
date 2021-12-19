@@ -83,8 +83,8 @@ function PickPage() {
           {foodInfo.map((food) => (
             <FoodSelectionCard
               key={food.id}
-              addCoEat={addFoodToList(COEAT)}
-              addNoEat={addFoodToList(NOEAT)}
+              addCoEat={isDuplicatedFoodId(food.id, coEatList) ? removeFoodFromList(COEAT) : addFoodToList(COEAT)}
+              addNoEat={isDuplicatedFoodId(food.id, noEatList) ? removeFoodFromList(NOEAT) : addFoodToList(NOEAT)}
               data={food}
             />
           ))}
