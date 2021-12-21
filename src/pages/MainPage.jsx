@@ -39,7 +39,7 @@ const MainPage = () => {
         navigate('/setting', { state: [isHost, inviteCode] });
       } else {
         // 링크가 유효하지 않은 경우
-        alert('유효하지 않은 링크입니다.');
+        navigate('/error');
       }
     }
   };

@@ -14,7 +14,7 @@ export const requestEnterGroup = async (inviteCode) => {
       isDeleted = group.data.data[0].isDeleted;
     } else {
       // 초대코드가 존재하지 않은 경우
-      console.log('존재하지 않는 초대코드 입니다!');
+      alert('유효하지 않은 주소입니다!');
     }
     return isDeleted;
   } catch (error) {

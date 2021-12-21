@@ -4,6 +4,7 @@ import PickPage from 'pages/PickPage';
 import ResultPage from 'pages/ResultPage';
 import HostPage from 'pages/HostPage';
 import SettingPage from 'pages/SettingPage';
+import NonExistLinkPage from 'pages/NonExistLinkPage';
 
 function Router() {
   return (
@@ -14,6 +15,7 @@ function Router() {
         <Route path="/setting" element={<SettingPage />} />
         <Route path="/pick" element={<PickPage />} />
         <Route path="/result" element={<ResultPage />} />
+        <Route path="/error" element={<NonExistLinkPage />} />
       </Routes>
     </BrowserRouter>
   );
