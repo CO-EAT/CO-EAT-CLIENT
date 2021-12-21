@@ -10,7 +10,6 @@ function Router() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/inviteCode:id" element={<MainPage />} />
         <Route path="/create" element={<HostPage />} />
         <Route path="/setting" element={<SettingPage />} />
         <Route path="/pick" element={<PickPage />} />
