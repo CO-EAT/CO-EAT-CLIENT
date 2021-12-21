@@ -5,7 +5,7 @@ import CloseImg from 'assets/close.png';
 
 const LinkCopy = ({ inviteCode }) => {
   const [copySuccess, setCopySuccess] = useState(false);
-  const coeatLink = `www.coeat.com/inviteCode=${inviteCode}`;
+  const coeatLink = window.location.origin + `/?inviteCode=${inviteCode}`;
   const linkRef = useRef();
 
   const handleCopy = () => {
