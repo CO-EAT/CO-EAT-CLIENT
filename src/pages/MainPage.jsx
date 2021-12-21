@@ -8,10 +8,12 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
 import { requestEnterGroup } from 'libs/api';
+import useRoomInfo from 'cores/hooks/useRoomInfo';
 
 const MainPage = () => {
   const [isHost, setIsHost] = useState(false);
   const [searchParams] = useSearchParams();
+  const { setInviteCode, setUserInfo } = useRoomInfo();
 
   const navigate = useNavigate();
   let inviteCode; // ** 테스트용 사용가능한 초대 코드 :  2F0-JV, wZ-GL- **
@@ -30,13 +32,22 @@ const MainPage = () => {
   };
 
   const handleClick = async () => {
+    setInviteCode({
+      inviteCode,
+    });
+
+    setUserInfo({
+      nickname: '',
+      isHost: isHost,
+    });
+
     if (isHost) {
-      navigate('/setting', { state: [isHost, inviteCode] });
+      navigate('/setting');
     } else {
       // 일반 참가자로 참여한 경우, 링크의 유효성 검사를 진행한다.
       if (!(await requestEnterGroup(inviteCode))) {
         // 링크가 유효한 경우, 다음 페이지로 이동
-        navigate('/setting', { state: [isHost, inviteCode] });
+        navigate('/setting');
       } else {
         // 링크가 유효하지 않은 경우
         navigate('/error');

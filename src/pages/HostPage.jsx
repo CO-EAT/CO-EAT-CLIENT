@@ -7,13 +7,20 @@ import { StyledContainer, StyledMainHeader, StyledTitle, StyledContent, StyledMa
 import styled from 'styled-components';
 import { useLocation, useNavigate } from 'react-router';
 import LinkCopy from 'components/LinkCopy';
+import useRoomInfo from 'cores/hooks/useRoomInfo';
 
 const HostPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const inviteCode = location.state;
+  const { roomState, setInviteCode } = useRoomInfo();
 
   const handleClick = () => {
+    setInviteCode({
+      inviteCode: inviteCode,
+      userInfo: roomState.userInfo,
+    });
+
     navigate('/pick');
   };
 

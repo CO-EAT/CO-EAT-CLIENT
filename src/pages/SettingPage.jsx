@@ -7,9 +7,10 @@ import { StyledAlertBox } from 'components/LinkCopy';
 import styled from 'styled-components';
 import { colors } from 'constants/colors';
 import { useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import anime from 'animejs/lib/anime.es.js';
 import { client } from 'libs/api';
+import useRoomInfo from 'cores/hooks/useRoomInfo';
 
 const Setting = () => {
   const [isFocus, setIsFocus] = useState(false);
@@ -17,12 +18,12 @@ const Setting = () => {
   const [isTextEmpty, setIsTextEmpty] = useState(false);
   const [isMaxLength, setIsMaxLength] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
-  const isHost = location.state[0];
-  const inviteCode = location.state[1];
   const outerInputRef = useRef();
   const innerInputRef = useRef();
   const warnRefs = useRef(outerInputRef, innerInputRef);
+  const { roomState, setUserInfo } = useRoomInfo();
+  const isHost = roomState.userInfo.isHost;
+  const inviteCode = roomState.inviteCode;
 
   useEffect(() => {
     // input 미입력시, shake animation
@@ -97,6 +98,11 @@ const Setting = () => {
     }
 
     if (isUserValid()) {
+      setUserInfo({
+        nickname: user,
+        isHost: isHost,
+      });
+
       if (isHost) {
         // Host 유저를 생성한다.
         const newInviteCode = await createUser();

@@ -1,4 +1,4 @@
-import { StyledContainer, StyledMainHeader, StyledTitle, StyledContent, StyledMainButton } from 'pages/MainPage';
+import { StyledContainer, StyledMainHeader, StyledTitle, StyledMainButton } from 'pages/MainPage';
 import { ReactComponent as Coeat } from 'assets/logo.svg';
 import { ReactComponent as Sticker } from 'assets/sticker.svg';
 import Announcement from 'assets/announcement.jpg';
