@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useMemo } from 'react';
 import styled from 'styled-components';
 import LogoImg from 'assets/logo.svg';
 import PickCartNav from 'components/PickCartNav';
@@ -29,15 +29,14 @@ function PickPage() {
   const [restrictModal, setRestrictModal] = useState(false);
   const [checkType, setCheckType] = useState('');
 
-  const reduceDataByCategory = useCallback(
-    () =>
-      data.reduce((acc, cur) => {
-        if (!acc[cur.category]) acc[cur.category] = [];
-        acc[cur.category].push(cur);
-        return acc;
-      }, {}),
-    [data],
-  );
+  const reduceDataByCategory = useMemo(() => {
+    if (!data) return {};
+    return data.reduce((acc, cur) => {
+      if (!acc[cur.category]) acc[cur.category] = [];
+      acc[cur.category].push(cur);
+      return acc;
+    }, {});
+  }, [data]);
 
   const isDuplicatedFoodId = (foodId, list) => new Set(list.map((elem) => elem.id)).has(foodId);
 
@@ -75,11 +74,11 @@ function PickPage() {
 
   const showFoods = () => {
     if (!(data && !loading)) return null;
-    const reducedDataByCategory = reduceDataByCategory();
 
-    return Object.entries(reducedDataByCategory).map(([foodCategory, foodInfo]) => (
+    return Object.entries(reduceDataByCategory).map(([foodCategory, foodInfo]) => (
       <>
-        <header id={foodCategory}>{foodCategory}</header>
+        <span id={foodCategory} className="toBeScroll" />
+        <header>{foodCategory}</header>
         <div className="ctgFoods">
           {foodInfo.map((food) => (
             <FoodSelectionCard
@@ -150,6 +149,11 @@ const StyledContainer = styled.div`
     justify-content: center;
     width: 100%;
     height: 26rem;
+
+    position: sticky;
+    z-index: 1004;
+    top: 0;
+    background-color: white;
   }
 
   & > section {
@@ -185,6 +189,7 @@ const StyledCategories = styled.div`
   justify-content: space-between;
   align-items: center;
   border-bottom: 0.1rem solid ${colors.gray};
+  background-color: white;
 `;
 
 const StyledCategory = styled.div`
@@ -236,5 +241,12 @@ const StyledSection = styled.div`
 
   & > header {
     margin-bottom: 2.1rem;
+  }
+
+  & .toBeScroll {
+    display: block;
+    height: calc(26rem + 2.4rem);
+    margin-top: calc(-26rem - 2.4rem);
+    visibility: hidden;
   }
 `;

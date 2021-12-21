@@ -8,40 +8,33 @@ import { colors } from 'constants/colors';
 function PickCartModal({ coEatList, noEatList, isCartOpen, toggleModal, onRemoveFood }) {
   const navigator = useNavigate();
   return (
-    <>
-      <StyledCartNavWrapper>
-        {isCartOpen && (
-          <CartModal
-            coEatList={coEatList}
-            noEatList={noEatList}
-            onRemoveFood={onRemoveFood}
-            toggleModal={toggleModal}
-          />
-        )}
-        <StyledCartNav>
-          <StyledCartInfo>
-            <span>COEAT</span>
-            <span>{coEatList.length}/5</span>
-            <span>NOEAT</span>
-            <span>{noEatList.length}/5</span>
-          </StyledCartInfo>
-          <StyledOpenModalBtn onClick={toggleModal} isOpen={isCartOpen}>
-            <CartlBtnIcon />
-            <span>{isCartOpen ? '더 둘러보기' : '선택 목록보기'}</span>
-          </StyledOpenModalBtn>
-          <StyledUserProfile>
-            <StyledLine />
-            <ProfileIcon />
-            <span>유루리님</span>
-            {isCartOpen && (
-              <StyledResultBtn onClick={() => navigator('/result')} isOpen={isCartOpen}>
-                완료하기
-              </StyledResultBtn>
-            )}
-          </StyledUserProfile>
-        </StyledCartNav>
-      </StyledCartNavWrapper>
-    </>
+    <StyledCartNavWrapper>
+      {isCartOpen && (
+        <CartModal coEatList={coEatList} noEatList={noEatList} onRemoveFood={onRemoveFood} toggleModal={toggleModal} />
+      )}
+      <StyledCartNav>
+        <StyledCartInfo>
+          <span>COEAT</span>
+          <span>{coEatList.length}/5</span>
+          <span>NOEAT</span>
+          <span>{noEatList.length}/5</span>
+        </StyledCartInfo>
+        <StyledOpenModalBtn onClick={toggleModal} isOpen={isCartOpen}>
+          <CartlBtnIcon />
+          <span>{isCartOpen ? '더 둘러보기' : '선택 목록보기'}</span>
+        </StyledOpenModalBtn>
+        <StyledUserProfile>
+          <StyledLine />
+          <ProfileIcon />
+          <span>유루리님</span>
+          {isCartOpen && (
+            <StyledResultBtn onClick={() => navigator('/result')} isOpen={isCartOpen}>
+              완료하기
+            </StyledResultBtn>
+          )}
+        </StyledUserProfile>
+      </StyledCartNav>
+    </StyledCartNavWrapper>
   );
 }
 
@@ -58,7 +51,6 @@ const StyledCartNavWrapper = styled.div`
   background-color: #000;
   color: #fff;
   font-size: 2rem;
-  border-bottom: 3px solid black;
 `;
 
 const StyledCartNav = styled.div`
@@ -73,7 +65,6 @@ const StyledCartNav = styled.div`
 const StyledUserProfile = styled.div`
   display: flex;
   align-items: center;
-  /* justify-content: center; */
 
   & > svg {
     width: 4.8rem;
