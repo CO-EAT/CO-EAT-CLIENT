@@ -59,6 +59,9 @@ const Setting = () => {
         autoplay: false,
       }),
     ];
+    return () => {
+      warnRefs.current = null;
+    };
   }, []);
 
   const createUser = async () => {
