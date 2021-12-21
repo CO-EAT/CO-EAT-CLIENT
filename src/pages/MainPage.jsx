@@ -7,7 +7,7 @@ import { ReactComponent as GoIcon } from 'assets/go.svg';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
-import { client } from 'libs/api';
+import { requestEnterGroup } from 'libs/api';
 
 const MainPage = () => {
   const [isHost, setIsHost] = useState(false);
@@ -19,20 +19,7 @@ const MainPage = () => {
   useEffect(() => {
     inviteCode = searchParams.get('inviteCode');
     if (!inviteCode) setIsHost(true); // host인 경우
-    // if (!inviteCode) setIsHost(false); // host가 아닌 경우 테스트
   }, []);
-
-  // 현재 사용가능한 초대링크(혹은 그룹)인지 확인하는 함수
-  const isGroupValid = async () => {
-    const group = await client.get(`/group/${inviteCode}`);
-
-    if (group.data.data.length > 0) {
-      return group.data.data[0].isDeleted;
-    } else {
-      // 초대코드가 존재하지 않은 경우
-      console.log('존재하지 않는 초대코드 입니다!');
-    }
-  };
 
   const SetButtonValue = () => {
     if (isHost) {
@@ -42,12 +29,12 @@ const MainPage = () => {
     }
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (isHost) {
       navigate('/setting', { state: [isHost, inviteCode] });
     } else {
       // 일반 참가자로 참여한 경우, 링크의 유효성 검사를 진행한다.
-      if (isGroupValid()) {
+      if (!(await requestEnterGroup(inviteCode))) {
         // 링크가 유효한 경우, 다음 페이지로 이동
         navigate('/setting', { state: [isHost, inviteCode] });
       } else {
