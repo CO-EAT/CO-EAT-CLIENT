@@ -1,9 +1,10 @@
 import { useRef, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import CopyImg from 'assets/insert_link.png';
 import CloseImg from 'assets/close.png';
 
-const LinkCopy = ({ inviteCode }) => {
+
+const LinkCopy = ({ inviteCode, removeStyle = false }) => {
   const [copySuccess, setCopySuccess] = useState(false);
   const coeatLink = window.location.origin + `/?inviteCode=${inviteCode}`;
   const linkRef = useRef();
@@ -23,13 +24,13 @@ const LinkCopy = ({ inviteCode }) => {
   };
   return (
     <>
-      <StyledLinkContainer>
+      <StyledLinkContainer removeStyle={removeStyle}>
         <input ref={linkRef} readOnly value={coeatLink}></input>
         <button onClick={handleCopy}>
           <img src={CopyImg} alt="Copy Img" />
         </button>
       </StyledLinkContainer>
-      <StyledModalContainer>
+      <StyledModalContainer removeStyle={removeStyle}>
         {copySuccess && (
           <StyledAlertBox onClick={handleClose}>
             <span>링크 복사가 완료되었어요 </span>
@@ -54,13 +55,21 @@ const StyledLinkContainer = styled.div`
   border-radius: 2rem;
   background-color: #f4f5f6;
 
+  ${(props) =>
+    props.removeStyle &&
+    css`
+      padding: 0;
+      margin: 0;
+      width: 100%;
+    `}
+
   & > input {
     border: 0;
     outline: 0;
     width: 100%;
     background-color: transparent;
     font-size: 2.8rem;
-    margin-right: 2rem;
+    padding: 0 2rem;
     color: #5b5b5b;
   }
 
@@ -110,4 +119,13 @@ const StyledModalContainer = styled.div`
   justify-content: center;
   width: 100%;
   height: 7rem;
+
+  ${(props) =>
+    props.removeStyle &&
+    css`
+      position: absolute;
+      top: calc(-8rem);
+      right: 0;
+      width: initial;
+    `};
 `;

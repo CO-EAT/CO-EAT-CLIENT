@@ -7,11 +7,11 @@ import CuteLogo from 'assets/cute-meal-logo.png';
 import { ReactComponent as Tooltip } from 'assets/tooltip.svg';
 import { ReactComponent as RefreshBtn } from 'assets/refresh.svg';
 import { ReactComponent as CloseBtn } from 'assets/close.svg';
-import { ReactComponent as Clipboard } from 'assets/insert_link.svg';
 import { colors } from 'constants/colors';
 import { LESS_NOEAT } from 'constants/noeat-tooltip-text';
 import useAPI from 'cores/hooks/useAPI';
 import Loader from 'components/common/Loader';
+import LinkCopy from 'components/LinkCopy';
 
 const parseFontWeightFromString = (string) => {
   const [before, toBeBold, ...rest] = string.split('__');
@@ -32,10 +32,10 @@ function ResultPage() {
 
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
 
-  const toggleTooltip = () => setIsTooltipOpen(!isTooltipOpen);
+  const openTooltip = () => setIsTooltipOpen(true);
   const closeTooltip = () => setIsTooltipOpen(false);
 
-  if (!data) {
+  if (!data || loading) {
     return (
       <Container>
         <Loader />
@@ -60,7 +60,7 @@ function ResultPage() {
       <SecondaryResult>
         더 많은 사람이 함께할 수 있는 <b>{data.lessNoeatMenuName}</b> 어떠세요?
         <StyledTooltip>
-          <TooltipBtn onClick={toggleTooltip}>
+          <TooltipBtn onMouseEnter={openTooltip} onMouseLeave={closeTooltip}>
             <Tooltip />
           </TooltipBtn>
           {isTooltipOpen && (
@@ -109,9 +109,7 @@ function ResultPage() {
           </LeftBox>
           <RightBox>
             <label>링크공유</label>
-            <button>
-              <Clipboard />
-            </button>
+            <LinkCopy removeStyle />
           </RightBox>
         </TotalEatHeader>
         <TotalEatGrid>
@@ -216,7 +214,7 @@ const StyledTooltip = styled.div`
     height: 3rem;
   }
   position: absolute;
-  right: -5rem;
+  right: -10%;
   top: 50%;
 
   transform: translateY(-50%);
@@ -319,13 +317,16 @@ const LeftBox = styled.div`
 `;
 
 const RightBox = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
+  gap: 1rem;
 
   & > label {
     font-weight: bold;
     font-size: 2.4rem;
     letter-spacing: -0.01rem;
+    min-width: fit-content;
   }
 
   & > button {

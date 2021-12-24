@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo } from 'react';
+import { useState, useRef, useMemo, Fragment } from 'react';
 import styled from 'styled-components';
 import LogoImg from 'assets/logo.svg';
 import PickCartNav from 'components/PickCartNav';
@@ -76,20 +76,20 @@ function PickPage() {
     if (!(data && !loading)) return null;
 
     return Object.entries(reduceDataByCategory).map(([foodCategory, foodInfo]) => (
-      <>
+      <Fragment key={foodCategory}>
         <span id={foodCategory} className="toBeScroll" />
         <header>{foodCategory}</header>
         <div className="ctgFoods">
           {foodInfo.map((food) => (
             <FoodSelectionCard
               key={food.id}
-              addCoEat={addFoodToList(COEAT)}
-              addNoEat={addFoodToList(NOEAT)}
+              addCoEat={isDuplicatedFoodId(food.id, coEatList) ? removeFoodFromList(COEAT) : addFoodToList(COEAT)}
+              addNoEat={isDuplicatedFoodId(food.id, noEatList) ? removeFoodFromList(NOEAT) : addFoodToList(NOEAT)}
               data={food}
             />
           ))}
         </div>
-      </>
+      </Fragment>
     ));
   };
 
