@@ -3,7 +3,6 @@ import styled, { css } from 'styled-components';
 import CopyImg from 'assets/insert_link.png';
 import CloseImg from 'assets/close.png';
 
-
 const LinkCopy = ({ inviteCode, removeStyle = false }) => {
   const [copySuccess, setCopySuccess] = useState(false);
   const coeatLink = window.location.origin + `/?inviteCode=${inviteCode}`;
