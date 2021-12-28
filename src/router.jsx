@@ -4,6 +4,7 @@ import PickPage from 'pages/PickPage';
 import ResultPage from 'pages/ResultPage';
 import HostPage from 'pages/HostPage';
 import SettingPage from 'pages/SettingPage';
+import NonExistLinkPage from 'pages/NonExistLinkPage';
 import useRoomInfo from 'cores/hooks/useRoomInfo';
 
 function Router() {
@@ -22,6 +23,7 @@ function Router() {
         <Route path="/setting" element={<SettingPage />} />
         <Route path="/pick" element={checkIsValidAccess(<PickPage />)} />
         <Route path="/result" element={checkIsValidAccess(<ResultPage />)} />
+        <Route path="/error" element={<NonExistLinkPage />} />
       </Routes>
     </BrowserRouter>
   );

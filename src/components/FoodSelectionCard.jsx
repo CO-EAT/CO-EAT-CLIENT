@@ -4,18 +4,18 @@ import { colors } from 'constants/colors';
 
 function FoodSelectionCard(props) {
   const { data, addCoEat, addNoEat } = props;
-  const { name, content, img, id } = data;
+  const { menuName, content, menuImg, id } = data;
   return (
     <StyledCard>
       <UpBox>
         <CardWrapper>
-          <CardName>{name}</CardName>
+          <CardName>{menuName}</CardName>
           <CardDesc>{content}</CardDesc>
         </CardWrapper>
         <ImageWrapper>
           <Plate />
           <MainDish>
-            <img src={`${process.env.PUBLIC_URL}/${img}`} alt="food-img" />
+            <img src={menuImg} alt="food-img" />
           </MainDish>
         </ImageWrapper>
       </UpBox>
@@ -23,8 +23,8 @@ function FoodSelectionCard(props) {
         <InvertedBorder left />
         <InvertedBorder right />
         <ButtonWrapper>
-          <CoEatButton onClick={() => addCoEat(id, name, img)}>COEAT</CoEatButton>
-          <NoEatButton onClick={() => addNoEat(id, name, img)}>NOEAT</NoEatButton>
+          <CoEatButton onClick={() => addCoEat(id, menuName, menuImg)}>COEAT</CoEatButton>
+          <NoEatButton onClick={() => addNoEat(id, menuName, menuImg)}>NOEAT</NoEatButton>
         </ButtonWrapper>
       </DownBox>
     </StyledCard>

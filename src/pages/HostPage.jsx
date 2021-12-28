@@ -5,14 +5,23 @@ import CheckImg from 'assets/check.png';
 import Papers from 'assets/img/index';
 import { StyledContainer, StyledMainHeader, StyledTitle, StyledContent, StyledMainButton } from 'pages/MainPage';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import LinkCopy from 'components/LinkCopy';
+import useRoomInfo from 'cores/hooks/useRoomInfo';
 
 const HostPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const inviteCode = location.state;
+  const { roomState, setInviteCode } = useRoomInfo();
 
   const handleClick = () => {
-    navigate('/setting');
+    setInviteCode({
+      inviteCode: inviteCode,
+      userInfo: roomState.userInfo,
+    });
+
+    navigate('/pick');
   };
 
   //   색종이를 랜덤으로 출력
@@ -43,7 +52,7 @@ const HostPage = () => {
           <p className="small">식사메뉴를 함께 정해보세요!</p>
         </CustomStyledContent>
       </StyledMainHeader>
-      <LinkCopy />
+      <LinkCopy inviteCode={inviteCode} />
       <CustomStyledMainButton onClick={handleClick}>
         <span>Let`s COEAT!</span>
         <GoIcon />
@@ -162,7 +171,7 @@ const StyledDecoration = styled.div`
         transform: translate3d(0, 0, 0) rotate(0deg) scale(0.6);
       }
       100% {
-        transform: translate3d(15px, 1200px, 0px) rotate(180deg) scale(0.6);
+        transform: translate3d(15px, 100vh, 0px) rotate(180deg) scale(0.6);
       }
     }
   }

@@ -9,6 +9,8 @@ import { colors } from 'constants/colors';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 import anime from 'animejs/lib/anime.es.js';
+import { client } from 'libs/api';
+import useRoomInfo from 'cores/hooks/useRoomInfo';
 
 const Setting = () => {
   const [isFocus, setIsFocus] = useState(false);
@@ -19,6 +21,9 @@ const Setting = () => {
   const outerInputRef = useRef();
   const innerInputRef = useRef();
   const warnRefs = useRef(outerInputRef, innerInputRef);
+  const { roomState, setUserInfo } = useRoomInfo();
+  const isHost = roomState.userInfo.isHost;
+  const inviteCode = roomState.inviteCode;
 
   useEffect(() => {
     // input 미입력시, shake animation
@@ -55,8 +60,21 @@ const Setting = () => {
         autoplay: false,
       }),
     ];
+    return () => {
+      warnRefs.current = null;
+    };
   }, []);
 
+  const createUser = async () => {
+    if (isHost) {
+      //Host 유저 생성
+      const hostUser = await client.post(`/group`, { hostName: user });
+      return hostUser.data.data[0].inviteCode;
+    } else {
+      // 일반 유저 생성
+      await client.post(`/user/${inviteCode}`, { nickname: user });
+    }
+  };
   //   maxLength가 적용되지 않는 경우를 위한 filter
   const isUserValid = () => {
     return !isTextEmpty && !isMaxLength;
@@ -65,14 +83,14 @@ const Setting = () => {
   const handleChange = (e) => {
     setIsMaxLength(false);
 
-    if (e.target.value.length >= 5) {
+    if (e.target.value.length > 5) {
       setIsMaxLength(true);
     }
     setIsTextEmpty(false);
     setUser(e.target.value);
   };
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     if (!user) {
       warnRefs.current.forEach((a) => a.restart());
       setIsTextEmpty(true);
@@ -80,8 +98,21 @@ const Setting = () => {
     }
 
     if (isUserValid()) {
+      setUserInfo({
+        nickname: user,
+        isHost: isHost,
+      });
+
+      if (isHost) {
+        // Host 유저를 생성한다.
+        const newInviteCode = await createUser();
+        navigate('/create', { state: newInviteCode });
+      } else {
+        // 일반 유저 생성
+        await createUser();
+        navigate('/pick');
+      }
       setUser('');
-      navigate('/pick');
     } else {
       warnRefs.current.forEach((a) => a.restart());
       setIsMaxLength(true);
@@ -104,7 +135,6 @@ const Setting = () => {
       <StyledInput isFocus={isFocus} ref={outerInputRef}>
         <input
           type="text"
-          maxLength="5"
           placeholder="코잇쟁이"
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}

@@ -3,8 +3,9 @@ import styled, { css } from 'styled-components';
 import CopyImg from 'assets/insert_link.png';
 import CloseImg from 'assets/close.png';
 
-const LinkCopy = ({ removeStyle = false }) => {
+const LinkCopy = ({ inviteCode, removeStyle = false }) => {
   const [copySuccess, setCopySuccess] = useState(false);
+  const coeatLink = window.location.origin + `/?inviteCode=${inviteCode}`;
   const linkRef = useRef();
 
   const handleCopy = () => {
@@ -23,7 +24,7 @@ const LinkCopy = ({ removeStyle = false }) => {
   return (
     <>
       <StyledLinkContainer removeStyle={removeStyle}>
-        <input ref={linkRef} readOnly value="www.coeat.com/roomid=123kjdl"></input>
+        <input ref={linkRef} readOnly value={coeatLink}></input>
         <button onClick={handleCopy}>
           <img src={CopyImg} alt="Copy Img" />
         </button>
