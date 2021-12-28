@@ -171,7 +171,7 @@ const StyledDecoration = styled.div`
         transform: translate3d(0, 0, 0) rotate(0deg) scale(0.6);
       }
       100% {
-        transform: translate3d(15px, 1200px, 0px) rotate(180deg) scale(0.6);
+        transform: translate3d(15px, 100vh, 0px) rotate(180deg) scale(0.6);
       }
     }
   }
