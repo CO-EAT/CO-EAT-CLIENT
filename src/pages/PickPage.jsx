@@ -18,7 +18,7 @@ function PickPage() {
   const navigator = useNavigate();
   const { data, loading } = useAPI({
     method: 'GET',
-    url: `/meal`,
+    url: `/menu`,
   });
 
   const [selectCtg, setSelectCtg] = useState(MEAL_CATEGORIES[0]);
@@ -29,13 +29,32 @@ function PickPage() {
   const [restrictModal, setRestrictModal] = useState(false);
   const [checkType, setCheckType] = useState('');
 
+  const categoryPriorityMap = {
+    한식: 0,
+    중식: 1,
+    일식: 2,
+    양식: 3,
+    분식: 4,
+    기타: 5,
+  };
+
+  const sortByPriority = (reducedData) => {
+    const sortedData = Object.entries(reducedData).sort(
+      (a, b) => categoryPriorityMap[a[0]] - categoryPriorityMap[b[0]],
+    );
+
+    return Object.fromEntries(sortedData);
+  };
+
   const reduceDataByCategory = useMemo(() => {
     if (!data) return {};
-    return data.reduce((acc, cur) => {
-      if (!acc[cur.category]) acc[cur.category] = [];
-      acc[cur.category].push(cur);
-      return acc;
-    }, {});
+    return sortByPriority(
+      data.reduce((acc, cur) => {
+        if (!acc[cur.category]) acc[cur.category] = [];
+        acc[cur.category].push(cur);
+        return acc;
+      }, {}),
+    );
   }, [data]);
 
   const isDuplicatedFoodId = (foodId, list) => new Set(list.map((elem) => elem.id)).has(foodId);

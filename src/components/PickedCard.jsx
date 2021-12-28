@@ -9,14 +9,13 @@ const COEAT = 'COEAT';
 function PickedCard(props) {
   const { type, foodInfo, onRemoveFood } = props;
   const { name, img, id } = foodInfo;
-  const getPublicImagePath = () => `${process.env.PUBLIC_URL}/${img}`;
   return (
     <StyledMenuSelection>
       <LeftBox>
         <StyledImageWrapper>
           <StyledPlate />
           <StyledMainDish>
-            <img src={getPublicImagePath()} alt="picked-food-img" />
+            <img src={img} alt="picked-food-img" />
           </StyledMainDish>
         </StyledImageWrapper>
 
