@@ -92,7 +92,7 @@ function ResultPage() {
           <ResultCardHeader>LESS NOEAT</ResultCardHeader>
           <ResultCard
             coEatCount={data.lessCoeatCount || 0}
-            noEatCount={data.lessNoeatCount || 0}
+            noEatCount={+data.lessNoeatCount || 0}
             imgSrc={data.lessNoeatMenuImg}
             foodName={data.lessNoeatMenuName}
           />
@@ -178,7 +178,7 @@ const ResultTitle = styled.h2`
   }
 `;
 
-const SecondaryResult = styled.p`
+const SecondaryResult = styled.div`
   position: relative;
   width: fit-content;
   font-size: 3rem;
