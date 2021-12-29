@@ -67,7 +67,7 @@ function PickPage() {
       const list = type === COEAT ? coEatList : noEatList;
       const setter = type === COEAT ? setCoEatList : setNoEatList;
 
-      if (isDuplicatedFoodId(foodId, list)) return;
+      if (isDuplicatedFoodId(foodId, list)) return false;
 
       if (list.length >= 5) {
         setRestrictModal(true);
@@ -75,6 +75,7 @@ function PickPage() {
         return;
       }
       setter([...list, { id: foodId, name: foodName, img: foodImg }]);
+      return true;
     };
   };
 
@@ -83,7 +84,12 @@ function PickPage() {
       const list = type === COEAT ? coEatList : noEatList;
       const setter = type === COEAT ? setCoEatList : setNoEatList;
 
-      if (isDuplicatedFoodId(foodId, list)) setter(list.filter((food) => food.id !== foodId));
+      if (isDuplicatedFoodId(foodId, list)) {
+        setter(list.filter((food) => food.id !== foodId));
+        return true;
+      }
+
+      return false;
     };
   };
 

@@ -94,7 +94,7 @@ const PickWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 3.5rem;
-  flex: 3;
+  flex: 2.5;
 `;
 
 const NameWrapper = styled.div`

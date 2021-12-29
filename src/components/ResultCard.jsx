@@ -132,7 +132,7 @@ const DownBox = styled.div`
 
 export const ImageWrapper = styled.div`
   position: relative;
-  padding-top: calc(13.5rem + 2rem);
+  padding-top: calc(15rem + 2rem);
   width: 100%;
 
   display: flex;

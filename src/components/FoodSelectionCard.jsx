@@ -3,6 +3,8 @@ import styled, { css } from 'styled-components';
 import { ReactComponent as Plate } from 'assets/img/plate.svg';
 import { colors } from 'constants/colors';
 
+const COEAT = 'COEAT';
+
 function FoodSelectionCard(props) {
   const { data, addCoEat, addNoEat } = props;
   const { menuName, content, menuImg, id } = data;
@@ -11,17 +13,13 @@ function FoodSelectionCard(props) {
   const [isNoeat, setIsNoeat] = useState(false);
 
   const handleClickCONOEatBtn = (type, id, name, img) => {
-    if (type === 'COEAT') {
-      return () => {
-        setIsCoeat((prev) => !prev);
-        addCoEat(id, name, img);
-      };
-    } else {
-      return () => {
-        setIsNoeat((prev) => !prev);
-        addNoEat(id, name, img);
-      };
-    }
+    const getIsClickable = type === COEAT ? addCoEat : addNoEat;
+    const onClickCONOEatBtn = type === COEAT ? setIsCoeat : setIsNoeat;
+    return () => {
+      if (getIsClickable(id, name, img)) {
+        onClickCONOEatBtn((prev) => !prev);
+      }
+    };
   };
 
   return (
