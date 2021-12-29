@@ -45,3 +45,16 @@ export const postMenuSelection = async (roomInfo, likedMenu, unlikedMenu) => {
     return null;
   }
 };
+
+export const completeCoeat = async (inviteCode, nickname) => {
+  try {
+    const result = await client.put(`/result/${inviteCode}/complete`, {
+      nickname,
+    });
+
+    if (result.status === 200) return true;
+    return null;
+  } catch (error) {
+    return null;
+  }
+};

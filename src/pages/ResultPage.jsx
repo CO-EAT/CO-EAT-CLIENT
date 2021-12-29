@@ -13,6 +13,7 @@ import useAPI from 'cores/hooks/useAPI';
 import useRoomInfo from 'cores/hooks/useRoomInfo';
 import Loader from 'components/common/Loader';
 import LinkCopy from 'components/LinkCopy';
+import { completeCoeat } from 'libs/api';
 
 const parseFontWeightFromString = (string) => {
   const [before, toBeBold, ...rest] = string.split('__');
@@ -27,17 +28,30 @@ const parseFontWeightFromString = (string) => {
 
 function ResultPage() {
   const {
-    roomState: { inviteCode },
+    roomState: {
+      inviteCode,
+      userInfo: { isHost, nickname },
+    },
   } = useRoomInfo();
-  const { data, loading, mutate } = useAPI({
+  const { data, loading, mutate, error } = useAPI({
     method: 'GET',
     url: `/result/${inviteCode}`,
   });
 
+  const [isCompleted, setIsCompleted] = useState(false);
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
 
   const openTooltip = () => setIsTooltipOpen(true);
   const closeTooltip = () => setIsTooltipOpen(false);
+
+  const handleClickCompleteBtn = async () => {
+    const result = await completeCoeat(inviteCode, nickname);
+    if (result) setIsCompleted(true);
+  };
+
+  if (error) {
+    return <div>Something Wrong</div>;
+  }
 
   if (!data || loading) {
     return (
@@ -122,7 +136,11 @@ function ResultPage() {
           ))}
         </TotalEatGrid>
       </TotalEatWrapper>
-      {data.isHost && <CompleteBtn>COEAT COMPLETE</CompleteBtn>}
+      {isHost && (
+        <CompleteBtn disabled={isCompleted} isCompleted={isCompleted} onClick={handleClickCompleteBtn}>
+          {isCompleted ? 'Completed!' : 'COEAT COMPLETE'}
+        </CompleteBtn>
+      )}
     </Container>
   );
 }
@@ -386,6 +404,16 @@ const CompleteBtn = styled.button`
   font-size: 2.4rem;
   font-family: 'Montserrat';
   letter-spacing: -0.01rem;
+
+  &:disabled {
+    cursor: auto;
+  }
+
+  ${(props) =>
+    props.isCompleted &&
+    css`
+      background-color: ${colors.darkOrange};
+    `};
 `;
 
 const StyledCloseBtn = styled.button`
