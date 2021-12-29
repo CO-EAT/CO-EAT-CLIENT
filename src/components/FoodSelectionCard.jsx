@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { ReactComponent as Plate } from 'assets/img/plate.svg';
 import { colors } from 'constants/colors';
@@ -5,8 +6,26 @@ import { colors } from 'constants/colors';
 function FoodSelectionCard(props) {
   const { data, addCoEat, addNoEat } = props;
   const { menuName, content, menuImg, id } = data;
+
+  const [isCoeat, setIsCoeat] = useState(false);
+  const [isNoeat, setIsNoeat] = useState(false);
+
+  const handleClickCONOEatBtn = (type, id, name, img) => {
+    if (type === 'COEAT') {
+      return () => {
+        setIsCoeat((prev) => !prev);
+        addCoEat(id, name, img);
+      };
+    } else {
+      return () => {
+        setIsNoeat((prev) => !prev);
+        addNoEat(id, name, img);
+      };
+    }
+  };
+
   return (
-    <StyledCard>
+    <StyledCard isCoeat={isCoeat} isNoeat={isNoeat}>
       <UpBox>
         <CardWrapper>
           <CardName>{menuName}</CardName>
@@ -20,11 +39,11 @@ function FoodSelectionCard(props) {
         </ImageWrapper>
       </UpBox>
       <DownBox>
-        <InvertedBorder left />
-        <InvertedBorder right />
+        <InvertedBorder left isCoeat={isCoeat} isNoeat={isNoeat} />
+        <InvertedBorder right isCoeat={isCoeat} isNoeat={isNoeat} />
         <ButtonWrapper>
-          <CoEatButton onClick={() => addCoEat(id, menuName, menuImg)}>COEAT</CoEatButton>
-          <NoEatButton onClick={() => addNoEat(id, menuName, menuImg)}>NOEAT</NoEatButton>
+          <CoEatButton onClick={handleClickCONOEatBtn('COEAT', id, menuName, menuImg)}>COEAT</CoEatButton>
+          <NoEatButton onClick={handleClickCONOEatBtn('NOEAT', id, menuName, menuImg)}>NOEAT</NoEatButton>
         </ButtonWrapper>
       </DownBox>
     </StyledCard>
@@ -38,10 +57,35 @@ const StyledCard = styled.article`
   border-radius: 8px;
   background-color: white;
   border: 1px solid ${colors.cardBorder};
+
+  ${(props) =>
+    props.isCoeat &&
+    css`
+      border: 2px solid ${colors.orange};
+    `};
+
+  ${(props) =>
+    props.isNoeat &&
+    css`
+      border: 2px solid ${colors.noEatProgress};
+    `}
 `;
 
 const InvertedBorder = styled.i`
   border: 1px solid ${colors.cardBorder};
+
+  ${(props) =>
+    props.isCoeat &&
+    css`
+      border: 2px solid ${colors.orange};
+    `};
+
+  ${(props) =>
+    props.isNoeat &&
+    css`
+      border: 2px solid ${colors.noEatProgress};
+    `}
+
   position: absolute;
   width: 3rem;
   height: 1.5rem;
@@ -51,13 +95,13 @@ const InvertedBorder = styled.i`
           transform: translate(-25%, -50%) rotate(-90deg);
           border-radius: 0 0 1.5rem 1.5rem;
           border-left: none;
-          left: -1px;
+          left: -2px;
         `
       : css`
           transform: translate(25%, -50%) rotate(-90deg);
           border-radius: 1.5rem 1.5rem 0 0;
           border-right: none;
-          right: -1px;
+          right: -2px;
         `};
 
   background-color: white;
@@ -67,17 +111,18 @@ const InvertedBorder = styled.i`
     content: '';
     background-color: white;
     width: 100%;
-    height: 3px;
+    height: 4px;
+    border-radius: 81px;
     position: absolute;
     ${(props) =>
       props.left
         ? css`
             left: 0;
-            transform: translate(0, -75%);
+            transform: translate(0, -100%);
           `
         : css`
-            bottom: -2px;
-            transform: translateY(0, 75%);
+            bottom: 0;
+            transform: translate(0, 90%);
           `};
   }
 `;
@@ -134,7 +179,7 @@ const DownBox = styled.div`
 
 export const ImageWrapper = styled.div`
   position: relative;
-  padding-top: calc(13.5rem + 2rem);
+  padding-top: calc(15rem + 2rem);
   width: 100%;
 
   display: flex;
@@ -187,8 +232,8 @@ export const MainDish = styled.div`
   & > img {
     border-radius: 50%;
     overflow: hidden;
-    width: 13.5rem;
-    height: 13.5rem;
+    width: 15rem;
+    height: 15rem;
     position: absolute;
     top: 0;
     left: 55%;

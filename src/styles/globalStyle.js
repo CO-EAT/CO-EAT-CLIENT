@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
 
-    font-size: 40%;
+    font-size: 35%;
 
     @media screen and (min-width: 1921px) {
       font-size: 62.5%;

@@ -4,8 +4,14 @@ import { ReactComponent as ProfileIcon } from 'assets/profile.svg';
 import { ReactComponent as CartlBtnIcon } from 'assets/cartlBtn.svg';
 import CartModal from 'components/CartModal';
 import { colors } from 'constants/colors';
+import useRoomInfo from 'cores/hooks/useRoomInfo';
 
 function PickCartModal({ coEatList, noEatList, isCartOpen, toggleModal, onRemoveFood }) {
+  const {
+    roomState: {
+      userInfo: { nickname },
+    },
+  } = useRoomInfo();
   const navigator = useNavigate();
   return (
     <StyledCartNavWrapper>
@@ -25,8 +31,8 @@ function PickCartModal({ coEatList, noEatList, isCartOpen, toggleModal, onRemove
         </StyledOpenModalBtn>
         <StyledUserProfile>
           <StyledLine />
-          <ProfileIcon />
-          <span>유루리님</span>
+          <StyledProfileIcon />
+          <span>{nickname}님</span>
           {isCartOpen && (
             <StyledResultBtn onClick={() => navigator('/result')} isOpen={isCartOpen}>
               완료하기
@@ -141,4 +147,8 @@ const StyledOpenModalBtn = styled.button`
     color: #b3b3b3;
     font-size: 2rem;
   }
+`;
+
+const StyledProfileIcon = styled(ProfileIcon)`
+  height: 48px;
 `;

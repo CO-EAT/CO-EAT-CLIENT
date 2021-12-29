@@ -154,8 +154,8 @@ export const MainDish = styled.div`
   & > img {
     border-radius: 50%;
     overflow: hidden;
-    width: 13.5rem;
-    height: 13.5rem;
+    width: 15rem;
+    height: 15rem;
     position: absolute;
     top: 0;
   }
