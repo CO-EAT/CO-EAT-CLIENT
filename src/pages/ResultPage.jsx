@@ -10,6 +10,7 @@ import { ReactComponent as CloseBtn } from 'assets/close.svg';
 import { colors } from 'constants/colors';
 import { LESS_NOEAT } from 'constants/noeat-tooltip-text';
 import useAPI from 'cores/hooks/useAPI';
+import useRoomInfo from 'cores/hooks/useRoomInfo';
 import Loader from 'components/common/Loader';
 import LinkCopy from 'components/LinkCopy';
 
@@ -25,9 +26,12 @@ const parseFontWeightFromString = (string) => {
 };
 
 function ResultPage() {
+  const {
+    roomState: { inviteCode },
+  } = useRoomInfo();
   const { data, loading, mutate } = useAPI({
     method: 'GET',
-    url: '/result',
+    url: `/result/${inviteCode}`,
   });
 
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
@@ -78,8 +82,8 @@ function ResultPage() {
         <ColumnWrapper>
           <ResultCardHeader orange>MOST COEAT</ResultCardHeader>
           <ResultCard
-            coEatCount={data.mostCoeatCount}
-            noEatCount={data.mostNoeatCount}
+            coEatCount={data.mostCoeatCount || 0}
+            noEatCount={data.mostNoeatCount || 0}
             imgSrc={data.mostCoeatMenuImg}
             foodName={data.mostCoeatMenuName}
           />
@@ -87,8 +91,8 @@ function ResultPage() {
         <ColumnWrapper>
           <ResultCardHeader>LESS NOEAT</ResultCardHeader>
           <ResultCard
-            coEatCount={data.lessCoeatCount}
-            noEatCount={data.lessNoeatCount}
+            coEatCount={data.lessCoeatCount || 0}
+            noEatCount={data.lessNoeatCount || 0}
             imgSrc={data.lessNoeatMenuImg}
             foodName={data.lessNoeatMenuName}
           />

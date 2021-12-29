@@ -14,6 +14,7 @@ function PickInfo(props) {
       </NameWrapper>
       <PickWrapper>
         <CoEatTitle>COEAT</CoEatTitle>
+        {!likedMenu.length && '아직 선택하지 않았어요.'}
         <PickList>
           {likedMenu.map((coeat) => (
             <PickElement coeat key={coeat}>
@@ -24,6 +25,7 @@ function PickInfo(props) {
       </PickWrapper>
       <PickWrapper>
         <NoEatTitle>NOEAT</NoEatTitle>
+        {!unlikedMenu.length && '아직 선택하지 않았어요.'}
         <PickList>
           {unlikedMenu.map((noeat) => (
             <PickElement key={noeat}>{noeat}</PickElement>
@@ -41,6 +43,7 @@ const StyledPickInfo = styled.li`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 2.5rem;
 
   padding: 0 5rem;
   border: 1px solid ${colors.cardBorder};
@@ -58,6 +61,7 @@ const StyledNickname = styled.div`
 `;
 
 const PickList = styled.ul`
+  flex: 1;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
@@ -110,10 +114,12 @@ const Title = styled.div`
 `;
 
 const CoEatTitle = styled(Title)`
+  margin: 0 2.5rem;
   border-bottom: 1rem solid ${colors.orange};
 `;
 
 const NoEatTitle = styled(Title)`
+  margin: 0 2.5rem;
   border-bottom: 1rem solid ${colors.noEatProgress};
 `;
 

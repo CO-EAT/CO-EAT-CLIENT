@@ -13,14 +13,10 @@ const HostPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const inviteCode = location.state;
-  const { roomState, setInviteCode } = useRoomInfo();
+  const { setInviteCode } = useRoomInfo();
 
   const handleClick = () => {
-    setInviteCode({
-      inviteCode: inviteCode,
-      userInfo: roomState.userInfo,
-    });
-
+    setInviteCode(inviteCode);
     navigate('/pick');
   };
 

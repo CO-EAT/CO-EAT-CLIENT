@@ -4,6 +4,8 @@ import LogoImg from 'assets/logo.svg';
 import PickCartNav from 'components/PickCartNav';
 import FoodSelectionCard from 'components/FoodSelectionCard';
 import useAPI from 'cores/hooks/useAPI';
+import useRoomInfo from 'cores/hooks/useRoomInfo';
+import { postMenuSelection } from 'libs/api';
 import { colors } from 'constants/colors';
 import { MEAL_CATEGORIES } from 'constants/categories';
 import ReactModal from 'react-modal';
@@ -14,6 +16,7 @@ const COEAT = 'COEAT';
 const NOEAT = 'NOEAT';
 
 function PickPage() {
+  const { roomState } = useRoomInfo();
   const containerRef = useRef(null);
   const navigator = useNavigate();
   const { data, loading } = useAPI({
@@ -112,6 +115,19 @@ function PickPage() {
     ));
   };
 
+  const getIdArrayFromEatList = (list) => list.map((li) => li.id);
+
+  const submitCompleteCoeat = async () => {
+    const { inviteCode, userInfo } = roomState;
+    const { nickname } = userInfo;
+    const isSuccess = await postMenuSelection(
+      { inviteCode, nickname },
+      getIdArrayFromEatList(coEatList),
+      getIdArrayFromEatList(noEatList),
+    );
+    if (isSuccess) navigator('/result');
+  };
+
   return (
     <StyledContainer ref={containerRef} isCartOpen={isCartOpen}>
       <nav>
@@ -131,7 +147,7 @@ function PickPage() {
                 </div>
               ))}
             </StyledCategory>
-            <StyledResultBtn onClick={() => navigator('/result')}>완료하기</StyledResultBtn>
+            <StyledResultBtn onClick={submitCompleteCoeat}>완료하기</StyledResultBtn>
           </StyledCategories>
         </StyledNav>
       </nav>
