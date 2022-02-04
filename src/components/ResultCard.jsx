@@ -132,7 +132,7 @@ const DownBox = styled.div`
 
 export const ImageWrapper = styled.div`
   position: relative;
-  padding-top: calc(13.5rem + 2rem);
+  padding-top: calc(15rem + 2rem);
   width: 100%;
 
   display: flex;
@@ -154,8 +154,8 @@ export const MainDish = styled.div`
   & > img {
     border-radius: 50%;
     overflow: hidden;
-    width: 13.5rem;
-    height: 13.5rem;
+    width: 15rem;
+    height: 15rem;
     position: absolute;
     top: 0;
   }

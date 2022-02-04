@@ -4,9 +4,28 @@ import { ReactComponent as ProfileIcon } from 'assets/profile.svg';
 import { ReactComponent as CartlBtnIcon } from 'assets/cartlBtn.svg';
 import CartModal from 'components/CartModal';
 import { colors } from 'constants/colors';
+import useRoomInfo from 'cores/hooks/useRoomInfo';
+import { postMenuSelection } from 'libs/api';
 
 function PickCartModal({ coEatList, noEatList, isCartOpen, toggleModal, onRemoveFood }) {
+  const {
+    roomState: {
+      inviteCode,
+      userInfo: { nickname },
+    },
+  } = useRoomInfo();
   const navigator = useNavigate();
+
+  const getIdArrayFromEatList = (list) => list.map((li) => li.id);
+  const submitCompleteCoeat = async () => {
+    const isSuccess = await postMenuSelection(
+      { inviteCode, nickname },
+      getIdArrayFromEatList(coEatList),
+      getIdArrayFromEatList(noEatList),
+    );
+    if (isSuccess) navigator('/result');
+  };
+
   return (
     <StyledCartNavWrapper>
       {isCartOpen && (
@@ -25,10 +44,10 @@ function PickCartModal({ coEatList, noEatList, isCartOpen, toggleModal, onRemove
         </StyledOpenModalBtn>
         <StyledUserProfile>
           <StyledLine />
-          <ProfileIcon />
-          <span>유루리님</span>
+          <StyledProfileIcon />
+          <span>{nickname}님</span>
           {isCartOpen && (
-            <StyledResultBtn onClick={() => navigator('/result')} isOpen={isCartOpen}>
+            <StyledResultBtn onClick={submitCompleteCoeat} isOpen={isCartOpen}>
               완료하기
             </StyledResultBtn>
           )}
@@ -141,4 +160,8 @@ const StyledOpenModalBtn = styled.button`
     color: #b3b3b3;
     font-size: 2rem;
   }
+`;
+
+const StyledProfileIcon = styled(ProfileIcon)`
+  height: 48px;
 `;

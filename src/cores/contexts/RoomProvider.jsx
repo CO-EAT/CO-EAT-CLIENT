@@ -16,10 +16,16 @@ const roomReducer = (state, action) => {
     case SET_USER_INFO:
       return {
         ...state,
-        userInfo: action.value,
+        userInfo: {
+          ...state.userInfo,
+          ...action.value,
+        },
       };
     case SET_INVITE_CODE:
-      return action.value;
+      return {
+        ...state,
+        inviteCode: action.value,
+      };
     default:
       throw new Error('Failed to dispatch roomInfo');
   }

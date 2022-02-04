@@ -2,10 +2,14 @@ import { useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import CopyImg from 'assets/insert_link.png';
 import CloseImg from 'assets/close.png';
+import useRoomInfo from 'cores/hooks/useRoomInfo';
 
 const LinkCopy = ({ inviteCode, removeStyle = false }) => {
+  const {
+    roomState: { inviteCode: contextInviteCode },
+  } = useRoomInfo();
   const [copySuccess, setCopySuccess] = useState(false);
-  const coeatLink = window.location.origin + `/?inviteCode=${inviteCode}`;
+  const coeatLink = window.location.origin + `/?inviteCode=${inviteCode || contextInviteCode}`;
   const linkRef = useRef();
 
   const handleCopy = () => {

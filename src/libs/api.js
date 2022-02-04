@@ -20,3 +20,41 @@ export const requestEnterGroup = async (inviteCode) => {
     console.log(error);
   }
 };
+
+export const postMenuSelection = async (roomInfo, likedMenu, unlikedMenu) => {
+  const { inviteCode, nickname } = roomInfo;
+  try {
+    const result = await client.post(
+      `/menu/${inviteCode}/select`,
+      {
+        likedMenu,
+        unlikedMenu,
+      },
+      {
+        params: {
+          nickname,
+        },
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    if (result.status === 200) return true;
+    return null;
+  } catch (error) {
+    return null;
+  }
+};
+
+export const completeCoeat = async (inviteCode, nickname) => {
+  try {
+    const result = await client.put(`/result/${inviteCode}/complete`, {
+      nickname,
+    });
+
+    if (result.status === 200) return true;
+    return null;
+  } catch (error) {
+    return null;
+  }
+};

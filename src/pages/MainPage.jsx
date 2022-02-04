@@ -32,10 +32,6 @@ const MainPage = () => {
   };
 
   const handleClick = async () => {
-    setInviteCode({
-      inviteCode,
-    });
-
     setUserInfo({
       nickname: '',
       isHost: isHost,
@@ -47,6 +43,7 @@ const MainPage = () => {
       // 일반 참가자로 참여한 경우, 링크의 유효성 검사를 진행한다.
       if (!(await requestEnterGroup(inviteCode))) {
         // 링크가 유효한 경우, 다음 페이지로 이동
+        setInviteCode(inviteCode);
         navigate('/setting');
       } else {
         // 링크가 유효하지 않은 경우

@@ -10,8 +10,10 @@ import { ReactComponent as CloseBtn } from 'assets/close.svg';
 import { colors } from 'constants/colors';
 import { LESS_NOEAT } from 'constants/noeat-tooltip-text';
 import useAPI from 'cores/hooks/useAPI';
+import useRoomInfo from 'cores/hooks/useRoomInfo';
 import Loader from 'components/common/Loader';
 import LinkCopy from 'components/LinkCopy';
+import { completeCoeat } from 'libs/api';
 
 const parseFontWeightFromString = (string) => {
   const [before, toBeBold, ...rest] = string.split('__');
@@ -25,15 +27,31 @@ const parseFontWeightFromString = (string) => {
 };
 
 function ResultPage() {
-  const { data, loading, mutate } = useAPI({
+  const {
+    roomState: {
+      inviteCode,
+      userInfo: { isHost, nickname },
+    },
+  } = useRoomInfo();
+  const { data, loading, mutate, error } = useAPI({
     method: 'GET',
-    url: '/result',
+    url: `/result/${inviteCode}`,
   });
 
+  const [isCompleted, setIsCompleted] = useState(false);
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
 
   const openTooltip = () => setIsTooltipOpen(true);
   const closeTooltip = () => setIsTooltipOpen(false);
+
+  const handleClickCompleteBtn = async () => {
+    const result = await completeCoeat(inviteCode, nickname);
+    if (result) setIsCompleted(true);
+  };
+
+  if (error) {
+    return <div>Something Wrong</div>;
+  }
 
   if (!data || loading) {
     return (
@@ -78,8 +96,8 @@ function ResultPage() {
         <ColumnWrapper>
           <ResultCardHeader orange>MOST COEAT</ResultCardHeader>
           <ResultCard
-            coEatCount={data.mostCoeatCount}
-            noEatCount={data.mostNoeatCount}
+            coEatCount={data.mostCoeatCount || 0}
+            noEatCount={data.mostNoeatCount || 0}
             imgSrc={data.mostCoeatMenuImg}
             foodName={data.mostCoeatMenuName}
           />
@@ -87,8 +105,8 @@ function ResultPage() {
         <ColumnWrapper>
           <ResultCardHeader>LESS NOEAT</ResultCardHeader>
           <ResultCard
-            coEatCount={data.lessCoeatCount}
-            noEatCount={data.lessNoeatCount}
+            coEatCount={data.lessCoeatCount || 0}
+            noEatCount={+data.lessNoeatCount || 0}
             imgSrc={data.lessNoeatMenuImg}
             foodName={data.lessNoeatMenuName}
           />
@@ -118,7 +136,11 @@ function ResultPage() {
           ))}
         </TotalEatGrid>
       </TotalEatWrapper>
-      {data.isHost && <CompleteBtn>COEAT COMPLETE</CompleteBtn>}
+      {isHost && (
+        <CompleteBtn disabled={isCompleted} isCompleted={isCompleted} onClick={handleClickCompleteBtn}>
+          {isCompleted ? 'Completed!' : 'COEAT COMPLETE'}
+        </CompleteBtn>
+      )}
     </Container>
   );
 }
@@ -174,7 +196,7 @@ const ResultTitle = styled.h2`
   }
 `;
 
-const SecondaryResult = styled.p`
+const SecondaryResult = styled.div`
   position: relative;
   width: fit-content;
   font-size: 3rem;
@@ -382,6 +404,16 @@ const CompleteBtn = styled.button`
   font-size: 2.4rem;
   font-family: 'Montserrat';
   letter-spacing: -0.01rem;
+
+  &:disabled {
+    cursor: auto;
+  }
+
+  ${(props) =>
+    props.isCompleted &&
+    css`
+      background-color: ${colors.darkOrange};
+    `};
 `;
 
 const StyledCloseBtn = styled.button`

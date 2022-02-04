@@ -41,6 +41,7 @@ const StyledPickInfo = styled.li`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 2.5rem;
 
   padding: 0 5rem;
   border: 1px solid ${colors.cardBorder};
@@ -58,8 +59,9 @@ const StyledNickname = styled.div`
 `;
 
 const PickList = styled.ul`
+  flex: 1;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
   gap: 1rem;
 `;
 
@@ -83,6 +85,8 @@ const PickElement = styled.li`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  min-width: fit-content;
 `;
 
 const PickWrapper = styled.div`
@@ -90,7 +94,7 @@ const PickWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 3.5rem;
-  flex: 3;
+  flex: 2.5;
 `;
 
 const NameWrapper = styled.div`
@@ -110,10 +114,12 @@ const Title = styled.div`
 `;
 
 const CoEatTitle = styled(Title)`
+  margin: 0 2.5rem;
   border-bottom: 1rem solid ${colors.orange};
 `;
 
 const NoEatTitle = styled(Title)`
+  margin: 0 2.5rem;
   border-bottom: 1rem solid ${colors.noEatProgress};
 `;
 
