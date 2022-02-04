@@ -122,7 +122,6 @@ function PickPage() {
   };
 
   const getIdArrayFromEatList = (list) => list.map((li) => li.id);
-
   const submitCompleteCoeat = async () => {
     const { inviteCode, userInfo } = roomState;
     const { nickname } = userInfo;
