@@ -21,9 +21,9 @@ const Setting = () => {
   const outerInputRef = useRef();
   const innerInputRef = useRef();
   const warnRefs = useRef(outerInputRef, innerInputRef);
-  const { roomState, setUserInfo } = useRoomInfo();
-  const isHost = roomState.userInfo.isHost;
-  const inviteCode = roomState.inviteCode;
+  const { roomStateContext, setUserInfo } = useRoomInfo();
+  const isHost = roomStateContext.userInfo.isHost;
+  const inviteCode = roomStateContext.inviteCode;
 
   useEffect(() => {
     // input 미입력시, shake animation

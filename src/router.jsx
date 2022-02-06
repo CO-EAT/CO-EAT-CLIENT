@@ -8,9 +8,9 @@ import NonExistLinkPage from 'pages/NonExistLinkPage';
 import useRoomInfo from 'cores/hooks/useRoomInfo';
 
 function Router() {
-  const { roomState } = useRoomInfo();
+  const { roomStateContext } = useRoomInfo();
   const checkIsValidAccess = (pageToBeRender) => {
-    const { inviteCode, userInfo } = roomState;
+    const { inviteCode, userInfo } = roomStateContext;
     if (!inviteCode || !userInfo.nickname) return <Navigate to="/" />;
     return pageToBeRender;
   };

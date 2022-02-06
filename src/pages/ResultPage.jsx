@@ -28,7 +28,7 @@ const parseFontWeightFromString = (string) => {
 
 function ResultPage() {
   const {
-    roomState: {
+    roomStateContext: {
       inviteCode,
       userInfo: { isHost, nickname },
     },

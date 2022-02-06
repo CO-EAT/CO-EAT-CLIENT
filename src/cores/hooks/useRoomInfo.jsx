@@ -1,13 +1,13 @@
-import { RoomDispatch, RoomStateContext, SET_USER_INFO, SET_INVITE_CODE } from 'cores/contexts/RoomProvider';
+import { RoomDispatchContext, RoomStateContext, SET_USER_INFO, SET_INVITE_CODE } from 'cores/contexts/RoomProvider';
 import { useContext } from 'react';
 
 function useRoomInfo() {
-  const roomState = useContext(RoomStateContext);
-  const roomDispatch = useContext(RoomDispatch);
+  const roomStateContext = useContext(RoomStateContext);
+  const roomDispatchContext = useContext(RoomDispatchContext);
 
   const setInviteCode = (inviteCode) => {
     if (!inviteCode) return;
-    roomDispatch({
+    roomDispatchContext({
       type: SET_INVITE_CODE,
       value: inviteCode,
     });
@@ -15,13 +15,13 @@ function useRoomInfo() {
 
   const setUserInfo = (userInfo) => {
     if (!userInfo) return;
-    roomDispatch({
+    roomDispatchContext({
       type: SET_USER_INFO,
       value: userInfo,
     });
   };
 
-  return { roomState, setInviteCode, setUserInfo };
+  return { roomStateContext, setInviteCode, setUserInfo };
 }
 
 export default useRoomInfo;
