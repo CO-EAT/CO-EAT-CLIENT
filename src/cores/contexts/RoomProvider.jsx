@@ -31,15 +31,15 @@ const roomReducer = (state, action) => {
   }
 };
 
-export const RoomState = createContext(initialRoomInfo);
+export const RoomStateContext = createContext(initialRoomInfo);
 export const RoomDispatch = createContext();
 
 const RoomProvider = ({ children }) => {
   const [state, dispatch] = useReducer(roomReducer, initialRoomInfo);
   return (
-    <RoomState.Provider value={state}>
+    <RoomStateContext.Provider value={state}>
       <RoomDispatch.Provider value={dispatch}>{children}</RoomDispatch.Provider>
-    </RoomState.Provider>
+    </RoomStateContext.Provider>
   );
 };
 

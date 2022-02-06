@@ -1,8 +1,8 @@
-import { RoomDispatch, RoomState, SET_USER_INFO, SET_INVITE_CODE } from 'cores/contexts/RoomProvider';
+import { RoomDispatch, RoomStateContext, SET_USER_INFO, SET_INVITE_CODE } from 'cores/contexts/RoomProvider';
 import { useContext } from 'react';
 
 function useRoomInfo() {
-  const roomState = useContext(RoomState);
+  const roomState = useContext(RoomStateContext);
   const roomDispatch = useContext(RoomDispatch);
 
   const setInviteCode = (inviteCode) => {
