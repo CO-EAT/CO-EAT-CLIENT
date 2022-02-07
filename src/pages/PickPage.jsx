@@ -16,7 +16,7 @@ const COEAT = 'COEAT';
 const NOEAT = 'NOEAT';
 
 function PickPage() {
-  const { roomState } = useRoomInfo();
+  const { roomStateContext } = useRoomInfo();
   const containerRef = useRef(null);
   const navigator = useNavigate();
   const { data, loading } = useAPI({
@@ -123,7 +123,7 @@ function PickPage() {
 
   const getIdArrayFromEatList = (list) => list.map((li) => li.id);
   const submitCompleteCoeat = async () => {
-    const { inviteCode, userInfo } = roomState;
+    const { inviteCode, userInfo } = roomStateContext;
     const { nickname } = userInfo;
     const isSuccess = await postMenuSelection(
       { inviteCode, nickname },

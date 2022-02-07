@@ -9,7 +9,7 @@ import { postMenuSelection } from 'libs/api';
 
 function PickCartModal({ coEatList, noEatList, isCartOpen, toggleModal, onRemoveFood }) {
   const {
-    roomState: {
+    roomStateContext: {
       inviteCode,
       userInfo: { nickname },
     },

@@ -6,7 +6,7 @@ import useRoomInfo from 'cores/hooks/useRoomInfo';
 
 const LinkCopy = ({ inviteCode, removeStyle = false }) => {
   const {
-    roomState: { inviteCode: contextInviteCode },
+    roomStateContext: { inviteCode: contextInviteCode },
   } = useRoomInfo();
   const [copySuccess, setCopySuccess] = useState(false);
   const coeatLink = window.location.origin + `/?inviteCode=${inviteCode || contextInviteCode}`;
