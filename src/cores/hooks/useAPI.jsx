@@ -12,7 +12,7 @@ function useAPI(apiInfo, requiredData) {
   const isMissingRequiredData = () => {
     let isMissing = false;
     if (requiredData !== undefined) {
-      Object.entries(requiredData).forEach(([key, val]) => {
+      Object.entries(requiredData).forEach(([, val]) => {
         if (!val) {
           isMissing = true;
           setIsFirstRequestPending(true);
