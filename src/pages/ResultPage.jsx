@@ -62,7 +62,7 @@ function ResultPage() {
   if (!data || loading) {
     return (
       <Container>
-        <Loader />
+        <Loader overlay />
       </Container>
     );
   }
@@ -138,7 +138,7 @@ function ResultPage() {
         </TotalEatHeader>
         <TotalEatGrid>
           {data.resultList.map((result) => (
-            <PickInfo key={result.nickName} resultInfo={result} />
+            <PickInfo key={result.nickname} resultInfo={result} />
           ))}
         </TotalEatGrid>
       </TotalEatWrapper>
