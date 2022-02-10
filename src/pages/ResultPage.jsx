@@ -35,10 +35,16 @@ function ResultPage() {
       userInfo: { isHost, nickname },
     },
   } = useRoomInfo();
-  const { data, loading, mutate, error } = useAPI({
-    method: 'GET',
-    url: `/result/${inviteCode}`,
-  });
+
+  const { data, loading, mutate, error } = useAPI(
+    {
+      method: 'GET',
+      url: `/result/${inviteCode}`,
+    },
+    {
+      inviteCode,
+    },
+  );
 
   const [isCompleted, setIsCompleted] = useState(false);
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
