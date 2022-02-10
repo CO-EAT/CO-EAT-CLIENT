@@ -19,6 +19,7 @@ const MainPage = () => {
   let inviteCode; // ** 테스트용 사용가능한 초대 코드 :  2F0-JV, wZ-GL- **
 
   useEffect(() => {
+    if (window) window.sessionStorage.removeItem('roomInfo');
     inviteCode = searchParams.get('inviteCode');
     if (!inviteCode) setIsHost(true); // host인 경우
   }, []);

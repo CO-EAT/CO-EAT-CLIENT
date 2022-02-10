@@ -14,6 +14,7 @@ import useRoomInfo from 'cores/hooks/useRoomInfo';
 import Loader from 'components/common/Loader';
 import LinkCopy from 'components/LinkCopy';
 import { completeCoeat } from 'libs/api';
+import { useNavigate } from 'react-router-dom';
 
 const parseFontWeightFromString = (string) => {
   const [before, toBeBold, ...rest] = string.split('__');
@@ -27,6 +28,7 @@ const parseFontWeightFromString = (string) => {
 };
 
 function ResultPage() {
+  const navigator = useNavigate();
   const {
     roomStateContext: {
       inviteCode,
@@ -46,7 +48,11 @@ function ResultPage() {
 
   const handleClickCompleteBtn = async () => {
     const result = await completeCoeat(inviteCode, nickname);
-    if (result) setIsCompleted(true);
+    if (result) {
+      setIsCompleted(true);
+      if (window) window.sessionStorage.removeItem('roomInfo');
+      navigator('/done');
+    }
   };
 
   if (error) {
