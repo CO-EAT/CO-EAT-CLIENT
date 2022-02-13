@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
 import { requestEnterGroup } from 'libs/api';
 import useRoomInfo from 'cores/hooks/useRoomInfo';
+import Responsive from 'components/common/Responsive';
+import { applyMediaQuery } from 'styles/mediaQueries';
 
 const MainPage = () => {
   const [isHost, setIsHost] = useState(false);
@@ -56,7 +58,9 @@ const MainPage = () => {
     <StyledContainer>
       <StyledMainHeader>
         <StyledTitle>
-          <Sticker />
+          <Responsive desktop tablet>
+            <Sticker />
+          </Responsive>
           <Coeat />
         </StyledTitle>
         <StyledContent>
@@ -112,6 +116,10 @@ export const StyledContainer = styled.section`
   justify-content: space-between;
   width: 100%;
   margin: 0 auto;
+  ${applyMediaQuery('mobile')} {
+    padding: 0 10%;
+    justify-content: space-around;
+  }
   height: 100%;
 `;
 
@@ -121,13 +129,22 @@ export const StyledMainHeader = styled.header`
 
 export const StyledTitle = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
-  margin-right: 8rem;
-  margin-bottom: 4.2rem;
 
   & > svg:first-child {
     width: 15rem;
     height: 15rem;
+  }
+
+  ${applyMediaQuery('mobile')} {
+    margin-right: 0;
+    margin-bottom: 0;
+
+    & > svg:first-child {
+      width: 20rem;
+      height: 20rem;
+    }
   }
 `;
 
@@ -159,6 +176,15 @@ const StyledMainBody = styled.article`
     position: relative;
     top: 1rem;
   }
+
+  ${applyMediaQuery('mobile')} {
+    margin-top: 0;
+
+    & > svg {
+      width: 25%;
+      top: 6rem;
+    }
+  }
 `;
 
 const StyledBodyContent = styled.div`
@@ -166,6 +192,10 @@ const StyledBodyContent = styled.div`
   flex-direction: column;
   align-items: center;
   width: 68rem;
+
+  ${applyMediaQuery('mobile')} {
+    width: 100%;
+  }
   border: 1.5rem solid #f5f5f5;
   border-radius: 4rem;
 `;
@@ -187,12 +217,28 @@ const StyledBodyTitle = styled.div`
     font-weight: 700;
     margin-right: 10rem;
   }
+  ${applyMediaQuery('mobile')} {
+    & > span {
+      margin-right: 0;
+      font-family: 'Montserrat';
+      letter-spacing: -0.1rem;
+    }
+
+    & > svg {
+      width: 5.5rem;
+      height: 5.5rem;
+    }
+  }
 `;
 
 const StyledBodyDesc = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 6.1rem;
+
+  ${applyMediaQuery('mobile')} {
+    margin-top: 3rem;
+  }
 `;
 
 const StyledCoeat = styled.div`
@@ -202,13 +248,23 @@ const StyledCoeat = styled.div`
   justify-content: space-between;
   margin-bottom: 4.3rem;
 
+  ${applyMediaQuery('mobile')} {
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+  }
+
   font-size: 2.4rem;
   font-weight: 400;
   line-height: 2.8rem;
 `;
 
 const StyledLeft = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   margin-right: 7.4rem;
+
   .subtitle {
     font-size: 1.8rem;
     color: #888;
@@ -217,6 +273,18 @@ const StyledLeft = styled.div`
   & > p {
     & > em {
       font-weight: 700;
+    }
+  }
+
+  ${applyMediaQuery('mobile')} {
+    margin: 0;
+
+    & > p {
+      text-align: center;
+    }
+
+    .subtitle {
+      font-size: 2.1rem;
     }
   }
 `;
@@ -230,6 +298,13 @@ const StyledRight = styled.div`
   font-weight: 700;
   position: relative;
   top: -1rem;
+
+  ${applyMediaQuery('mobile')} {
+    width: fit-content;
+    text-align: center;
+    font-size: 2.5rem;
+    padding: 2.5rem 4rem;
+  }
 `;
 
 export const StyledMainButton = styled.button`
