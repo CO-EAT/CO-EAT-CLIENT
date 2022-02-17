@@ -14,6 +14,7 @@ import useRoomInfo from 'cores/hooks/useRoomInfo';
 import Loader from 'components/common/Loader';
 import LinkCopy from 'components/LinkCopy';
 import { completeCoeat } from 'libs/api';
+import { useNavigate } from 'react-router-dom';
 
 const parseFontWeightFromString = (string) => {
   const [before, toBeBold, ...rest] = string.split('__');
@@ -27,16 +28,23 @@ const parseFontWeightFromString = (string) => {
 };
 
 function ResultPage() {
+  const navigator = useNavigate();
   const {
     roomStateContext: {
       inviteCode,
       userInfo: { isHost, nickname },
     },
   } = useRoomInfo();
-  const { data, loading, mutate, error } = useAPI({
-    method: 'GET',
-    url: `/result/${inviteCode}`,
-  });
+
+  const { data, loading, mutate, error } = useAPI(
+    {
+      method: 'GET',
+      url: `/result/${inviteCode}`,
+    },
+    {
+      inviteCode,
+    },
+  );
 
   const [isCompleted, setIsCompleted] = useState(false);
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
@@ -46,7 +54,11 @@ function ResultPage() {
 
   const handleClickCompleteBtn = async () => {
     const result = await completeCoeat(inviteCode, nickname);
-    if (result) setIsCompleted(true);
+    if (result) {
+      setIsCompleted(true);
+      if (window) window.sessionStorage.removeItem('roomInfo');
+      navigator('/done');
+    }
   };
 
   if (error) {
@@ -56,7 +68,7 @@ function ResultPage() {
   if (!data || loading) {
     return (
       <Container>
-        <Loader />
+        <Loader overlay />
       </Container>
     );
   }
@@ -132,7 +144,7 @@ function ResultPage() {
         </TotalEatHeader>
         <TotalEatGrid>
           {data.resultList.map((result) => (
-            <PickInfo key={result.nickName} resultInfo={result} />
+            <PickInfo key={result.nickname} resultInfo={result} />
           ))}
         </TotalEatGrid>
       </TotalEatWrapper>
