@@ -126,6 +126,10 @@ export const StyledContainer = styled.section`
 
 export const StyledMainHeader = styled.header`
   margin-top: 10rem;
+
+  ${applyMediaQuery('mobile')} {
+    margin-top: 8rem;
+  }
 `;
 
 export const StyledTitle = styled.div`
