@@ -8,7 +8,7 @@ import { ReactComponent as Tooltip } from 'assets/tooltip.svg';
 import { ReactComponent as RefreshBtn } from 'assets/refresh.svg';
 import { ReactComponent as CloseBtn } from 'assets/close.svg';
 import { colors } from 'constants/colors';
-import { LESS_NOEAT } from 'constants/noeat-tooltip-text';
+import { LESS_NOEAT, MOST_COEAT } from 'constants/tooltip-text';
 import useAPI from 'cores/hooks/useAPI';
 import useRoomInfo from 'cores/hooks/useRoomInfo';
 import Loader from 'components/common/Loader';
@@ -95,6 +95,8 @@ function ResultPage() {
           </TooltipBtn>
           {isTooltipOpen && (
             <TooltipText>
+              <h5>MOST COEAT</h5>
+              <p>{MOST_COEAT}</p>
               <h5>LESS NOEAT</h5>
               <p>{parseFontWeightFromString(LESS_NOEAT)}</p>
               <StyledCloseBtn onClick={closeTooltip}>
