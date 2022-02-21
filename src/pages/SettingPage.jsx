@@ -206,10 +206,15 @@ const StyledInput = styled.div`
     height: 100%;
     background-color: transparent;
     border: ${(prop) => (prop.isFocus ? `1px solid ${colors.orange}` : 0)};
-    outline: ${(prop) => (prop.isFocus ? `1px solid ${colors.orange}` : 0)};
+    outline: none;
     padding: 2.3rem 3.8rem;
     margin-bottom: 3.3rem;
     border-radius: 2rem;
+
+    &:focus {
+      -webkit-appearance: none;
+      box-shadow: 0 0 0 1pt ${colors.orange};
+    }
   }
 
   & > p {
