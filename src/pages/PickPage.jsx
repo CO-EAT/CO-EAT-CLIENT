@@ -11,6 +11,7 @@ import { MEAL_CATEGORIES } from 'constants/categories';
 import ReactModal from 'react-modal';
 import WarnModal, { modalStyles } from 'components/common/WarnModal';
 import { useNavigate } from 'react-router-dom';
+import usePickInfo from 'cores/hooks/usePickInfo';
 
 const COEAT = 'COEAT';
 const NOEAT = 'NOEAT';
@@ -25,8 +26,7 @@ function PickPage() {
   });
 
   const [selectCtg, setSelectCtg] = useState(MEAL_CATEGORIES[0]);
-  const [coEatList, setCoEatList] = useState([]);
-  const [noEatList, setNoEatList] = useState([]);
+  const { coEatList, noEatList, handleCoeat, handleNoeat } = usePickInfo();
 
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [restrictModal, setRestrictModal] = useState(false);
@@ -60,36 +60,17 @@ function PickPage() {
     );
   }, [data]);
 
-  const isDuplicatedFoodId = (foodId, list) => new Set(list.map((elem) => elem.id)).has(foodId);
-
   const addFoodToList = (type) => {
     return (foodId, foodName, foodImg) => {
+      const foodHandler = type === COEAT ? handleCoeat : handleNoeat;
       const list = type === COEAT ? coEatList : noEatList;
-      const setter = type === COEAT ? setCoEatList : setNoEatList;
-
-      if (isDuplicatedFoodId(foodId, list)) return false;
 
       if (list.length >= 5) {
         setRestrictModal(true);
-        setCheckType(list === coEatList ? '코잇' : '노잇');
+        setCheckType(type === COEAT ? '코잇' : '노잇');
         return;
       }
-      setter([...list, { id: foodId, name: foodName, img: foodImg }]);
-      return true;
-    };
-  };
-
-  const removeFoodFromList = (type) => {
-    return (foodId) => {
-      const list = type === COEAT ? coEatList : noEatList;
-      const setter = type === COEAT ? setCoEatList : setNoEatList;
-
-      if (isDuplicatedFoodId(foodId, list)) {
-        setter(list.filter((food) => food.id !== foodId));
-        return true;
-      }
-
-      return false;
+      foodHandler(foodId, foodName, foodImg);
     };
   };
 
@@ -111,8 +92,8 @@ function PickPage() {
           {foodInfo.map((food) => (
             <FoodSelectionCard
               key={food.id}
-              addCoEat={isDuplicatedFoodId(food.id, coEatList) ? removeFoodFromList(COEAT) : addFoodToList(COEAT)}
-              addNoEat={isDuplicatedFoodId(food.id, noEatList) ? removeFoodFromList(NOEAT) : addFoodToList(NOEAT)}
+              addCoEat={addFoodToList(COEAT)}
+              addNoEat={addFoodToList(NOEAT)}
               data={food}
             />
           ))}
@@ -159,14 +140,7 @@ function PickPage() {
       <section>
         <StyledSection>{showFoods()}</StyledSection>
       </section>
-      <PickCartNav
-        coEatList={coEatList}
-        noEatList={noEatList}
-        onRemoveFood={removeFoodFromList}
-        containerRef={containerRef}
-        isCartOpen={isCartOpen}
-        toggleModal={toggleModal}
-      />
+      <PickCartNav isCartOpen={isCartOpen} toggleModal={toggleModal} />
       <ReactModal style={modalStyles} isOpen={restrictModal} onRequestClose={() => setRestrictModal(false)}>
         <WarnModal toggleWarnModal={toggleWarnModal} checkType={checkType} />
       </ReactModal>
