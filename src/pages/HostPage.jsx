@@ -1,4 +1,3 @@
-import { ReactComponent as Coeat } from 'assets/logo.svg';
 import { ReactComponent as Sticker } from 'assets/sticker.svg';
 import { ReactComponent as GoIcon } from 'assets/go.svg';
 import CheckImg from 'assets/check.png';

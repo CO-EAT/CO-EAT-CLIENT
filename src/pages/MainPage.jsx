@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
 import { requestEnterGroup } from 'libs/api';
 import useRoomInfo from 'cores/hooks/useRoomInfo';
-import Responsive from 'components/common/Responsive';
 import { applyMediaQuery } from 'styles/mediaQueries';
 
 const MainPage = () => {
