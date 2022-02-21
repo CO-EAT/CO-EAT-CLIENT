@@ -59,10 +59,8 @@ const MainPage = () => {
     <StyledContainer>
       <StyledMainHeader>
         <StyledTitle>
-          <Responsive desktop tablet>
-            <Sticker />
-          </Responsive>
-          <Coeat />
+          <Sticker />
+          <CustomLogo />
         </StyledTitle>
         <StyledContent>
           <p>우리 오늘 뭐 먹을래?</p>
@@ -143,16 +141,25 @@ export const StyledTitle = styled.div`
   }
 
   ${applyMediaQuery('mobile')} {
-    margin-right: 0;
-    margin-bottom: 1rem;
-
     & > svg:first-child {
+      display: none;
+    }
+  }
+`;
+
+export const CustomLogo = styled(Coeat)`
+  ${applyMediaQuery('mobile')} {
+    position: fixed;
+    top: 8rem;
+    left: 50%;
+    transform: translateX(-50%);
+
+    & {
       width: 13.5rem;
       height: 8.86rem;
     }
   }
 `;
-
 export const StyledContent = styled.div`
   display: flex;
   flex-direction: column;
@@ -169,7 +176,9 @@ export const StyledContent = styled.div`
   }
 
   ${applyMediaQuery('mobile')} {
+    margin-top: 15.7rem;
     margin-bottom: 1rem;
+
     & > p {
       font-size: 20px;
       font-weight: 400;
@@ -360,6 +369,14 @@ export const StyledMainButton = styled.button`
 
     & > span {
       font-size: 16px;
+    }
+
+    & > svg {
+      position: absolute;
+      top: -3.3rem;
+      right: -2rem;
+      width: 6rem;
+      height: 6rem;
     }
   }
 `;

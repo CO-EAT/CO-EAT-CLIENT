@@ -3,7 +3,14 @@ import { ReactComponent as Sticker } from 'assets/sticker.svg';
 import { ReactComponent as GoIcon } from 'assets/go.svg';
 import CheckImg from 'assets/check.png';
 import Papers from 'assets/img/index';
-import { StyledContainer, StyledMainHeader, StyledTitle, StyledContent, StyledMainButton } from 'pages/MainPage';
+import {
+  StyledContainer,
+  StyledMainHeader,
+  StyledTitle,
+  StyledContent,
+  StyledMainButton,
+  CustomLogo,
+} from 'pages/MainPage';
 import styled from 'styled-components';
 import { useLocation, useNavigate } from 'react-router';
 import LinkCopy from 'components/LinkCopy';
@@ -39,7 +46,7 @@ const HostPage = () => {
       <StyledMainHeader>
         <CustomStyledTitle>
           <Sticker />
-          <Coeat />
+          <CustomLogo />
         </CustomStyledTitle>
         <CustomStyledContent>
           <img src={CheckImg} alt="CheckImg" />

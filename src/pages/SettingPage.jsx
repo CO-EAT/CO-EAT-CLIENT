@@ -1,8 +1,14 @@
-import { ReactComponent as Coeat } from 'assets/logo.svg';
 import { ReactComponent as Sticker } from 'assets/sticker.svg';
 import { ReactComponent as GoIcon } from 'assets/go.svg';
 import CloseImg from 'assets/close.png';
-import { StyledContainer, StyledMainHeader, StyledTitle, StyledContent, StyledMainButton } from 'pages/MainPage';
+import {
+  StyledContainer,
+  StyledMainHeader,
+  StyledTitle,
+  StyledContent,
+  StyledMainButton,
+  CustomLogo,
+} from 'pages/MainPage';
 import { StyledAlertBox } from 'components/LinkCopy';
 import styled from 'styled-components';
 import { colors } from 'constants/colors';
@@ -126,7 +132,7 @@ const Setting = () => {
       <StyledMainHeader>
         <CustomStyledTitle>
           <Sticker />
-          <Coeat />
+          <CustomLogo />
         </CustomStyledTitle>
         <CustomStyledContent>
           <p className="bold">사용하실 닉네임을 입력해주세요</p>
@@ -171,11 +177,6 @@ const CustomStyledTitle = styled(StyledTitle)`
     & > svg:first-child {
       display: none;
     }
-
-    & > svg:last-child {
-      width: 13.5rem;
-      height: 8.86rem;
-    }
   }
 `;
 
@@ -187,7 +188,7 @@ const CustomStyledContent = styled(StyledContent)`
   }
 
   ${applyMediaQuery('mobile')} {
-    margin-top: 4rem;
+    margin-top: 15rem;
   }
 `;
 
@@ -223,6 +224,11 @@ const StyledInput = styled.div`
     & > input {
       padding: 2rem 2.4rem;
       font-size: 18px;
+    }
+
+    & > p {
+      font-size: 15px;
+      margin-right: 20%;
     }
   }
 `;
