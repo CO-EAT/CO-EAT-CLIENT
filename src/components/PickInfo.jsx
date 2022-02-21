@@ -4,12 +4,12 @@ import { colors } from 'constants/colors';
 
 function PickInfo(props) {
   const { resultInfo } = props;
-  const { nickName, likedMenu, unlikedMenu } = resultInfo;
+  const { nickname, likedMenu, unlikedMenu } = resultInfo;
 
   return (
     <StyledPickInfo>
       <NameWrapper>
-        <StyledNickname>{nickName}</StyledNickname>
+        <StyledNickname>{nickname}</StyledNickname>
         <Delimiter />
       </NameWrapper>
       <PickWrapper>
@@ -83,6 +83,7 @@ const PickElement = styled.li`
   line-height: 2.2rem;
 
   display: flex;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
 

@@ -156,6 +156,8 @@ const CardName = styled.h2`
 const CardDesc = styled.p`
   font-size: 2rem;
   line-height: 2.4rem;
+
+  height: 5rem;
   letter-spacing: -0.01rem;
   color: #5b5b5b;
   font-weight: lighter;

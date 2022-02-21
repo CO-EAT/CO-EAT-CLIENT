@@ -6,12 +6,14 @@ import HostPage from 'pages/HostPage';
 import SettingPage from 'pages/SettingPage';
 import NonExistLinkPage from 'pages/NonExistLinkPage';
 import useRoomInfo from 'cores/hooks/useRoomInfo';
+import DonePage from 'pages/DonePage';
 
 function Router() {
   const { roomStateContext } = useRoomInfo();
   const checkIsValidAccess = (pageToBeRender) => {
     const { inviteCode, userInfo } = roomStateContext;
-    if (!inviteCode || !userInfo.nickname) return <Navigate to="/" />;
+    const storedRoomState = sessionStorage?.getItem('roomInfo');
+    if (!storedRoomState && (!inviteCode || !userInfo.nickname)) return <Navigate to="/" />;
     return pageToBeRender;
   };
 
@@ -23,6 +25,7 @@ function Router() {
         <Route path="/setting" element={<SettingPage />} />
         <Route path="/pick" element={checkIsValidAccess(<PickPage />)} />
         <Route path="/result" element={checkIsValidAccess(<ResultPage />)} />
+        <Route path="/done" element={<DonePage />} />
         <Route path="/error" element={<NonExistLinkPage />} />
       </Routes>
     </BrowserRouter>

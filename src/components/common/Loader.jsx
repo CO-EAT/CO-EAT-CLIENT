@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { ReactComponent as Logo } from 'assets/logo.svg';
 
-function Loader() {
+function Loader({ overlay = false }) {
   return (
-    <StyledLoader>
+    <StyledLoader overlay={overlay}>
       <Logo />
     </StyledLoader>
   );
@@ -14,7 +14,7 @@ const StyledLoader = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1001;
+  z-index: 1010;
 
   width: 100%;
   height: 100%;
@@ -23,7 +23,8 @@ const StyledLoader = styled.div`
   justify-content: center;
   align-items: center;
 
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: ${(props) => (props.overlay ? 'rgba(0, 0, 0, 0.6)' : 'white')};
+
   & svg {
     animation: fadeInOut infinite 2s ease-in-out;
   }

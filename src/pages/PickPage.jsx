@@ -1,6 +1,7 @@
 import { useState, useRef, useMemo, Fragment } from 'react';
 import styled from 'styled-components';
 import LogoImg from 'assets/logo.svg';
+import Loader from 'components/common/Loader';
 import PickCartNav from 'components/PickCartNav';
 import FoodSelectionCard from 'components/FoodSelectionCard';
 import useAPI from 'cores/hooks/useAPI';
@@ -9,7 +10,9 @@ import { postMenuSelection } from 'libs/api';
 import { colors } from 'constants/colors';
 import { MEAL_CATEGORIES } from 'constants/categories';
 import ReactModal from 'react-modal';
-import WarnModal, { modalStyles } from 'components/common/WarnModal';
+import Modal, { modalStyles } from 'components/common/Modal';
+import WarnMaxItem from 'components/common/Modal/WarnMaxItem';
+import WarnMinItem from 'components/common/Modal/WarnMinItem';
 import { useNavigate } from 'react-router-dom';
 import usePickInfo from 'cores/hooks/usePickInfo';
 
@@ -29,7 +32,10 @@ function PickPage() {
   const { coEatList, noEatList, handleCoeat, handleNoeat } = usePickInfo();
 
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [restrictModal, setRestrictModal] = useState(false);
+  const [restrictModal, setRestrictModal] = useState({
+    min: false,
+    max: false,
+  });
   const [checkType, setCheckType] = useState('');
 
   const categoryPriorityMap = {
@@ -66,8 +72,11 @@ function PickPage() {
       const list = type === COEAT ? coEatList : noEatList;
 
       if (list.length >= 5) {
-        setRestrictModal(true);
-        setCheckType(type === COEAT ? '코잇' : '노잇');
+        setRestrictModal((prev) => ({
+          ...prev,
+          max: true,
+        }));
+        setCheckType(list === coEatList ? '코잇' : '노잇');
         return;
       }
       foodHandler(foodId, foodName, foodImg);
@@ -75,7 +84,11 @@ function PickPage() {
   };
 
   const toggleModal = () => setIsCartOpen(!isCartOpen);
-  const toggleWarnModal = () => setRestrictModal(!restrictModal);
+  const closeWarnModal = () =>
+    setRestrictModal({
+      min: false,
+      max: false,
+    });
 
   const handleClick = (e) => {
     setSelectCtg(e.currentTarget.getAttribute('name'));
@@ -104,6 +117,14 @@ function PickPage() {
 
   const getIdArrayFromEatList = (list) => list.map((li) => li.id);
   const submitCompleteCoeat = async () => {
+    if (!coEatList.length) {
+      setRestrictModal((prev) => ({
+        ...prev,
+        min: true,
+      }));
+
+      return;
+    }
     const { inviteCode, userInfo } = roomStateContext;
     const { nickname } = userInfo;
     const isSuccess = await postMenuSelection(
@@ -137,12 +158,22 @@ function PickPage() {
           </StyledCategories>
         </StyledNav>
       </nav>
+      {loading && <Loader overlay />}
       <section>
         <StyledSection>{showFoods()}</StyledSection>
       </section>
       <PickCartNav isCartOpen={isCartOpen} toggleModal={toggleModal} />
-      <ReactModal style={modalStyles} isOpen={restrictModal} onRequestClose={() => setRestrictModal(false)}>
-        <WarnModal toggleWarnModal={toggleWarnModal} checkType={checkType} />
+      <ReactModal
+        style={modalStyles}
+        isOpen={restrictModal.min || restrictModal.max}
+        onRequestClose={() => setRestrictModal(false)}>
+        <Modal>
+          {restrictModal.max ? (
+            <WarnMaxItem closeWarnModal={closeWarnModal} checkType={checkType} />
+          ) : (
+            <WarnMinItem closeWarnModal={closeWarnModal} />
+          )}
+        </Modal>
       </ReactModal>
     </StyledContainer>
   );
@@ -247,6 +278,7 @@ const StyledResultBtn = styled.button`
 `;
 
 const StyledSection = styled.div`
+  min-height: calc(100vh - 26rem - 9.2rem - 1.5rem);
   margin-top: 6rem;
   margin-bottom: 2.1rem;
   width: 120rem;
