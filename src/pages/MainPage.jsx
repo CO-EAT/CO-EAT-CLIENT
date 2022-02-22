@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
 import { requestEnterGroup } from 'libs/api';
 import useRoomInfo from 'cores/hooks/useRoomInfo';
-import Responsive from 'components/common/Responsive';
 import { applyMediaQuery } from 'styles/mediaQueries';
 
 const MainPage = () => {
@@ -59,10 +58,8 @@ const MainPage = () => {
     <StyledContainer>
       <StyledMainHeader>
         <StyledTitle>
-          <Responsive desktop tablet>
-            <Sticker />
-          </Responsive>
-          <Coeat />
+          <Sticker />
+          <CustomLogo />
         </StyledTitle>
         <StyledContent>
           <p>우리 오늘 뭐 먹을래?</p>
@@ -126,6 +123,10 @@ export const StyledContainer = styled.section`
 
 export const StyledMainHeader = styled.header`
   margin-top: 10rem;
+
+  ${applyMediaQuery('mobile')} {
+    margin-top: 8rem;
+  }
 `;
 
 export const StyledTitle = styled.div`
@@ -139,16 +140,25 @@ export const StyledTitle = styled.div`
   }
 
   ${applyMediaQuery('mobile')} {
-    margin-right: 0;
-    margin-bottom: 0;
-
     & > svg:first-child {
-      width: 20rem;
-      height: 20rem;
+      display: none;
     }
   }
 `;
 
+export const CustomLogo = styled(Coeat)`
+  ${applyMediaQuery('mobile')} {
+    position: fixed;
+    top: 8rem;
+    left: 50%;
+    transform: translateX(-50%);
+
+    & {
+      width: 13.5rem;
+      height: 8.86rem;
+    }
+  }
+`;
 export const StyledContent = styled.div`
   display: flex;
   flex-direction: column;
@@ -162,6 +172,17 @@ export const StyledContent = styled.div`
 
   .bold {
     font-weight: 700;
+  }
+
+  ${applyMediaQuery('mobile')} {
+    margin-top: 15.7rem;
+    margin-bottom: 1rem;
+
+    & > p {
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 30px;
+    }
   }
 `;
 
@@ -179,11 +200,12 @@ const StyledMainBody = styled.article`
   }
 
   ${applyMediaQuery('mobile')} {
-    margin-top: 0;
+    margin-top: -4.5rem;
 
     & > svg {
       width: 25%;
-      top: 6rem;
+      position: relative;
+      top: 6%;
     }
   }
 `;
@@ -195,8 +217,9 @@ const StyledBodyContent = styled.div`
   width: 68rem;
 
   ${applyMediaQuery('mobile')} {
-    width: 100%;
+    width: calc(100% - 4.4rem);
   }
+
   border: 1.5rem solid #f5f5f5;
   border-radius: 4rem;
 `;
@@ -218,16 +241,16 @@ const StyledBodyTitle = styled.div`
     font-weight: 700;
     margin-right: 10rem;
   }
+
   ${applyMediaQuery('mobile')} {
-    & > span {
-      margin-right: 0;
-      font-family: 'Montserrat';
-      letter-spacing: -0.1rem;
-    }
+    margin-top: 3.7rem;
 
     & > svg {
-      width: 5.5rem;
-      height: 5.5rem;
+      display: none;
+    }
+
+    & > span {
+      display: none;
     }
   }
 `;
@@ -238,7 +261,7 @@ const StyledBodyDesc = styled.div`
   margin-top: 6.1rem;
 
   ${applyMediaQuery('mobile')} {
-    margin-top: 3rem;
+    margin: 0;
   }
 `;
 
@@ -252,7 +275,8 @@ const StyledCoeat = styled.div`
   ${applyMediaQuery('mobile')} {
     flex-direction: column;
     align-items: center;
-    gap: 3rem;
+    gap: 0.8rem;
+    margin-bottom: 2.7rem;
   }
 
   font-size: 2.4rem;
@@ -281,11 +305,14 @@ const StyledLeft = styled.div`
     margin: 0;
 
     & > p {
+      font-size: 16px;
       text-align: center;
+      line-height: 19.2px;
     }
 
     .subtitle {
-      font-size: 2.1rem;
+      font-size: 14px;
+      margin-bottom: 1.5rem;
     }
   }
 `;
@@ -302,9 +329,10 @@ const StyledRight = styled.div`
 
   ${applyMediaQuery('mobile')} {
     width: fit-content;
+    height: fit-content;
     text-align: center;
-    font-size: 2.5rem;
-    padding: 2.5rem 4rem;
+    font-size: 15px;
+    padding: 0.8rem 2.4rem;
   }
 `;
 
@@ -331,5 +359,23 @@ export const StyledMainButton = styled.button`
     right: -3rem;
     width: 10rem;
     height: 10rem;
+  }
+
+  ${applyMediaQuery('mobile')} {
+    width: fit-content;
+    height: fit-content;
+    padding: 1.7rem 4.9rem;
+
+    & > span {
+      font-size: 16px;
+    }
+
+    & > svg {
+      position: absolute;
+      top: -3.3rem;
+      right: -2rem;
+      width: 6rem;
+      height: 6rem;
+    }
   }
 `;

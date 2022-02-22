@@ -1,13 +1,20 @@
-import { ReactComponent as Coeat } from 'assets/logo.svg';
 import { ReactComponent as Sticker } from 'assets/sticker.svg';
 import { ReactComponent as GoIcon } from 'assets/go.svg';
 import CheckImg from 'assets/check.png';
 import Papers from 'assets/img/index';
-import { StyledContainer, StyledMainHeader, StyledTitle, StyledContent, StyledMainButton } from 'pages/MainPage';
+import {
+  StyledContainer,
+  StyledMainHeader,
+  StyledTitle,
+  StyledContent,
+  StyledMainButton,
+  CustomLogo,
+} from 'pages/MainPage';
 import styled from 'styled-components';
 import { useLocation, useNavigate } from 'react-router';
 import LinkCopy from 'components/LinkCopy';
 import useRoomInfo from 'cores/hooks/useRoomInfo';
+import { applyMediaQuery } from 'styles/mediaQueries';
 
 const HostPage = () => {
   const navigate = useNavigate();
@@ -36,10 +43,10 @@ const HostPage = () => {
     <StyledContainer>
       <StyledDecoration>{randomPaperFlakes()}</StyledDecoration>
       <StyledMainHeader>
-        <StyledTitle>
+        <CustomStyledTitle>
           <Sticker />
-          <Coeat />
-        </StyledTitle>
+          <CustomLogo />
+        </CustomStyledTitle>
         <CustomStyledContent>
           <img src={CheckImg} alt="CheckImg" />
           <p>방이 만들어졌습니다!</p>
@@ -58,6 +65,22 @@ const HostPage = () => {
 };
 
 export default HostPage;
+
+const CustomStyledTitle = styled(StyledTitle)`
+  ${applyMediaQuery('mobile')} {
+    margin-right: 0;
+    margin-bottom: 0;
+
+    & > svg:first-child {
+      display: none;
+    }
+
+    & > svg:last-child {
+      width: 13.5rem;
+      height: 8.86rem;
+    }
+  }
+`;
 
 const CustomStyledContent = styled(StyledContent)`
   & > img {
@@ -85,12 +108,47 @@ const CustomStyledContent = styled(StyledContent)`
     font-weight: normal;
     color: #5b5b5b;
   }
+
+  ${applyMediaQuery('mobile')} {
+    & > img {
+      width: 4rem;
+      height: 4rem;
+      margin-bottom: 4rem;
+    }
+
+    & > p {
+      font-size: 18px;
+    }
+
+    .big {
+      margin-bottom: 3rem;
+      font-size: 22px;
+    }
+
+    .small {
+      font-size: 15px;
+    }
+  }
 `;
 
 const CustomStyledMainButton = styled(StyledMainButton)`
   display: flex;
   align-items: center;
   padding: 2rem 2rem;
+
+  ${applyMediaQuery('mobile')} {
+    width: fit-content;
+    height: fit-content;
+    padding: 1.7rem 4.9rem;
+
+    & > svg {
+      display: none;
+    }
+
+    & > span {
+      font-size: 16px;
+    }
+  }
 `;
 
 const StyledDecoration = styled.div`

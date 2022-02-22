@@ -1,8 +1,14 @@
-import { ReactComponent as Coeat } from 'assets/logo.svg';
 import { ReactComponent as Sticker } from 'assets/sticker.svg';
 import { ReactComponent as GoIcon } from 'assets/go.svg';
 import CloseImg from 'assets/close.png';
-import { StyledContainer, StyledMainHeader, StyledTitle, StyledContent, StyledMainButton } from 'pages/MainPage';
+import {
+  StyledContainer,
+  StyledMainHeader,
+  StyledTitle,
+  StyledContent,
+  StyledMainButton,
+  CustomLogo,
+} from 'pages/MainPage';
 import { StyledAlertBox } from 'components/LinkCopy';
 import styled from 'styled-components';
 import { colors } from 'constants/colors';
@@ -11,6 +17,7 @@ import { useNavigate } from 'react-router';
 import anime from 'animejs/lib/anime.es.js';
 import { client } from 'libs/api';
 import useRoomInfo from 'cores/hooks/useRoomInfo';
+import { applyMediaQuery } from 'styles/mediaQueries';
 
 const Setting = () => {
   const [isFocus, setIsFocus] = useState(false);
@@ -123,10 +130,10 @@ const Setting = () => {
   return (
     <StyledContainer>
       <StyledMainHeader>
-        <StyledTitle>
+        <CustomStyledTitle>
           <Sticker />
-          <Coeat />
-        </StyledTitle>
+          <CustomLogo />
+        </CustomStyledTitle>
         <CustomStyledContent>
           <p className="bold">사용하실 닉네임을 입력해주세요</p>
           <p>이름이든, 별칭이든 다 괜찮아요</p>
@@ -162,11 +169,26 @@ const Setting = () => {
 
 export default Setting;
 
+const CustomStyledTitle = styled(StyledTitle)`
+  ${applyMediaQuery('mobile')} {
+    margin-right: 0;
+    margin-bottom: 0;
+
+    & > svg:first-child {
+      display: none;
+    }
+  }
+`;
+
 const CustomStyledContent = styled(StyledContent)`
   margin-top: 16rem;
   font-weight: 400;
   .bold {
     font-weight: 700;
+  }
+
+  ${applyMediaQuery('mobile')} {
+    margin-top: 15rem;
   }
 `;
 
@@ -178,22 +200,41 @@ const StyledInput = styled.div`
   height: 8rem;
   background-color: ${colors.gray};
   border-radius: 2rem;
-  position: relative;
 
   & > input {
     width: 100%;
     height: 100%;
     background-color: transparent;
     border: ${(prop) => (prop.isFocus ? `1px solid ${colors.orange}` : 0)};
-    outline: ${(prop) => (prop.isFocus ? `1px solid ${colors.orange}` : 0)};
+    outline: none;
     padding: 2.3rem 3.8rem;
     margin-bottom: 3.3rem;
     border-radius: 2rem;
+
+    &:focus {
+      -webkit-appearance: none;
+      box-shadow: 0 0 0 1pt ${colors.orange};
+    }
   }
 
   & > p {
     font-size: 2rem;
     color: ${colors.orange};
+  }
+
+  ${applyMediaQuery('mobile')} {
+    width: calc(100% - 2rem);
+    height: 5.2rem;
+
+    & > input {
+      padding: 2rem 2.4rem;
+      font-size: 18px;
+    }
+
+    & > p {
+      font-size: 15px;
+      margin-right: 20%;
+    }
   }
 `;
 
@@ -205,6 +246,11 @@ const StyledWarnContainer = styled.div`
   height: 5rem;
   position: relative;
   top: -10rem;
+
+  ${applyMediaQuery('mobile')} {
+    width: 80%;
+    top: -4rem;
+  }
 `;
 
 const CustomStyledAlertBox = styled(StyledAlertBox)`
@@ -225,4 +271,19 @@ const CustomStyledMainButton = styled(StyledMainButton)`
   padding: 0;
   position: relative;
   top: -15rem;
+
+  ${applyMediaQuery('mobile')} {
+    width: fit-content;
+    height: fit-content;
+    padding: 1.7rem 4.9rem;
+    top: -10rem;
+
+    & > svg {
+      display: none;
+    }
+
+    & > span {
+      font-size: 16px;
+    }
+  }
 `;
