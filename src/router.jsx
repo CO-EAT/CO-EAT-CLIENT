@@ -14,6 +14,7 @@ function Router() {
     const { inviteCode, userInfo } = roomStateContext;
     const storedRoomState = sessionStorage?.getItem('roomInfo');
     if (!storedRoomState && (!inviteCode || !userInfo.nickname)) return <Navigate to="/" />;
+    if (storedRoomState && !JSON.parse(storedRoomState).inviteCode) return <Navigate to="/" />;
     return pageToBeRender;
   };
 

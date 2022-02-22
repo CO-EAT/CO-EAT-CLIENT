@@ -3,7 +3,9 @@ import styled, { css } from 'styled-components';
 import ResultCard from 'components/ResultCard';
 import PickInfo from 'components/PickInfo';
 import Logo from 'assets/logo.svg';
+import SmallLogo from 'assets/small-logo.svg';
 import CuteLogo from 'assets/cute-meal-logo.png';
+import MobilePaper from 'assets/falling-paper.svg';
 import { ReactComponent as Tooltip } from 'assets/tooltip.svg';
 import { ReactComponent as RefreshBtn } from 'assets/refresh.svg';
 import { ReactComponent as CloseBtn } from 'assets/close.svg';
@@ -15,6 +17,9 @@ import Loader from 'components/common/Loader';
 import LinkCopy from 'components/LinkCopy';
 import { completeCoeat } from 'libs/api';
 import { useNavigate } from 'react-router-dom';
+import { applyMediaQuery } from 'styles/mediaQueries';
+import Responsive from 'components/common/Responsive';
+import useMedia from 'cores/hooks/useMedia';
 
 const parseFontWeightFromString = (string) => {
   const [before, toBeBold, ...rest] = string.split('__');
@@ -28,6 +33,7 @@ const parseFontWeightFromString = (string) => {
 };
 
 function ResultPage() {
+  const { isMobile } = useMedia();
   const navigator = useNavigate();
   const {
     roomStateContext: {
@@ -75,9 +81,26 @@ function ResultPage() {
 
   return (
     <Container>
-      <img src={Logo} alt="" />
+      <Responsive mobile>
+        <LogoWrapper>
+          <img src={Logo} className="main-logo" alt="logo" />
+
+          <div>
+            <img src={SmallLogo} className="small-logo" alt="small-logo" />
+            <span>{nickname}님</span>
+          </div>
+        </LogoWrapper>
+      </Responsive>
+      <Responsive tablet desktop>
+        <img src={Logo} alt="logo" />
+      </Responsive>
       <ResultHeader>
-        <img src={CuteLogo} alt="" />
+        <Responsive tablet desktop>
+          <img src={CuteLogo} alt="" />
+        </Responsive>
+        <Responsive mobile>
+          <img src={MobilePaper} alt="" />
+        </Responsive>
         <ResultTitle>
           <p>
             <b>오늘 코잇하실 식사</b>는 <strong>{data.mostCoeatMenuName}</strong>에요.
@@ -89,22 +112,24 @@ function ResultPage() {
       </ResultHeader>
       <SecondaryResult>
         더 많은 사람이 함께할 수 있는 <b>{data.lessNoeatMenuName}</b> 어떠세요?
-        <StyledTooltip>
-          <TooltipBtn onMouseEnter={openTooltip} onMouseLeave={closeTooltip}>
-            <Tooltip />
-          </TooltipBtn>
-          {isTooltipOpen && (
-            <TooltipText>
-              <h5>MOST COEAT</h5>
-              <p>{MOST_COEAT}</p>
-              <h5>LESS NOEAT</h5>
-              <p>{parseFontWeightFromString(LESS_NOEAT)}</p>
-              <StyledCloseBtn onClick={closeTooltip}>
-                <CloseBtn />
-              </StyledCloseBtn>
-            </TooltipText>
-          )}
-        </StyledTooltip>
+        <Responsive tablet desktop>
+          <StyledTooltip>
+            <TooltipBtn onMouseEnter={openTooltip} onMouseLeave={closeTooltip}>
+              <Tooltip />
+            </TooltipBtn>
+            {isTooltipOpen && (
+              <TooltipText>
+                <h5>MOST COEAT</h5>
+                <p>{MOST_COEAT}</p>
+                <h5>LESS NOEAT</h5>
+                <p>{parseFontWeightFromString(LESS_NOEAT)}</p>
+                <StyledCloseBtn onClick={closeTooltip}>
+                  <CloseBtn />
+                </StyledCloseBtn>
+              </TooltipText>
+            )}
+          </StyledTooltip>
+        </Responsive>
       </SecondaryResult>
       <ResultCardWrapper>
         <ColumnWrapper>
@@ -118,6 +143,24 @@ function ResultPage() {
         </ColumnWrapper>
         <ColumnWrapper>
           <ResultCardHeader>LESS NOEAT</ResultCardHeader>
+          {isMobile && (
+            <StyledTooltip>
+              <TooltipBtn onClick={() => setIsTooltipOpen((currentOpen) => !currentOpen)}>
+                <Tooltip />
+              </TooltipBtn>
+              {isTooltipOpen && (
+                <TooltipText>
+                  <h5>MOST COEAT</h5>
+                  <p>{MOST_COEAT}</p>
+                  <h5>LESS NOEAT</h5>
+                  <p>{parseFontWeightFromString(LESS_NOEAT)}</p>
+                  <StyledCloseBtn onClick={closeTooltip}>
+                    <CloseBtn />
+                  </StyledCloseBtn>
+                </TooltipText>
+              )}
+            </StyledTooltip>
+          )}
           <ResultCard
             coEatCount={data.lessCoeatCount || 0}
             noEatCount={+data.lessNoeatCount || 0}
@@ -174,11 +217,16 @@ const Container = styled.main`
     width: 10.9rem;
     margin-right: auto;
   }
+
+  ${applyMediaQuery('mobile')} {
+    padding: 10% 5%;
+    gap: 4.5rem;
+  }
 `;
 
 const ResultHeader = styled.header`
   position: relative;
-  padding: 8rem 0 0 0;
+  padding-top: 8rem;
 
   & > img {
     width: 80%;
@@ -186,6 +234,13 @@ const ResultHeader = styled.header`
     top: 0;
     z-index: -1;
     opacity: 0.7;
+  }
+  ${applyMediaQuery('mobile')} {
+    & > img {
+      width: 100%;
+    }
+    width: 100%;
+    padding-top: 5rem;
   }
 `;
 
@@ -198,6 +253,11 @@ const ResultTitle = styled.h2`
   letter-spacing: -0.01rem;
   white-space: pre-line;
   font-weight: 400;
+
+  ${applyMediaQuery('mobile')} {
+    font-size: 2.2rem;
+    line-height: 3.4rem;
+  }
 
   & b,
   & strong {
@@ -223,6 +283,12 @@ const SecondaryResult = styled.div`
   & > b {
     font-weight: bold;
   }
+
+  ${applyMediaQuery('mobile')} {
+    font-size: 1.4rem;
+    letter-spacing: -0.01rem;
+    padding: 1rem 3rem;
+  }
 `;
 
 const ResultCardHeader = styled.h4`
@@ -230,11 +296,21 @@ const ResultCardHeader = styled.h4`
   font-family: 'Montserrat';
   font-size: 2.3rem;
   font-weight: bold;
+
+  ${applyMediaQuery('mobile')} {
+    font-size: 1.4rem;
+    letter-spacing: -0.01rem;
+    color: ${(props) => (props.orange ? colors.orange : colors.noEatProgress)};
+  }
 `;
 
 const ResultCardWrapper = styled.div`
   display: flex;
   gap: 2rem;
+
+  ${applyMediaQuery('mobile')} {
+    width: 100%;
+  }
 `;
 
 const ColumnWrapper = styled.div`
@@ -242,6 +318,11 @@ const ColumnWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+
+  ${applyMediaQuery('mobile')} {
+    position: relative;
+    flex: 1;
+  }
 `;
 
 const StyledTooltip = styled.div`
@@ -254,11 +335,26 @@ const StyledTooltip = styled.div`
   top: 50%;
 
   transform: translateY(-50%);
+
+  ${applyMediaQuery('mobile')} {
+    & svg {
+      width: 1.3rem;
+      height: 1.3rem;
+    }
+    top: 0;
+    right: 0;
+    transform: unset;
+  }
 `;
 
 const TooltipBtn = styled.button`
   background-color: transparent;
   border: none;
+
+  ${applyMediaQuery('mobile')} {
+    display: flex;
+    align-items: center;
+  }
 `;
 
 const TooltipText = styled.div`
@@ -297,6 +393,24 @@ const TooltipText = styled.div`
       font-weight: bold;
     }
   }
+
+  ${applyMediaQuery('mobile')} {
+    width: 30rem;
+    position: absolute;
+
+    bottom: 0;
+    left: 100%;
+    z-index: 1200;
+    transform: translate(-100%, 100%);
+
+    & h5 {
+      font-size: 1.4rem;
+    }
+
+    & p {
+      font-size: 1.2rem;
+    }
+  }
 `;
 
 const RefreshWrapper = styled.div`
@@ -311,6 +425,11 @@ const RefreshText = styled.p`
   letter-spacing: -0.01rem;
 
   color: ${colors.subText};
+
+  ${applyMediaQuery('mobile')} {
+    font-size: 1.4rem;
+    line-height: 1.7rem;
+  }
 `;
 
 const StyeldRefreshBtn = styled.button`
@@ -318,9 +437,19 @@ const StyeldRefreshBtn = styled.button`
   background-color: transparent;
   padding: 0;
 
+  display: flex;
+  align-items: center;
+
   & > svg {
     width: 2.6rem;
     height: 2.6rem;
+    ${applyMediaQuery('mobile')} {
+      & path {
+        fill: ${colors.orange};
+      }
+      width: 1.5rem;
+      height: 1.5rem;
+    }
   }
 
   @keyframes rotate360 {
@@ -437,4 +566,26 @@ const StyledCloseBtn = styled.button`
 
   background-color: transparent;
   border: none;
+`;
+
+const LogoWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & img.main-logo {
+    width: 10.7rem;
+  }
+
+  & > div {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+
+    & > span {
+      font-size: 1.4rem;
+      letter-spacing: -0.01rem;
+    }
+  }
 `;
