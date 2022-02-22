@@ -3,6 +3,13 @@ import reset from 'styled-reset';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
+  
+  @font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 500;
+  }
+
   #root, body, html {
     width: 100%;
     height: 100%;
@@ -21,6 +28,7 @@ const GlobalStyle = createGlobalStyle`
     ::-webkit-scrollbar {
       display: none;
     }
+    font-family: 'Pretendard-Regular';
   }
 
   button:hover {
