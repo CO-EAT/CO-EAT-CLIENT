@@ -27,7 +27,7 @@ const LinkCopy = ({ inviteCode, removeStyle = false }) => {
     setCopySuccess(false);
   };
   return (
-    <>
+    <StyledInputContainer>
       <StyledLinkContainer removeStyle={removeStyle}>
         <input ref={linkRef} readOnly value={coeatLink}></input>
         <button onClick={handleCopy}>
@@ -42,11 +42,20 @@ const LinkCopy = ({ inviteCode, removeStyle = false }) => {
           </StyledAlertBox>
         )}
       </StyledModalContainer>
-    </>
+    </StyledInputContainer>
   );
 };
 
 export default LinkCopy;
+
+const StyledInputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: fit-content;
+`;
 
 const StyledLinkContainer = styled.div`
   display: flex;
@@ -71,6 +80,7 @@ const StyledLinkContainer = styled.div`
     border: 0;
     outline: 0;
     width: 100%;
+    height: 100%;
     background-color: transparent;
     font-size: 2.8rem;
     padding: 0 2rem;
@@ -85,7 +95,7 @@ const StyledLinkContainer = styled.div`
 
   ${applyMediaQuery('mobile')} {
     width: 100%;
-    height: 5.2rem;
+    height: 7rem;
     padding: 2rem 1rem 2rem 3rem;
 
     & > input {

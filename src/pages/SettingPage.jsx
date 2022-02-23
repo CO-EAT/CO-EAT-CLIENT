@@ -61,7 +61,7 @@ const Setting = () => {
       }),
       anime({
         targets: innerInputRef.current,
-        border: '1px solid red',
+        border: '1px solid #FF7A00',
         easing: 'linear',
         duration: 500,
         autoplay: false,
@@ -139,26 +139,28 @@ const Setting = () => {
           <p>이름이든, 별칭이든 다 괜찮아요</p>
         </CustomStyledContent>
       </StyledMainHeader>
-      <StyledInput isFocus={isFocus} ref={outerInputRef}>
-        <input
-          type="text"
-          placeholder="코잇쟁이"
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          value={user}
-          onChange={handleChange}
-          ref={innerInputRef}
-        />
-        {isMaxLength && <p>*닉네임은 최대 다섯자까지만 가능해요 </p>}
-      </StyledInput>
-      <StyledWarnContainer>
-        {isTextEmpty && (
-          <CustomStyledAlertBox>
-            <p>닉네임을 입력해주세요!</p>
-            <img src={CloseImg} alt="Close Img" />
-          </CustomStyledAlertBox>
-        )}
-      </StyledWarnContainer>
+      <StyledInputContainer>
+        <StyledInputField isFocus={isFocus} ref={outerInputRef}>
+          <input
+            type="text"
+            placeholder="코잇쟁이"
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
+            value={user}
+            onChange={handleChange}
+            ref={innerInputRef}
+          />
+          {isMaxLength && <p>*닉네임은 최대 다섯자까지만 가능해요 </p>}
+        </StyledInputField>
+        <StyledWarnContainer>
+          {isTextEmpty && (
+            <CustomStyledAlertBox>
+              <p>닉네임을 입력해주세요!</p>
+              <img src={CloseImg} alt="Close Img" />
+            </CustomStyledAlertBox>
+          )}
+        </StyledWarnContainer>
+      </StyledInputContainer>
       <CustomStyledMainButton onClick={handleAdd}>
         <span>Let`s COEAT!</span>
         <GoIcon />
@@ -188,11 +190,21 @@ const CustomStyledContent = styled(StyledContent)`
   }
 
   ${applyMediaQuery('mobile')} {
-    margin-top: 15rem;
+    margin-top: 4.8rem;
+    margin-bottom: 7.2rem;
   }
 `;
 
-const StyledInput = styled.div`
+const StyledInputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: fit-content;
+`;
+
+const StyledInputField = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -200,6 +212,7 @@ const StyledInput = styled.div`
   height: 8rem;
   background-color: ${colors.gray};
   border-radius: 2rem;
+  position: relative;
 
   & > input {
     width: 100%;
@@ -223,12 +236,13 @@ const StyledInput = styled.div`
   }
 
   ${applyMediaQuery('mobile')} {
+    display: inline;
     width: calc(100% - 2rem);
-    height: 5.2rem;
+    height: 6rem;
 
     & > input {
       padding: 2rem 2.4rem;
-      font-size: 18px;
+      font-size: 16px;
     }
 
     & > p {
@@ -242,6 +256,7 @@ const StyledWarnContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 7.6rem;
   width: 100%;
   height: 5rem;
   position: relative;
@@ -249,7 +264,7 @@ const StyledWarnContainer = styled.div`
 
   ${applyMediaQuery('mobile')} {
     width: 80%;
-    top: -4rem;
+    top: 2rem;
   }
 `;
 

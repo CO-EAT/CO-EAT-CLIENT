@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
+import { applyMediaQuery } from 'styles/mediaQueries';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -20,6 +21,10 @@ const GlobalStyle = createGlobalStyle`
 
     @media screen and (min-width: 1921px) {
       font-size: 62.5%;
+    }
+
+    ${applyMediaQuery('mobile')} {
+        overflow: hidden;
     }
   }
 
