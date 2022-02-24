@@ -61,7 +61,7 @@ const Setting = () => {
       }),
       anime({
         targets: innerInputRef.current,
-        border: '1px solid #FF7A00',
+        border: '1px solid orange',
         easing: 'linear',
         duration: 500,
         autoplay: false,
