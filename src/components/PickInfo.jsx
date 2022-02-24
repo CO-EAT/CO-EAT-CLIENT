@@ -1,8 +1,11 @@
 import styled, { css } from 'styled-components';
 
 import { colors } from 'constants/colors';
+import { applyMediaQuery } from 'styles/mediaQueries';
+import useMedia from 'cores/hooks/useMedia';
 
 function PickInfo(props) {
+  const { isMobile } = useMedia();
   const { resultInfo } = props;
   const { nickname, likedMenu, unlikedMenu } = resultInfo;
 
@@ -10,7 +13,7 @@ function PickInfo(props) {
     <StyledPickInfo>
       <NameWrapper>
         <StyledNickname>{nickname}</StyledNickname>
-        <Delimiter />
+        {!isMobile && <Delimiter />}
       </NameWrapper>
       <PickWrapper>
         <CoEatTitle>COEAT</CoEatTitle>
@@ -45,6 +48,15 @@ const StyledPickInfo = styled.li`
 
   padding: 0 5rem;
   border: 1px solid ${colors.cardBorder};
+
+  ${applyMediaQuery('mobile')} {
+    flex-direction: column;
+    align-items: flex-start;
+    height: unset;
+    min-height: 289px;
+
+    padding: 17px 24px;
+  }
 `;
 
 const StyledNickname = styled.div`
@@ -56,6 +68,12 @@ const StyledNickname = styled.div`
 
   font-weight: bold;
   font-family: 'Pretendard Variable';
+
+  ${applyMediaQuery('mobile')} {
+    font-size: 18px;
+    line-height: 22px;
+    width: unset;
+  }
 `;
 
 const PickList = styled.ul`
@@ -63,6 +81,13 @@ const PickList = styled.ul`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
   gap: 1rem;
+
+  ${applyMediaQuery('mobile')} {
+    width: 100%;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    flex: unset;
+  }
 `;
 
 const PickElement = styled.li`
@@ -88,6 +113,12 @@ const PickElement = styled.li`
   justify-content: center;
 
   min-width: fit-content;
+
+  ${applyMediaQuery('mobile')} {
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: -0.03rem;
+  }
 `;
 
 const PickWrapper = styled.div`
@@ -96,6 +127,12 @@ const PickWrapper = styled.div`
   align-items: center;
   gap: 3.5rem;
   flex: 2.5;
+
+  ${applyMediaQuery('mobile')} {
+    width: 100%;
+    flex-direction: column;
+    gap: 16px;
+  }
 `;
 
 const NameWrapper = styled.div`
@@ -117,11 +154,31 @@ const Title = styled.div`
 const CoEatTitle = styled(Title)`
   margin: 0 2.5rem;
   border-bottom: 1rem solid ${colors.orange};
+
+  ${applyMediaQuery('mobile')} {
+    margin: 0;
+    margin-right: auto;
+    border-bottom: 4px solid ${colors.orange};
+
+    font-size: 13px;
+    line-height: 16px;
+    letter-spacing: -0.01rem;
+  }
 `;
 
 const NoEatTitle = styled(Title)`
   margin: 0 2.5rem;
   border-bottom: 1rem solid ${colors.noEatProgress};
+
+  ${applyMediaQuery('mobile')} {
+    margin: 0;
+    margin-right: auto;
+    border-bottom: 4px solid ${colors.noEatProgress};
+
+    font-size: 13px;
+    line-height: 16px;
+    letter-spacing: -0.01rem;
+  }
 `;
 
 const Delimiter = styled.div`

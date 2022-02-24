@@ -88,19 +88,19 @@ const InvertedBorder = styled.i`
   }
 
   ${applyMediaQuery('mobile')} {
-    width: 2rem;
-    height: 1rem;
+    width: 20px;
+    height: 10px;
     ${(props) =>
       props.left
         ? css`
             transform: translate(-25%, -50%) rotate(-90deg);
-            border-radius: 0 0 1rem 1rem;
+            border-radius: 0 0 10px 10px;
             border-left: none;
             left: -1px;
           `
         : css`
             transform: translate(25%, -50%) rotate(-90deg);
-            border-radius: 1rem 1rem 0 0;
+            border-radius: 10px 10px 0 0;
             border-right: none;
             right: -1px;
           `};
@@ -127,7 +127,8 @@ const CardWrapper = styled.div`
   }
 
   ${applyMediaQuery('mobile')} {
-    padding: 0 1.5rem;
+    padding: 0 15px;
+    margin-bottom: 15px;
 
     & > *:not(svg) {
       margin-left: 0;
@@ -145,8 +146,8 @@ const CardName = styled.h2`
   letter-spacing: -0.01rem;
 
   ${applyMediaQuery('mobile')} {
-    font-size: 1.7rem;
-    line-height: 2rem;
+    font-size: 17px;
+    line-height: 20px;
   }
 `;
 
@@ -156,6 +157,10 @@ const UpBox = styled.div`
 
   border-bottom: 1px dashed ${colors.cardBorder};
   padding-top: 1rem;
+
+  ${applyMediaQuery('mobile')} {
+    padding-top: 13px;
+  }
 `;
 const DownBox = styled.div`
   position: relative;
@@ -166,7 +171,7 @@ const DownBox = styled.div`
 
   padding: 3rem;
   ${applyMediaQuery('mobile')} {
-    padding: 1.4rem 0.9rem;
+    padding: 14px 9px;
   }
 `;
 
@@ -182,6 +187,14 @@ export const ImageWrapper = styled.div`
     position: absolute;
     top: 0;
     left: 3rem;
+  }
+
+  ${applyMediaQuery('mobile')} {
+    padding-top: 120px;
+
+    & > svg {
+      left: 30px;
+    }
   }
 `;
 
@@ -201,8 +214,10 @@ export const MainDish = styled.div`
   }
 
   ${applyMediaQuery('mobile')} {
-    width: 10rem;
-    height: 10rem;
+    & > img {
+      width: 100px;
+      height: 100px;
+    }
   }
 `;
 
@@ -221,8 +236,8 @@ const CONOResult = styled.div`
 
   ${applyMediaQuery('mobile')} {
     & > * {
-      font-size: 1.2rem;
-      line-height: 1.5rem;
+      font-size: 12px;
+      line-height: 15px;
     }
   }
 `;

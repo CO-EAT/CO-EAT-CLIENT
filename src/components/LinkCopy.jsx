@@ -2,12 +2,16 @@ import { useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import CopyImg from 'assets/insert_link.png';
 import CloseImg from 'assets/close.png';
+import MobileLinkCopy from 'assets/MobileLinkCopy.svg';
 import useRoomInfo from 'cores/hooks/useRoomInfo';
+import { applyMediaQuery } from 'styles/mediaQueries';
+import useMedia from 'cores/hooks/useMedia';
 
 const LinkCopy = ({ inviteCode, removeStyle = false }) => {
   const {
     roomStateContext: { inviteCode: contextInviteCode },
   } = useRoomInfo();
+  const { isMobile } = useMedia();
   const [copySuccess, setCopySuccess] = useState(false);
   const coeatLink = window.location.origin + `/?inviteCode=${inviteCode || contextInviteCode}`;
   const linkRef = useRef();
@@ -30,7 +34,7 @@ const LinkCopy = ({ inviteCode, removeStyle = false }) => {
       <StyledLinkContainer removeStyle={removeStyle}>
         <input ref={linkRef} readOnly value={coeatLink}></input>
         <button onClick={handleCopy}>
-          <img src={CopyImg} alt="Copy Img" />
+          <img src={isMobile ? MobileLinkCopy : CopyImg} alt="Copy Img" />
         </button>
       </StyledLinkContainer>
       <StyledModalContainer removeStyle={removeStyle}>
@@ -84,6 +88,28 @@ const StyledLinkContainer = styled.div`
     & > img {
       width: 4.5rem;
       height: 4.5rem;
+    }
+  }
+
+  ${applyMediaQuery('mobile')} {
+    width: 100%;
+    height: 41px;
+
+    & > input {
+      font-size: 15px;
+      line-height: 18px;
+      letter-spacing: -0.01rem;
+    }
+
+    & > button {
+      margin-right: 10px;
+      padding: 0;
+
+      display: flex;
+      align-items: center;
+      & > img {
+        width: 20px;
+      }
     }
   }
 `;

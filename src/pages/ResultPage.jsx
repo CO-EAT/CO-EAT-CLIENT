@@ -95,12 +95,7 @@ function ResultPage() {
         <img src={Logo} alt="logo" />
       </Responsive>
       <ResultHeader>
-        <Responsive tablet desktop>
-          <img src={CuteLogo} alt="" />
-        </Responsive>
-        <Responsive mobile>
-          <img src={MobilePaper} alt="" />
-        </Responsive>
+        <img src={isMobile ? MobilePaper : CuteLogo} alt="" />
         <ResultTitle>
           <p>
             <b>오늘 코잇하실 식사</b>는 <strong>{data.mostCoeatMenuName}</strong>에요.
@@ -168,6 +163,9 @@ function ResultPage() {
             foodName={data.lessNoeatMenuName}
           />
         </ColumnWrapper>
+        <Responsive mobile>
+          <ResultCardBackgroundWrapper />
+        </Responsive>
       </ResultCardWrapper>
       <RefreshWrapper>
         <RefreshText>아직 결과가 안나왔나요? 새로고침을 눌러보세요!</RefreshText>
@@ -183,7 +181,7 @@ function ResultPage() {
             <TotalMembers>참여 인원수 {data.peopleCount}명</TotalMembers>
           </LeftBox>
           <RightBox>
-            <label>링크공유</label>
+            {!isMobile && <label>링크공유</label>}
             <LinkCopy removeStyle />
           </RightBox>
         </TotalEatHeader>
@@ -220,7 +218,7 @@ const Container = styled.main`
 
   ${applyMediaQuery('mobile')} {
     padding: 10% 5%;
-    gap: 4.5rem;
+    gap: 45px;
   }
 `;
 
@@ -240,7 +238,7 @@ const ResultHeader = styled.header`
       width: 100%;
     }
     width: 100%;
-    padding-top: 5rem;
+    padding-top: 50px;
   }
 `;
 
@@ -255,8 +253,8 @@ const ResultTitle = styled.h2`
   font-weight: 400;
 
   ${applyMediaQuery('mobile')} {
-    font-size: 2.2rem;
-    line-height: 3.4rem;
+    font-size: 22px;
+    line-height: 34px;
   }
 
   & b,
@@ -285,9 +283,9 @@ const SecondaryResult = styled.div`
   }
 
   ${applyMediaQuery('mobile')} {
-    font-size: 1.4rem;
-    letter-spacing: -0.01rem;
-    padding: 1rem 3rem;
+    font-size: 15px;
+    letter-spacing: -0.3px;
+    padding: 10px 30px;
   }
 `;
 
@@ -298,7 +296,7 @@ const ResultCardHeader = styled.h4`
   font-weight: bold;
 
   ${applyMediaQuery('mobile')} {
-    font-size: 1.4rem;
+    font-size: 14px;
     letter-spacing: -0.01rem;
     color: ${(props) => (props.orange ? colors.orange : colors.noEatProgress)};
   }
@@ -309,8 +307,21 @@ const ResultCardWrapper = styled.div`
   gap: 2rem;
 
   ${applyMediaQuery('mobile')} {
+    position: relative;
     width: 100%;
   }
+`;
+
+const ResultCardBackgroundWrapper = styled.div`
+  position: absolute;
+  top: 60%;
+  transform: translateY(-50%);
+  height: 140%;
+  width: 100vw;
+  background-color: ${colors.lightGray};
+  z-index: -1;
+
+  left: -5%;
 `;
 
 const ColumnWrapper = styled.div`
@@ -338,8 +349,8 @@ const StyledTooltip = styled.div`
 
   ${applyMediaQuery('mobile')} {
     & svg {
-      width: 1.3rem;
-      height: 1.3rem;
+      width: 13px;
+      height: 13px;
     }
     top: 0;
     right: 0;
@@ -395,7 +406,7 @@ const TooltipText = styled.div`
   }
 
   ${applyMediaQuery('mobile')} {
-    width: 30rem;
+    width: 300px;
     position: absolute;
 
     bottom: 0;
@@ -404,11 +415,11 @@ const TooltipText = styled.div`
     transform: translate(-100%, 100%);
 
     & h5 {
-      font-size: 1.4rem;
+      font-size: 14px;
     }
 
     & p {
-      font-size: 1.2rem;
+      font-size: 12px;
     }
   }
 `;
@@ -417,6 +428,10 @@ const RefreshWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
+
+  ${applyMediaQuery('mobile')} {
+    transform: translateY(-15px);
+  }
 `;
 
 const RefreshText = styled.p`
@@ -427,8 +442,10 @@ const RefreshText = styled.p`
   color: ${colors.subText};
 
   ${applyMediaQuery('mobile')} {
-    font-size: 1.4rem;
-    line-height: 1.7rem;
+    font-size: 14px;
+    line-height: 17px;
+    color: ${colors.noEatProgress};
+    letter-spacing: -0.1px;
   }
 `;
 
@@ -447,8 +464,8 @@ const StyeldRefreshBtn = styled.button`
       & path {
         fill: ${colors.orange};
       }
-      width: 1.5rem;
-      height: 1.5rem;
+      width: 15px;
+      height: 15px;
     }
   }
 
@@ -479,6 +496,10 @@ const LeftBox = styled.div`
   display: flex;
   align-items: center;
   gap: 2rem;
+
+  ${applyMediaQuery('mobile')} {
+    width: 100%;
+  }
 `;
 
 const RightBox = styled.div`
@@ -498,11 +519,20 @@ const RightBox = styled.div`
     background-color: transparent;
     border: none;
   }
+
+  ${applyMediaQuery('mobile')} {
+    width: 100%;
+  }
 `;
 
 const TotalEatTitle = styled.h5`
   font-size: 2.8rem;
   font-weight: bold;
+
+  ${applyMediaQuery('mobile')} {
+    font-size: 20px;
+    line-height: 24px;
+  }
 `;
 
 const TotalEatHeader = styled.div`
@@ -512,6 +542,11 @@ const TotalEatHeader = styled.div`
   align-items: center;
 
   margin-bottom: 2rem;
+
+  ${applyMediaQuery('mobile')} {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
 `;
 
 const TotalMembers = styled.span`
@@ -521,6 +556,12 @@ const TotalMembers = styled.span`
 
   & > b {
     color: ${colors.black};
+  }
+
+  ${applyMediaQuery('mobile')} {
+    font-size: 15px;
+    line-height: 18px;
+    letter-spacing: 0;
   }
 `;
 
@@ -546,7 +587,7 @@ const CompleteBtn = styled.button`
 
   font-size: 2.4rem;
   font-family: 'Montserrat';
-  letter-spacing: -0.01rem;
+  letter-spacing: -0.1px;
 
   &:disabled {
     cursor: auto;
@@ -557,6 +598,13 @@ const CompleteBtn = styled.button`
     css`
       background-color: ${colors.darkOrange};
     `};
+
+  ${applyMediaQuery('mobile')} {
+    font-size: 16px;
+    line-height: 20px;
+
+    padding: 19px 24px;
+  }
 `;
 
 const StyledCloseBtn = styled.button`
@@ -575,16 +623,16 @@ const LogoWrapper = styled.div`
   align-items: center;
 
   & img.main-logo {
-    width: 10.7rem;
+    width: 107px;
   }
 
   & > div {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
+    gap: 8px;
 
     & > span {
-      font-size: 1.4rem;
+      font-size: 14px;
       letter-spacing: -0.01rem;
     }
   }
