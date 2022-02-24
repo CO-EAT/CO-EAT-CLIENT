@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { ReactComponent as Plate } from 'assets/img/plate.svg';
 import { colors } from 'constants/colors';
+import { applyMediaQuery } from 'styles/mediaQueries';
 
 function ResultCard(props) {
   const { coEatCount = 22, noEatCount = 6, imgSrc, foodName } = props;
@@ -39,6 +40,10 @@ const StyledCard = styled.article`
   width: 30rem;
   background-color: white;
   border: 1px solid ${colors.cardBorder};
+
+  ${applyMediaQuery('mobile')} {
+    width: 100%;
+  }
 `;
 
 const InvertedBorder = styled.i`
@@ -81,6 +86,25 @@ const InvertedBorder = styled.i`
             transform: translateY(0, 75%);
           `};
   }
+
+  ${applyMediaQuery('mobile')} {
+    width: 20px;
+    height: 10px;
+    ${(props) =>
+      props.left
+        ? css`
+            transform: translate(-25%, -50%) rotate(-90deg);
+            border-radius: 0 0 10px 10px;
+            border-left: none;
+            left: -1px;
+          `
+        : css`
+            transform: translate(25%, -50%) rotate(-90deg);
+            border-radius: 10px 10px 0 0;
+            border-right: none;
+            right: -1px;
+          `};
+  }
 `;
 
 const CardWrapper = styled.div`
@@ -101,6 +125,15 @@ const CardWrapper = styled.div`
   & > *:not(svg) {
     margin-left: 1.5rem;
   }
+
+  ${applyMediaQuery('mobile')} {
+    padding: 0 15px;
+    margin-bottom: 15px;
+
+    & > *:not(svg) {
+      margin-left: 0;
+    }
+  }
 `;
 
 const CardName = styled.h2`
@@ -111,6 +144,11 @@ const CardName = styled.h2`
   line-height: 3.4rem;
 
   letter-spacing: -0.01rem;
+
+  ${applyMediaQuery('mobile')} {
+    font-size: 17px;
+    line-height: 20px;
+  }
 `;
 
 const UpBox = styled.div`
@@ -119,6 +157,10 @@ const UpBox = styled.div`
 
   border-bottom: 1px dashed ${colors.cardBorder};
   padding-top: 1rem;
+
+  ${applyMediaQuery('mobile')} {
+    padding-top: 13px;
+  }
 `;
 const DownBox = styled.div`
   position: relative;
@@ -128,11 +170,14 @@ const DownBox = styled.div`
   align-items: center;
 
   padding: 3rem;
+  ${applyMediaQuery('mobile')} {
+    padding: 14px 9px;
+  }
 `;
 
 export const ImageWrapper = styled.div`
   position: relative;
-  padding-top: calc(15rem + 2rem);
+  padding-top: calc(10rem + 2rem);
   width: 100%;
 
   display: flex;
@@ -142,6 +187,14 @@ export const ImageWrapper = styled.div`
     position: absolute;
     top: 0;
     left: 3rem;
+  }
+
+  ${applyMediaQuery('mobile')} {
+    padding-top: 120px;
+
+    & > svg {
+      left: 30px;
+    }
   }
 `;
 
@@ -159,6 +212,13 @@ export const MainDish = styled.div`
     position: absolute;
     top: 0;
   }
+
+  ${applyMediaQuery('mobile')} {
+    & > img {
+      width: 100px;
+      height: 100px;
+    }
+  }
 `;
 
 const CONOResult = styled.div`
@@ -172,6 +232,13 @@ const CONOResult = styled.div`
     font-weight: bold;
     letter-spacing: -0.01rem;
     line-height: 2.2rem;
+  }
+
+  ${applyMediaQuery('mobile')} {
+    & > * {
+      font-size: 12px;
+      line-height: 15px;
+    }
   }
 `;
 

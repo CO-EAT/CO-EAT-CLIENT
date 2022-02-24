@@ -4,7 +4,7 @@ import { applyMediaQuery } from 'styles/mediaQueries';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
-  
+
   @font-face {
     font-family: 'Pretendard-Regular';
     src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
@@ -16,7 +16,6 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     padding: 0;
     margin: 0;
-
     font-size: 35%;
 
     @media screen and (min-width: 1921px) {
@@ -33,7 +32,7 @@ const GlobalStyle = createGlobalStyle`
     ::-webkit-scrollbar {
       display: none;
     }
-    font-family: 'Pretendard-Regular';
+    font-family: Pretendard-Regular, sans-serif;
   }
 
   button:hover {
