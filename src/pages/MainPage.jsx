@@ -113,19 +113,20 @@ export const StyledContainer = styled.section`
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  height: 100%;
   margin: 0 auto;
+
   ${applyMediaQuery('mobile')} {
     padding: 0 10%;
-    justify-content: space-around;
+    justify-content: center;
   }
-  height: 100%;
 `;
 
 export const StyledMainHeader = styled.header`
   margin-top: 10rem;
 
   ${applyMediaQuery('mobile')} {
-    margin-top: 8rem;
+    margin-top: 6rem;
   }
 `;
 
@@ -148,11 +149,6 @@ export const StyledTitle = styled.div`
 
 export const CustomLogo = styled(Coeat)`
   ${applyMediaQuery('mobile')} {
-    position: fixed;
-    top: 8rem;
-    left: 50%;
-    transform: translateX(-50%);
-
     & {
       width: 13.5rem;
       height: 8.86rem;
@@ -175,9 +171,6 @@ export const StyledContent = styled.div`
   }
 
   ${applyMediaQuery('mobile')} {
-    margin-top: 15.7rem;
-    margin-bottom: 1rem;
-
     & > p {
       font-size: 20px;
       font-weight: 400;
@@ -332,6 +325,7 @@ const StyledRight = styled.div`
     height: fit-content;
     text-align: center;
     font-size: 15px;
+    font-family: 'Pretendard-Regular';
     padding: 0.8rem 2.4rem;
   }
 `;

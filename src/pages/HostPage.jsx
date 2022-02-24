@@ -113,7 +113,8 @@ const CustomStyledContent = styled(StyledContent)`
     & > img {
       width: 4rem;
       height: 4rem;
-      margin-bottom: 4rem;
+      margin-top: 3rem;
+      margin-bottom: 4.7rem;
     }
 
     & > p {
@@ -126,7 +127,7 @@ const CustomStyledContent = styled(StyledContent)`
     }
 
     .small {
-      font-size: 15px;
+      font-size: 13px;
     }
   }
 `;
@@ -138,7 +139,6 @@ const CustomStyledMainButton = styled(StyledMainButton)`
 
   ${applyMediaQuery('mobile')} {
     width: fit-content;
-    height: fit-content;
     padding: 1.7rem 4.9rem;
 
     & > svg {
