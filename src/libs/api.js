@@ -17,6 +17,7 @@ export const requestEnterGroup = async (inviteCode) => {
     }
     return isDeleted;
   } catch (error) {
+    // eslint-disable-next-line
     console.log(error);
   }
 };
