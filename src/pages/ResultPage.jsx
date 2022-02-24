@@ -182,7 +182,7 @@ function ResultPage() {
           </LeftBox>
           <RightBox>
             {!isMobile && <label>링크공유</label>}
-            <LinkCopy removeStyle />
+            <LinkCopy removeStyle isResultPage />
           </RightBox>
         </TotalEatHeader>
         <TotalEatGrid>

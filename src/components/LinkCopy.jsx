@@ -7,7 +7,7 @@ import useRoomInfo from 'cores/hooks/useRoomInfo';
 import { applyMediaQuery } from 'styles/mediaQueries';
 import useMedia from 'cores/hooks/useMedia';
 
-const LinkCopy = ({ inviteCode, removeStyle = false }) => {
+const LinkCopy = ({ inviteCode, removeStyle = false, isResultPage = false }) => {
   const {
     roomStateContext: { inviteCode: contextInviteCode },
   } = useRoomInfo();
@@ -31,7 +31,7 @@ const LinkCopy = ({ inviteCode, removeStyle = false }) => {
   };
   return (
     <StyledInputContainer>
-      <StyledLinkContainer removeStyle={removeStyle}>
+      <StyledLinkContainer removeStyle={removeStyle} isResultPage={isResultPage}>
         <input ref={linkRef} readOnly value={coeatLink}></input>
         <button onClick={handleCopy}>
           <img src={isMobile ? MobileLinkCopy : CopyImg} alt="Copy Img" />
@@ -97,44 +97,46 @@ const StyledLinkContainer = styled.div`
   }
 
   ${applyMediaQuery('mobile')} {
-    width: 100%;
-    height: 7rem;
-    padding: 2rem 1rem 2rem 3rem;
+    ${(props) =>
+      props.isResultPage
+        ? css`
+            width: 100%;
+            height: 41px;
 
-    & > input {
-      font-size: 18px;
-      padding: 0;
-      color: #5b5b5b;
-    }
+            & > input {
+              font-size: 15px;
+              line-height: 18px;
+              letter-spacing: -0.01rem;
+            }
 
-    & > button {
-      cursor: pointer;
-      border: 0;
-      background-color: transparent;
-    }
-  }
+            & > button {
+              margin-right: 10px;
+              padding: 0;
 
-  ${applyMediaQuery('mobile')} {
-    width: 100%;
-    height: 41px;
+              display: flex;
+              align-items: center;
+              & > img {
+                width: 20px;
+              }
+            }
+          `
+        : css`
+            width: 100%;
+            height: 7rem;
+            padding: 2rem 1rem 2rem 3rem;
 
-    & > input {
-      font-size: 15px;
-      line-height: 18px;
-      letter-spacing: -0.01rem;
-    }
+            & > input {
+              font-size: 18px;
+              padding: 0;
+              color: #5b5b5b;
+            }
 
-    & > button {
-      margin-right: 10px;
-      padding: 0;
-
-      display: flex;
-      align-items: center;
-      & > img {
-        width: 20px;
-      }
-    }
-  }
+            & > button {
+              cursor: pointer;
+              border: 0;
+              background-color: transparent;
+            }
+          `};
 `;
 
 export const StyledAlertBox = styled.button`
