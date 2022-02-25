@@ -261,7 +261,6 @@ const StyledWarnContainer = styled.div`
   width: 100%;
   height: 5rem;
   position: relative;
-  top: -10rem;
 
   ${applyMediaQuery('mobile')} {
     width: 80%;
