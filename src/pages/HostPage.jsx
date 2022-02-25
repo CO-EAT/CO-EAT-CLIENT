@@ -114,15 +114,15 @@ const CustomStyledContent = styled(StyledContent)`
       width: 4rem;
       height: 4rem;
       margin-top: 3rem;
-      margin-bottom: 4.7rem;
+      margin-bottom: 2.7rem;
     }
 
     & > p {
-      font-size: 18px;
+      font-size: 16px;
     }
 
     .big {
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
       font-size: 22px;
     }
 
@@ -159,6 +159,11 @@ const StyledDecoration = styled.div`
   position: absolute;
   top: -6rem;
   z-index: -1;
+
+  ${applyMediaQuery('mobile')} {
+    width: 100%;
+    overflow-x: hidden;
+  }
 
   & > img {
     width: 6rem;

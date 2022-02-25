@@ -126,7 +126,7 @@ export const StyledMainHeader = styled.header`
   margin-top: 10rem;
 
   ${applyMediaQuery('mobile')} {
-    margin-top: 6rem;
+    margin-top: 0rem;
   }
 `;
 
@@ -150,8 +150,8 @@ export const StyledTitle = styled.div`
 export const CustomLogo = styled(Coeat)`
   ${applyMediaQuery('mobile')} {
     & {
-      width: 13.5rem;
-      height: 8.86rem;
+      width: 10.5rem;
+      height: 7.86rem;
     }
   }
 `;
@@ -172,7 +172,7 @@ export const StyledContent = styled.div`
 
   ${applyMediaQuery('mobile')} {
     & > p {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 400;
       line-height: 30px;
     }
@@ -196,9 +196,9 @@ const StyledMainBody = styled.article`
     margin-top: -4.5rem;
 
     & > svg {
-      width: 25%;
+      width: 20%;
       position: relative;
-      top: 6%;
+      top: 9%;
     }
   }
 `;
@@ -268,8 +268,8 @@ const StyledCoeat = styled.div`
   ${applyMediaQuery('mobile')} {
     flex-direction: column;
     align-items: center;
-    gap: 0.8rem;
-    margin-bottom: 2.7rem;
+    /* gap: 0.8rem; */
+    margin-bottom: 1.2rem;
   }
 
   font-size: 2.4rem;
@@ -298,7 +298,7 @@ const StyledLeft = styled.div`
     margin: 0;
 
     & > p {
-      font-size: 16px;
+      font-size: 14px;
       text-align: center;
       line-height: 19.2px;
     }
@@ -324,7 +324,7 @@ const StyledRight = styled.div`
     width: fit-content;
     height: fit-content;
     text-align: center;
-    font-size: 15px;
+    font-size: 13px;
     font-family: 'Pretendard-Regular';
     padding: 0.8rem 2.4rem;
   }
@@ -356,6 +356,8 @@ export const StyledMainButton = styled.button`
   }
 
   ${applyMediaQuery('mobile')} {
+    margin-top: 4rem;
+    margin-bottom: 0rem;
     width: fit-content;
     height: fit-content;
     padding: 1.7rem 4.9rem;
