@@ -1,3 +1,4 @@
+import PickProvider from 'cores/contexts/PickProvider';
 import RoomProvider from 'cores/contexts/RoomProvider';
 import GlobalStyle from 'styles/globalStyle';
 import { ThemeProvider } from 'styled-components';
@@ -9,9 +10,11 @@ function App() {
     <>
       <GlobalStyle />
       <RoomProvider>
-        <ThemeProvider theme={media}>
-          <Router />
-        </ThemeProvider>
+        <PickProvider>
+          <ThemeProvider theme={media}>
+            <Router />
+          </ThemeProvider>
+        </PickProvider>
       </RoomProvider>
     </>
   );
