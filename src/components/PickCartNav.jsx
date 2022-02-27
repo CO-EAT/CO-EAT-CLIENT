@@ -6,14 +6,16 @@ import CartModal from 'components/CartModal';
 import { colors } from 'constants/colors';
 import useRoomInfo from 'cores/hooks/useRoomInfo';
 import { postMenuSelection } from 'libs/api';
+import usePickInfo from 'cores/hooks/usePickInfo';
 
-function PickCartModal({ coEatList, noEatList, isCartOpen, toggleModal, onRemoveFood }) {
+function PickCartModal({ isCartOpen, toggleModal }) {
   const {
     roomStateContext: {
       inviteCode,
       userInfo: { nickname },
     },
   } = useRoomInfo();
+  const { coEatList, noEatList } = usePickInfo();
   const navigator = useNavigate();
 
   const getIdArrayFromEatList = (list) => list.map((li) => li.id);
@@ -28,9 +30,7 @@ function PickCartModal({ coEatList, noEatList, isCartOpen, toggleModal, onRemove
 
   return (
     <StyledCartNavWrapper>
-      {isCartOpen && (
-        <CartModal coEatList={coEatList} noEatList={noEatList} onRemoveFood={onRemoveFood} toggleModal={toggleModal} />
-      )}
+      {isCartOpen && <CartModal toggleModal={toggleModal} />}
       <StyledCartNav>
         <StyledCartInfo>
           <span>COEAT</span>

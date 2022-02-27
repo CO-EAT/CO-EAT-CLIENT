@@ -1,17 +1,12 @@
 import styled from 'styled-components';
 import PickedCard from 'components/PickedCard';
+import usePickInfo from 'cores/hooks/usePickInfo';
 
 const COEAT = 'COEAT';
 const NOEAT = 'NOEAT';
 
-function CartModal({ coEatList, noEatList, onRemoveFood, toggleModal }) {
-  const getFoodInfo = (foodInfoList) => {
-    return {
-      name: foodInfoList.name,
-      img: foodInfoList.img,
-      id: foodInfoList.id,
-    };
-  };
+function CartModal({ toggleModal }) {
+  const { coEatList, noEatList } = usePickInfo();
 
   return (
     <StyledCartWrapper>
@@ -26,12 +21,7 @@ function CartModal({ coEatList, noEatList, onRemoveFood, toggleModal }) {
         </div>
         <StyledList>
           {coEatList.map((coEatFood) => (
-            <PickedCard
-              type={COEAT}
-              foodInfo={getFoodInfo(coEatFood)}
-              key={coEatFood.id}
-              onRemoveFood={onRemoveFood(COEAT)}
-            />
+            <PickedCard type={COEAT} foodInfo={coEatFood} key={coEatFood.id} />
           ))}
         </StyledList>
       </StyledListWrapper>
@@ -45,12 +35,7 @@ function CartModal({ coEatList, noEatList, onRemoveFood, toggleModal }) {
         </div>
         <StyledList>
           {noEatList.map((noEatFood) => (
-            <PickedCard
-              type={NOEAT}
-              foodInfo={getFoodInfo(noEatFood)}
-              key={noEatFood.id}
-              onRemoveFood={onRemoveFood(NOEAT)}
-            />
+            <PickedCard type={NOEAT} foodInfo={noEatFood} key={noEatFood.id} />
           ))}
         </StyledList>
       </StyledListWrapper>

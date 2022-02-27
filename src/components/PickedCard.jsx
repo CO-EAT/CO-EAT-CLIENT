@@ -3,12 +3,18 @@ import { ImageWrapper, MainDish } from './FoodSelectionCard';
 import { colors } from 'constants/colors';
 import { ReactComponent as CloseBtnImg } from 'assets/closeBtn.svg';
 import { ReactComponent as Plate } from 'assets/img/plate.svg';
+import usePickInfo from 'cores/hooks/usePickInfo';
 
 const COEAT = 'COEAT';
 
 function PickedCard(props) {
-  const { type, foodInfo, onRemoveFood } = props;
+  const { type, foodInfo } = props;
   const { name, img, id } = foodInfo;
+
+  const { handleCoeat, handleNoeat } = usePickInfo();
+
+  const foodHandler = type === COEAT ? handleCoeat : handleNoeat;
+
   return (
     <StyledMenuSelection>
       <LeftBox>
@@ -27,7 +33,7 @@ function PickedCard(props) {
       <RightBox>
         <InvertedBorder top />
         <InvertedBorder bottom />
-        <CloseBtn onClick={() => onRemoveFood(id)}>
+        <CloseBtn onClick={() => foodHandler(id, name, img)}>
           <CloseBtnImg />
         </CloseBtn>
       </RightBox>

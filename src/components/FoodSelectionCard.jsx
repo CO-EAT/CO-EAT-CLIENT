@@ -1,29 +1,28 @@
-import { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { ReactComponent as Plate } from 'assets/img/plate.svg';
 import { colors } from 'constants/colors';
+import usePickInfo from 'cores/hooks/usePickInfo';
 
 const COEAT = 'COEAT';
+const NOEAT = 'NOEAT';
 
 function FoodSelectionCard(props) {
   const { data, addCoEat, addNoEat } = props;
   const { menuName, content, menuImg, id } = data;
+  const { coEatList, noEatList } = usePickInfo();
 
-  const [isCoeat, setIsCoeat] = useState(false);
-  const [isNoeat, setIsNoeat] = useState(false);
+  const getIsCurrentSelected = (type) => {
+    const list = type === COEAT ? coEatList : noEatList;
+    return Boolean(list.find((food) => food.id === id));
+  };
 
   const handleClickCONOEatBtn = (type, id, name, img) => {
-    const getIsClickable = type === COEAT ? addCoEat : addNoEat;
-    const onClickCONOEatBtn = type === COEAT ? setIsCoeat : setIsNoeat;
-    return () => {
-      if (getIsClickable(id, name, img)) {
-        onClickCONOEatBtn((prev) => !prev);
-      }
-    };
+    const addFoodHandler = type === COEAT ? addCoEat : addNoEat;
+    return () => addFoodHandler(id, name, img);
   };
 
   return (
-    <StyledCard isCoeat={isCoeat} isNoeat={isNoeat}>
+    <StyledCard isCoeat={getIsCurrentSelected(COEAT)} isNoeat={getIsCurrentSelected(NOEAT)}>
       <UpBox>
         <CardWrapper>
           <CardName>{menuName}</CardName>
@@ -37,8 +36,8 @@ function FoodSelectionCard(props) {
         </ImageWrapper>
       </UpBox>
       <DownBox>
-        <InvertedBorder left isCoeat={isCoeat} isNoeat={isNoeat} />
-        <InvertedBorder right isCoeat={isCoeat} isNoeat={isNoeat} />
+        <InvertedBorder left isCoeat={getIsCurrentSelected(COEAT)} isNoeat={getIsCurrentSelected(NOEAT)} />
+        <InvertedBorder right isCoeat={getIsCurrentSelected(COEAT)} isNoeat={getIsCurrentSelected(NOEAT)} />
         <ButtonWrapper>
           <CoEatButton onClick={handleClickCONOEatBtn('COEAT', id, menuName, menuImg)}>COEAT</CoEatButton>
           <NoEatButton onClick={handleClickCONOEatBtn('NOEAT', id, menuName, menuImg)}>NOEAT</NoEatButton>
