@@ -9,7 +9,7 @@ function CartModal({ toggleModal }) {
   const { coEatList, noEatList } = usePickInfo();
 
   return (
-    <MobileModalWrapper>
+    <MobileModalWrapper vh={window?.innerHeight || '667px'}>
       <MobileHeader>
         <h2>나의 코잇/노잇</h2>
         <button type="button" onClick={toggleModal}>
@@ -127,8 +127,7 @@ const MobileModalWrapper = styled.div`
   flex-direction: column;
 
   position: absolute;
-
-  height: calc(100vh - 80px - 116px);
+  height: ${(props) => `calc(${props.vh}px - 80px - 116px)`};
 
   bottom: 116px;
 `;
