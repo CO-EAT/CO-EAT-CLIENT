@@ -278,10 +278,12 @@ export const MainDish = styled.div`
     top: 0;
     left: 55%;
     transform: translate(-50%, 0);
+    object-fit: cover;
 
     ${applyMediaQuery('mobile')} {
       width: 12rem;
       height: 12rem;
+      top: -15px;
     }
   }
 `;
