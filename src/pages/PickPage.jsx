@@ -394,5 +394,6 @@ const FoodSelectionWrapper = styled.div`
 
   ${applyMediaQuery('mobile')} {
     width: 156px;
+    margin: 7.5px 6px;
   }
 `;
