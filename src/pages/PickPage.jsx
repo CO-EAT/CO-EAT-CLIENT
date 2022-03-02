@@ -80,15 +80,15 @@ function PickPage() {
       const foodHandler = type === COEAT ? handleCoeat : handleNoeat;
       const list = type === COEAT ? coEatList : noEatList;
 
-      if (list.length >= 5) {
+      if (list.length >= 5 && list.every((foodInfo) => foodInfo.id !== foodId)) {
         setRestrictModal((prev) => ({
           ...prev,
           max: true,
         }));
         setCheckType(list === coEatList ? '코잇' : '노잇');
-        return;
+      } else {
+        foodHandler(foodId, foodName, foodImg);
       }
-      foodHandler(foodId, foodName, foodImg);
     };
   };
 
