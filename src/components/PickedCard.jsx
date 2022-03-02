@@ -57,6 +57,10 @@ const StyledMenuSelection = styled.li`
     width: 150px;
     height: 84px;
   }
+  ${applyMediaQuery('mini')} {
+    width: 120px;
+    height: 84px;
+  }
 `;
 
 const InvertedBorder = styled.i`
@@ -191,6 +195,11 @@ const FoodInfoBadge = styled.div`
     padding: 6px 8px;
     height: unset;
     background-color: ${(props) => (props.badgeType === COEAT ? colors.darkOrange : '#434343')};
+  }
+
+  ${applyMediaQuery('mini')} {
+    font-size: 11px;
+    line-height: 14px;
   }
 `;
 

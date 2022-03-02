@@ -250,6 +250,7 @@ const StyledContainer = styled.div`
 
   ${applyMediaQuery('mobile')} {
     & > nav {
+      width: 100%;
       padding: 10% 5% 0% 5%;
       height: unset;
     }
@@ -260,9 +261,8 @@ const StyledContainer = styled.div`
     }
 
     .ctgFoods {
-      grid-template-columns: unset;
-      display: flex;
-      flex-wrap: wrap;
+      width: 100%;
+      grid-template-columns: repeat(2, 1fr);
       gap: 15px 12px;
     }
   }
@@ -392,15 +392,9 @@ const StyledSection = styled.div`
 
 const FoodSelectionWrapper = styled.div`
   width: 100%;
-  height: calc(223px + 2px);
+  min-height: calc(223px + 2px);
 
   display: flex;
   justify-content: center;
   align-items: center;
-
-  ${applyMediaQuery('mobile')} {
-    width: calc(50% - 20px);
-    height: unset;
-    margin: 7.5px 6px;
-  }
 `;

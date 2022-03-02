@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import PickedCard from 'components/PickedCard';
 import usePickInfo from 'cores/hooks/usePickInfo';
+import { applyMediaQuery } from 'styles/mediaQueries';
 
 const COEAT = 'COEAT';
 const NOEAT = 'NOEAT';
@@ -95,6 +96,10 @@ const StyledList = styled.ul`
   justify-content: center;
 
   margin: 0 auto;
+
+  ${applyMediaQuery('mini')} {
+    margin: unset;
+  }
 `;
 
 const MobileHeader = styled.div`

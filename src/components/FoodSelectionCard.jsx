@@ -70,6 +70,10 @@ const StyledCard = styled.article`
     css`
       border: 2px solid ${colors.noEatProgress};
     `}
+
+  ${applyMediaQuery('mobile')} {
+    width: 100%;
+  }
 `;
 
 const InvertedBorder = styled.i`
@@ -231,7 +235,11 @@ export const ImageWrapper = styled.div`
   }
 
   ${applyMediaQuery('mobile')} {
-    padding-top: 115px;
+    padding-top: 85px;
+  }
+  ${applyMediaQuery('mobile')} {
+    padding-top: 85px;
+    margin-bottom: 12px;
   }
 `;
 
@@ -276,6 +284,10 @@ const BasicButton = styled.button`
       transform: unset;
     }
   }
+
+  ${applyMediaQuery('mini')} {
+    padding: 1rem 1rem;
+  }
 `;
 
 const CoEatButton = styled(BasicButton)`
@@ -307,6 +319,11 @@ export const MainDish = styled.div`
       width: 12rem;
       height: 12rem;
       top: -15px;
+    }
+
+    ${applyMediaQuery('mini')} {
+      width: 10rem;
+      height: 10rem;
     }
   }
 `;
