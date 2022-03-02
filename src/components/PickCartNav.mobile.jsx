@@ -44,7 +44,7 @@ const StyledCartNavWrapper = styled.div`
   ${({ theme }) =>
     theme.isCartOpen &&
     css`
-      height: unset;
+      height: 116px;
     `};
 `;
 
@@ -116,7 +116,6 @@ const OrangeButton = styled.button`
     css`
       width: 100%;
       padding-bottom: unset;
-      height: 79px;
       flex: unset;
     `};
 `;

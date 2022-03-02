@@ -128,7 +128,7 @@ const MobileModalWrapper = styled.div`
 
   position: absolute;
 
-  height: calc(100vh - 80px - 83px);
+  height: calc(100vh - 80px - 116px);
 
-  bottom: 83px;
+  bottom: 116px;
 `;
