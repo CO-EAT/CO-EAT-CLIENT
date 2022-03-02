@@ -100,7 +100,7 @@ const InvertedBorder = styled.i`
 
           ${applyMediaQuery('mobile')} {
             border-radius: 0 0 10px 10px;
-            transform: translate(-50%, -50%) rotate(-90deg);
+            transform: translate(-35%, -50%) rotate(-90deg);
             border-right: none;
           }
         `
@@ -111,7 +111,7 @@ const InvertedBorder = styled.i`
           right: -2px;
           ${applyMediaQuery('mobile')} {
             border-radius: 10px 10px 0 0;
-            transform: translate(50%, -50%) rotate(-90deg);
+            transform: translate(35%, -50%) rotate(-90deg);
             border-left: none;
           }
         `};
