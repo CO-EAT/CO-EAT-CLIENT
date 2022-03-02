@@ -325,7 +325,7 @@ const StyledRight = styled.div`
     height: fit-content;
     text-align: center;
     font-size: 13px;
-    font-family: 'Pretendard-Regular';
+    font-family: 'Pretendard-Variable';
     padding: 0.8rem 2.4rem;
   }
 `;
