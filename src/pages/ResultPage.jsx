@@ -624,6 +624,10 @@ export const LogoWrapper = styled.div`
 
   & img.main-logo {
     width: 107px;
+
+    ${applyMediaQuery('mobile')} {
+      width: 67px;
+    }
   }
 
   & > div {

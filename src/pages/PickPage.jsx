@@ -21,6 +21,7 @@ import Logo from 'assets/logo.svg';
 import SmallLogo from 'assets/small-logo.svg';
 import { applyMediaQuery } from 'styles/mediaQueries';
 import useMedia from 'cores/hooks/useMedia';
+import MobilePickCartModal from 'components/PickCartNav.mobile';
 
 const COEAT = 'COEAT';
 const NOEAT = 'NOEAT';
@@ -139,6 +140,8 @@ function PickPage() {
     if (isSuccess) navigator('/result');
   };
 
+  const CurrentCartNav = isMobile ? MobilePickCartModal : PickCartNav;
+
   return (
     <StyledContainer ref={containerRef} isCartOpen={isCartOpen}>
       <nav>
@@ -158,18 +161,20 @@ function PickPage() {
               <img src={LogoImg} alt="logo" />
             </StyledTitle>
           </Responsive>
-          <StyledCategories>
-            <StyledCategory>
-              {MEAL_CATEGORIES.map((category, idx) => (
-                <div
-                  onClick={handleClick}
-                  name={category}
-                  key={idx}
-                  className={category === selectCtg ? 'selected' : ''}>
-                  <a href={`#${category}`}>{category}</a>
-                </div>
-              ))}
-            </StyledCategory>
+          <StyledCategories isCartOpen={isCartOpen}>
+            {!(isMobile && isCartOpen) && (
+              <StyledCategory>
+                {MEAL_CATEGORIES.map((category, idx) => (
+                  <div
+                    onClick={handleClick}
+                    name={category}
+                    key={idx}
+                    className={category === selectCtg ? 'selected' : ''}>
+                    <a href={`#${category}`}>{category}</a>
+                  </div>
+                ))}
+              </StyledCategory>
+            )}
             {!isMobile && <StyledResultBtn onClick={submitCompleteCoeat}>완료하기</StyledResultBtn>}
           </StyledCategories>
         </StyledNav>
@@ -178,7 +183,7 @@ function PickPage() {
       <section>
         <StyledSection>{showFoods()}</StyledSection>
       </section>
-      <PickCartNav isCartOpen={isCartOpen} toggleModal={toggleModal} />
+      <CurrentCartNav isCartOpen={isCartOpen} toggleModal={toggleModal} submitCompleteCoeat={submitCompleteCoeat} />
       <ReactModal
         style={modalStyles}
         isOpen={restrictModal.min || restrictModal.max}
@@ -278,7 +283,7 @@ const StyledCategories = styled.div`
       position: absolute;
       bottom: 0;
       width: 100vw;
-      background-color: ${colors.gray};
+      background-color: ${(props) => (props.isCartOpen ? 'white' : colors.gray)};
       height: 1px;
       left: 50%;
       transform: translateX(-50%);
