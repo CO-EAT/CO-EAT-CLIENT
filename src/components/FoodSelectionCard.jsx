@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import { ReactComponent as Plate } from 'assets/img/plate.svg';
 import { colors } from 'constants/colors';
 import usePickInfo from 'cores/hooks/usePickInfo';
+import { applyMediaQuery } from 'styles/mediaQueries';
 
 const COEAT = 'COEAT';
 const NOEAT = 'NOEAT';
@@ -144,13 +145,17 @@ const CardWrapper = styled.div`
 `;
 
 const CardName = styled.h2`
-  font-family: Pretendard Variable;
   font-style: normal;
   font-weight: bold;
   font-size: 2.8rem;
   line-height: 3.4rem;
 
   letter-spacing: -0.01rem;
+
+  ${applyMediaQuery('mobile')} {
+    font-size: 18px;
+    line-height: 22px;
+  }
 `;
 
 const CardDesc = styled.p`
@@ -161,6 +166,11 @@ const CardDesc = styled.p`
   letter-spacing: -0.01rem;
   color: #5b5b5b;
   font-weight: lighter;
+
+  ${applyMediaQuery('mobile')} {
+    color: ${colors.noEatProgress};
+    font-size: 13px;
+  }
 `;
 
 const UpBox = styled.div`
@@ -189,6 +199,10 @@ export const ImageWrapper = styled.div`
     position: absolute;
     top: 0;
   }
+
+  ${applyMediaQuery('mobile')} {
+    margin-bottom: 10px;
+  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -198,6 +212,11 @@ const ButtonWrapper = styled.div`
   justify-content: center;
 
   padding: 2rem;
+
+  ${applyMediaQuery('mobile')} {
+    padding: unset;
+    gap: unset;
+  }
 `;
 
 const BasicButton = styled.button`
@@ -211,6 +230,12 @@ const BasicButton = styled.button`
 
   &:hover {
     transform: scale(1.1);
+  }
+
+  ${applyMediaQuery('mobile')} {
+    padding: 17px 15px;
+    font-size: 13px;
+    line-height: 16px;
   }
 `;
 

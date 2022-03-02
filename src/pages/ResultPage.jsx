@@ -616,7 +616,7 @@ const StyledCloseBtn = styled.button`
   border: none;
 `;
 
-const LogoWrapper = styled.div`
+export const LogoWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;

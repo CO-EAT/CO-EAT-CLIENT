@@ -15,11 +15,18 @@ import WarnMaxItem from 'components/common/Modal/WarnMaxItem';
 import WarnMinItem from 'components/common/Modal/WarnMinItem';
 import { useNavigate } from 'react-router-dom';
 import usePickInfo from 'cores/hooks/usePickInfo';
+import Responsive from 'components/common/Responsive';
+import { LogoWrapper } from './ResultPage';
+import Logo from 'assets/logo.svg';
+import SmallLogo from 'assets/small-logo.svg';
+import { applyMediaQuery } from 'styles/mediaQueries';
+import useMedia from 'cores/hooks/useMedia';
 
 const COEAT = 'COEAT';
 const NOEAT = 'NOEAT';
 
 function PickPage() {
+  const { isMobile } = useMedia();
   const { roomStateContext } = useRoomInfo();
   const containerRef = useRef(null);
   const navigator = useNavigate();
@@ -139,9 +146,21 @@ function PickPage() {
     <StyledContainer ref={containerRef} isCartOpen={isCartOpen}>
       <nav>
         <StyledNav>
-          <StyledTitle>
-            <img src={LogoImg} alt="logo" />
-          </StyledTitle>
+          <Responsive mobile>
+            <LogoWrapper>
+              <img src={Logo} className="main-logo" alt="logo" />
+
+              <div>
+                <img src={SmallLogo} className="small-logo" alt="small-logo" />
+                {roomStateContext && <span>{roomStateContext.userInfo.nickname}님</span>}
+              </div>
+            </LogoWrapper>
+          </Responsive>
+          <Responsive tablet desktop>
+            <StyledTitle>
+              <img src={LogoImg} alt="logo" />
+            </StyledTitle>
+          </Responsive>
           <StyledCategories>
             <StyledCategory>
               {MEAL_CATEGORIES.map((category, idx) => (
@@ -154,7 +173,7 @@ function PickPage() {
                 </div>
               ))}
             </StyledCategory>
-            <StyledResultBtn onClick={submitCompleteCoeat}>완료하기</StyledResultBtn>
+            {!isMobile && <StyledResultBtn onClick={submitCompleteCoeat}>완료하기</StyledResultBtn>}
           </StyledCategories>
         </StyledNav>
       </nav>
@@ -213,6 +232,23 @@ const StyledContainer = styled.div`
     gap: 2.65rem;
     margin-bottom: 10%;
   }
+
+  ${applyMediaQuery('mobile')} {
+    & > nav {
+      padding: 10% 5% 0% 5%;
+      height: unset;
+    }
+
+    & > section {
+      background-color: ${colors.lightGray};
+      padding: 15px;
+    }
+
+    .ctgFoods {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px 12px;
+    }
+  }
 `;
 
 const StyledNav = styled.div`
@@ -235,6 +271,22 @@ const StyledCategories = styled.div`
   align-items: center;
   border-bottom: 0.1rem solid ${colors.gray};
   background-color: white;
+
+  ${applyMediaQuery('mobile')} {
+    position: relative;
+    margin-top: 31px;
+    border-bottom: unset;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      width: 100vw;
+      background-color: ${colors.gray};
+      height: 1px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
 `;
 
 const StyledCategory = styled.div`
@@ -263,6 +315,22 @@ const StyledCategory = styled.div`
   & > div:hover {
     transform: scale(1.1);
     cursor: pointer;
+  }
+
+  ${applyMediaQuery('mobile')} {
+    & > div {
+      font-size: 16px;
+      line-height: 19px;
+      letter-spacing: -0.01rem;
+
+      color: ${colors.lighterGray};
+
+      margin-right: 22px;
+    }
+
+    & > div.selected {
+      border-bottom: 0.5rem solid ${colors.orange};
+    }
   }
 `;
 
