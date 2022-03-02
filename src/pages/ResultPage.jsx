@@ -616,7 +616,7 @@ const StyledCloseBtn = styled.button`
   border: none;
 `;
 
-const LogoWrapper = styled.div`
+export const LogoWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -624,6 +624,10 @@ const LogoWrapper = styled.div`
 
   & img.main-logo {
     width: 107px;
+
+    ${applyMediaQuery('mobile')} {
+      width: 67px;
+    }
   }
 
   & > div {

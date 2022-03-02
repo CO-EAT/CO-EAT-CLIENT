@@ -1,29 +1,29 @@
-import { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { ReactComponent as Plate } from 'assets/img/plate.svg';
 import { colors } from 'constants/colors';
+import usePickInfo from 'cores/hooks/usePickInfo';
+import { applyMediaQuery } from 'styles/mediaQueries';
 
 const COEAT = 'COEAT';
+const NOEAT = 'NOEAT';
 
 function FoodSelectionCard(props) {
   const { data, addCoEat, addNoEat } = props;
   const { menuName, content, menuImg, id } = data;
+  const { coEatList, noEatList } = usePickInfo();
 
-  const [isCoeat, setIsCoeat] = useState(false);
-  const [isNoeat, setIsNoeat] = useState(false);
+  const getIsCurrentSelected = (type) => {
+    const list = type === COEAT ? coEatList : noEatList;
+    return Boolean(list.find((food) => food.id === id));
+  };
 
   const handleClickCONOEatBtn = (type, id, name, img) => {
-    const getIsClickable = type === COEAT ? addCoEat : addNoEat;
-    const onClickCONOEatBtn = type === COEAT ? setIsCoeat : setIsNoeat;
-    return () => {
-      if (getIsClickable(id, name, img)) {
-        onClickCONOEatBtn((prev) => !prev);
-      }
-    };
+    const addFoodHandler = type === COEAT ? addCoEat : addNoEat;
+    return () => addFoodHandler(id, name, img);
   };
 
   return (
-    <StyledCard isCoeat={isCoeat} isNoeat={isNoeat}>
+    <StyledCard isCoeat={getIsCurrentSelected(COEAT)} isNoeat={getIsCurrentSelected(NOEAT)}>
       <UpBox>
         <CardWrapper>
           <CardName>{menuName}</CardName>
@@ -37,8 +37,8 @@ function FoodSelectionCard(props) {
         </ImageWrapper>
       </UpBox>
       <DownBox>
-        <InvertedBorder left isCoeat={isCoeat} isNoeat={isNoeat} />
-        <InvertedBorder right isCoeat={isCoeat} isNoeat={isNoeat} />
+        <InvertedBorder left isCoeat={getIsCurrentSelected(COEAT)} isNoeat={getIsCurrentSelected(NOEAT)} />
+        <InvertedBorder right isCoeat={getIsCurrentSelected(COEAT)} isNoeat={getIsCurrentSelected(NOEAT)} />
         <ButtonWrapper>
           <CoEatButton onClick={handleClickCONOEatBtn('COEAT', id, menuName, menuImg)}>COEAT</CoEatButton>
           <NoEatButton onClick={handleClickCONOEatBtn('NOEAT', id, menuName, menuImg)}>NOEAT</NoEatButton>
@@ -52,7 +52,7 @@ const StyledCard = styled.article`
   display: flex;
   flex-direction: column;
   width: 28rem;
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: white;
   border: 1px solid ${colors.cardBorder};
 
@@ -103,11 +103,18 @@ const InvertedBorder = styled.i`
         `};
 
   background-color: white;
+  ${applyMediaQuery('mobile')} {
+    background-color: ${colors.lightGray};
+  }
   top: 0;
 
   &::after {
     content: '';
     background-color: white;
+    ${applyMediaQuery('mobile')} {
+      background-color: ${colors.lightGray};
+    }
+
     width: 100%;
     height: 4px;
     border-radius: 81px;
@@ -145,13 +152,17 @@ const CardWrapper = styled.div`
 `;
 
 const CardName = styled.h2`
-  font-family: Pretendard Variable;
   font-style: normal;
   font-weight: bold;
   font-size: 2.8rem;
   line-height: 3.4rem;
 
   letter-spacing: -0.01rem;
+
+  ${applyMediaQuery('mobile')} {
+    font-size: 18px;
+    line-height: 22px;
+  }
 `;
 
 const CardDesc = styled.p`
@@ -162,6 +173,11 @@ const CardDesc = styled.p`
   letter-spacing: -0.01rem;
   color: #5b5b5b;
   font-weight: lighter;
+
+  ${applyMediaQuery('mobile')} {
+    color: ${colors.noEatProgress};
+    font-size: 13px;
+  }
 `;
 
 const UpBox = styled.div`
@@ -190,6 +206,10 @@ export const ImageWrapper = styled.div`
     position: absolute;
     top: 0;
   }
+
+  ${applyMediaQuery('mobile')} {
+    margin-bottom: 10px;
+  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -199,6 +219,14 @@ const ButtonWrapper = styled.div`
   justify-content: center;
 
   padding: 2rem;
+
+  ${applyMediaQuery('mobile')} {
+    height: 49px;
+    padding: unset;
+    gap: unset;
+
+    overflow: hidden;
+  }
 `;
 
 const BasicButton = styled.button`
@@ -212,6 +240,17 @@ const BasicButton = styled.button`
 
   &:hover {
     transform: scale(1.1);
+  }
+
+  ${applyMediaQuery('mobile')} {
+    height: 100%;
+    padding: 17px 15px;
+    font-size: 13px;
+    line-height: 16px;
+
+    &:hover {
+      transform: unset;
+    }
   }
 `;
 
