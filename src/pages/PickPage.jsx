@@ -348,6 +348,10 @@ const StyledCategory = styled.div`
     & > div.selected {
       border-bottom: 0.5rem solid ${colors.orange};
     }
+
+    & > div:hover {
+      transform: unset;
+    }
   }
 `;
 

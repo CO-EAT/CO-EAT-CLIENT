@@ -33,7 +33,7 @@ export const mobileModalStyles = {
   ...modalStyles,
   content: {
     ...modalStyles.content,
-    padding: '29px 68px',
+    padding: '10px 68px',
   },
 };
 

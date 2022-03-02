@@ -55,6 +55,7 @@ const StyledMenuSelection = styled.li`
 
   ${applyMediaQuery('mobile')} {
     width: 150px;
+    height: 84px;
   }
 `;
 
@@ -64,17 +65,27 @@ const InvertedBorder = styled.i`
   width: 3rem;
   height: 1.5rem;
   transform: translateX(-50%);
+  ${applyMediaQuery('mobile')} {
+    width: 15px;
+    height: 7.5px;
+  }
   ${(props) =>
     props.bottom
       ? css`
           border-radius: 1.5rem 1.5rem 0 0;
           border-bottom: none;
           bottom: 0;
+          ${applyMediaQuery('mobile')} {
+            border-radius: 7.5px 7.5px 0 0;
+          }
         `
       : css`
           border-radius: 0 0 1.5rem 1.5rem;
           top: 0;
           border-top: none;
+          ${applyMediaQuery('mobile')} {
+            border-radius: 0 0 7.5px 7.5px;
+          }
         `};
 
   background-color: #f4f5f6;
@@ -179,6 +190,7 @@ const FoodInfoBadge = styled.div`
     width: fit-content;
     padding: 6px 8px;
     height: unset;
+    background-color: ${(props) => (props.badgeType === COEAT ? colors.darkOrange : '#434343')};
   }
 `;
 
@@ -206,6 +218,9 @@ const CloseBtn = styled.button`
 
   & > svg {
     width: 3rem;
+    ${applyMediaQuery('mobile')} {
+      width: 16px;
+    }
   }
 `;
 

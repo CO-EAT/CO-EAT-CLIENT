@@ -4,6 +4,7 @@ import { colors } from 'constants/colors';
 import usePickInfo from 'cores/hooks/usePickInfo';
 import { css } from 'styled-components';
 import { ThemeProvider as CartOpenProvider } from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQueries';
 
 function MobilePickCartModal({ isCartOpen, toggleModal, submitCompleteCoeat }) {
   const { coEatList, noEatList } = usePickInfo();
@@ -76,6 +77,9 @@ const StyledCartInfo = styled.div`
 
   & > span + span {
     margin-left: 2.4rem;
+    ${applyMediaQuery('mobile')} {
+      margin-left: 10px;
+    }
   }
 
   & > span:nth-child(even) {
@@ -105,6 +109,7 @@ const OrangeButton = styled.button`
   line-height: 19px;
 
   padding-bottom: 30px;
+  margin: 0;
 
   ${({ theme }) =>
     theme.isCartOpen &&

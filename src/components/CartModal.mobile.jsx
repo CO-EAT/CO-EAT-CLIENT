@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import PickedCard from 'components/PickedCard';
 import usePickInfo from 'cores/hooks/usePickInfo';
-import { applyMediaQuery } from 'styles/mediaQueries';
 
 const COEAT = 'COEAT';
 const NOEAT = 'NOEAT';
@@ -20,9 +19,8 @@ function CartModal({ toggleModal }) {
       <StyledCartWrapper>
         <StyledListWrapper COEAT>
           <div>
-            <StyledTitle>
+            <StyledTitle COEAT>
               <span>COEAT</span>
-              <StyledUnderLine COEAT />
             </StyledTitle>
           </div>
           <StyledList>
@@ -33,9 +31,8 @@ function CartModal({ toggleModal }) {
         </StyledListWrapper>
         <StyledListWrapper>
           <div>
-            <StyledTitle>
+            <StyledTitle NOEAT>
               <span>NOEAT</span>
-              <StyledUnderLine NOEAT />
             </StyledTitle>
           </div>
           <StyledList>
@@ -69,13 +66,8 @@ const StyledTitle = styled.header`
   margin-right: 2.1rem;
   color: black;
   font-family: 'Montserrat';
-`;
 
-const StyledUnderLine = styled.div`
-  width: 10rem;
-  height: 0.8rem;
-  background: ${(prop) => (prop.COEAT ? '#ff912d' : 'black')};
-  margin-top: 0.4rem;
+  border-bottom: 0.8rem solid ${(prop) => (prop.COEAT ? '#ff912d' : 'black')};
 `;
 
 const StyledListWrapper = styled.div`
@@ -110,7 +102,7 @@ const MobileHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 21px 24px;
+  padding: 10px 24px;
 
   & > h2 {
     font-size: 22px;
@@ -135,11 +127,8 @@ const MobileModalWrapper = styled.div`
   flex-direction: column;
 
   position: absolute;
-  bottom: 9.2rem;
 
-  height: calc(100vh - 26rem - 9.2rem - 1.5rem);
-  ${applyMediaQuery('mobile')} {
-    height: 80vh;
-    bottom: 83px;
-  }
+  height: calc(100vh - 80px - 83px);
+
+  bottom: 83px;
 `;
