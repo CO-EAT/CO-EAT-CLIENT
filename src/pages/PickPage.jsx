@@ -45,6 +45,7 @@ function PickPage() {
     max: false,
   });
   const [checkType, setCheckType] = useState('');
+  const [isScrolling, setIsScrolling] = useState(false);
 
   const categoryPriorityMap = {
     한식: 0,
@@ -142,6 +143,14 @@ function PickPage() {
 
   const CurrentCartNav = isMobile ? MobilePickCartModal : PickCartNav;
 
+  const handleScrollByTouch = () => {
+    if (isScrolling) {
+      setTimeout(() => setIsScrolling(false), 500);
+    } else {
+      setIsScrolling(true);
+    }
+  };
+
   return (
     <StyledContainer ref={containerRef} isCartOpen={isCartOpen}>
       <nav>
@@ -180,10 +189,14 @@ function PickPage() {
         </StyledNav>
       </nav>
       {loading && <Loader overlay />}
-      <section>
+      <section
+        onTouchStart={isMobile ? handleScrollByTouch : undefined}
+        onTouchEnd={isMobile ? handleScrollByTouch : undefined}>
         <StyledSection>{showFoods()}</StyledSection>
       </section>
-      <CurrentCartNav isCartOpen={isCartOpen} toggleModal={toggleModal} submitCompleteCoeat={submitCompleteCoeat} />
+      {!isScrolling && (
+        <CurrentCartNav isCartOpen={isCartOpen} toggleModal={toggleModal} submitCompleteCoeat={submitCompleteCoeat} />
+      )}
       <ReactModal
         style={modalStyles}
         isOpen={restrictModal.min || restrictModal.max}
