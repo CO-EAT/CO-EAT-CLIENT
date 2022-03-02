@@ -3,6 +3,7 @@ import { ReactComponent as Plate } from 'assets/img/plate.svg';
 import { colors } from 'constants/colors';
 import usePickInfo from 'cores/hooks/usePickInfo';
 import { applyMediaQuery } from 'styles/mediaQueries';
+import Responsive from './common/Responsive';
 
 const COEAT = 'COEAT';
 const NOEAT = 'NOEAT';
@@ -27,7 +28,9 @@ function FoodSelectionCard(props) {
       <UpBox>
         <CardWrapper>
           <CardName>{menuName}</CardName>
-          <CardDesc>{content}</CardDesc>
+          <Responsive tablet desktop>
+            <CardDesc>{content}</CardDesc>
+          </Responsive>
         </CardWrapper>
         <ImageWrapper>
           <Plate />
@@ -94,17 +97,30 @@ const InvertedBorder = styled.i`
           border-radius: 0 0 1.5rem 1.5rem;
           border-left: none;
           left: -2px;
+
+          ${applyMediaQuery('mobile')} {
+            border-radius: 0 0 10px 10px;
+            transform: translate(-50%, -50%) rotate(-90deg);
+            border-right: none;
+          }
         `
       : css`
           transform: translate(25%, -50%) rotate(-90deg);
           border-radius: 1.5rem 1.5rem 0 0;
           border-right: none;
           right: -2px;
+          ${applyMediaQuery('mobile')} {
+            border-radius: 10px 10px 0 0;
+            transform: translate(50%, -50%) rotate(-90deg);
+            border-left: none;
+          }
         `};
 
   background-color: white;
   ${applyMediaQuery('mobile')} {
     background-color: ${colors.lightGray};
+    width: 15px;
+    height: 15px;
   }
   top: 0;
 
@@ -148,10 +164,13 @@ const CardWrapper = styled.div`
 
   & > *:not(svg) {
     margin-left: 1.5rem;
-
-    ${applyMediaQuery('mobile')} {
+  }
+  ${applyMediaQuery('mobile')} {
+    & > *:not(svg) {
       margin-left: 0;
     }
+
+    margin-bottom: 1rem;
   }
 `;
 
