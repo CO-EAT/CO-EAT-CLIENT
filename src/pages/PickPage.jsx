@@ -260,7 +260,7 @@ const StyledContainer = styled.div`
     }
 
     .ctgFoods {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(156px, 1fr));
       gap: 15px 12px;
     }
   }
@@ -391,4 +391,8 @@ const FoodSelectionWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  ${applyMediaQuery('mobile')} {
+    width: 156px;
+  }
 `;
