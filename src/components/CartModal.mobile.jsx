@@ -6,12 +6,17 @@ import { applyMediaQuery } from 'styles/mediaQueries';
 const COEAT = 'COEAT';
 const NOEAT = 'NOEAT';
 
-function CartModal() {
+function CartModal({ toggleModal }) {
   const { coEatList, noEatList } = usePickInfo();
 
   return (
     <MobileModalWrapper>
-      <MobileHeader>나의 코잇/노잇</MobileHeader>
+      <MobileHeader>
+        <h2>나의 코잇/노잇</h2>
+        <button type="button" onClick={toggleModal}>
+          X
+        </button>
+      </MobileHeader>
       <StyledCartWrapper>
         <StyledListWrapper COEAT>
           <div>
@@ -100,14 +105,27 @@ const StyledList = styled.ul`
   margin: 0 auto;
 `;
 
-const MobileHeader = styled.h2`
+const MobileHeader = styled.div`
   background-color: white;
-  font-size: 22px;
-  line-height: 26px;
-  letter-spacing: -0.1px;
-  font-weight: bold;
-  color: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 21px 24px;
+
+  & > h2 {
+    font-size: 22px;
+    line-height: 26px;
+    letter-spacing: -0.1px;
+    font-weight: bold;
+    color: black;
+  }
+
+  & > button {
+    background-color: transparent;
+    border: none;
+    font-size: 22px;
+    line-height: 26px;
+  }
 `;
 
 const MobileModalWrapper = styled.div`
@@ -121,7 +139,7 @@ const MobileModalWrapper = styled.div`
 
   height: calc(100vh - 26rem - 9.2rem - 1.5rem);
   ${applyMediaQuery('mobile')} {
-    height: calc(100vh - 12rem - 83px - 1.5rem);
+    height: 80vh;
     bottom: 83px;
   }
 `;

@@ -209,6 +209,7 @@ export const ImageWrapper = styled.div`
 
   ${applyMediaQuery('mobile')} {
     margin-bottom: 10px;
+    padding-top: 115px;
   }
 `;
 
@@ -226,6 +227,7 @@ const ButtonWrapper = styled.div`
     gap: unset;
 
     overflow: hidden;
+    margin: 0;
   }
 `;
 
