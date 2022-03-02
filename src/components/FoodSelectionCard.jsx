@@ -208,7 +208,6 @@ export const ImageWrapper = styled.div`
   }
 
   ${applyMediaQuery('mobile')} {
-    margin-bottom: 10px;
     padding-top: 115px;
   }
 `;
@@ -227,7 +226,6 @@ const ButtonWrapper = styled.div`
     gap: unset;
 
     overflow: hidden;
-    margin: 0;
   }
 `;
 
@@ -249,6 +247,7 @@ const BasicButton = styled.button`
     padding: 17px 15px;
     font-size: 13px;
     line-height: 16px;
+    margin: 0;
 
     &:hover {
       transform: unset;
@@ -279,6 +278,11 @@ export const MainDish = styled.div`
     top: 0;
     left: 55%;
     transform: translate(-50%, 0);
+
+    ${applyMediaQuery('mobile')} {
+      width: 12rem;
+      height: 12rem;
+    }
   }
 `;
 
