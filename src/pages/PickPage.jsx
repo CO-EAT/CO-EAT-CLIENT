@@ -10,7 +10,7 @@ import { postMenuSelection } from 'libs/api';
 import { colors } from 'constants/colors';
 import { MEAL_CATEGORIES } from 'constants/categories';
 import ReactModal from 'react-modal';
-import Modal, { modalStyles } from 'components/common/Modal';
+import Modal, { mobileModalStyles, modalStyles } from 'components/common/Modal';
 import WarnMaxItem from 'components/common/Modal/WarnMaxItem';
 import WarnMinItem from 'components/common/Modal/WarnMinItem';
 import { useNavigate } from 'react-router-dom';
@@ -198,7 +198,7 @@ function PickPage() {
         <CurrentCartNav isCartOpen={isCartOpen} toggleModal={toggleModal} submitCompleteCoeat={submitCompleteCoeat} />
       )}
       <ReactModal
-        style={modalStyles}
+        style={isMobile ? mobileModalStyles : modalStyles}
         isOpen={restrictModal.min || restrictModal.max}
         onRequestClose={() => setRestrictModal(false)}>
         <Modal>

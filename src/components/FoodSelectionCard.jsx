@@ -148,6 +148,10 @@ const CardWrapper = styled.div`
 
   & > *:not(svg) {
     margin-left: 1.5rem;
+
+    ${applyMediaQuery('mobile')} {
+      margin-left: 0;
+    }
   }
 `;
 
