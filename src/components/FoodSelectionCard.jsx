@@ -52,7 +52,7 @@ const StyledCard = styled.article`
   display: flex;
   flex-direction: column;
   width: 28rem;
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: white;
   border: 1px solid ${colors.cardBorder};
 
@@ -103,11 +103,18 @@ const InvertedBorder = styled.i`
         `};
 
   background-color: white;
+  ${applyMediaQuery('mobile')} {
+    background-color: ${colors.lightGray};
+  }
   top: 0;
 
   &::after {
     content: '';
     background-color: white;
+    ${applyMediaQuery('mobile')} {
+      background-color: ${colors.lightGray};
+    }
+
     width: 100%;
     height: 4px;
     border-radius: 81px;
@@ -214,8 +221,11 @@ const ButtonWrapper = styled.div`
   padding: 2rem;
 
   ${applyMediaQuery('mobile')} {
+    height: 49px;
     padding: unset;
     gap: unset;
+
+    overflow: hidden;
   }
 `;
 
@@ -233,9 +243,14 @@ const BasicButton = styled.button`
   }
 
   ${applyMediaQuery('mobile')} {
+    height: 100%;
     padding: 17px 15px;
     font-size: 13px;
     line-height: 16px;
+
+    &:hover {
+      transform: unset;
+    }
   }
 `;
 

@@ -110,12 +110,9 @@ function PickPage() {
         <header>{foodCategory}</header>
         <div className="ctgFoods">
           {foodInfo.map((food) => (
-            <FoodSelectionCard
-              key={food.id}
-              addCoEat={addFoodToList(COEAT)}
-              addNoEat={addFoodToList(NOEAT)}
-              data={food}
-            />
+            <FoodSelectionWrapper key={food.id}>
+              <FoodSelectionCard addCoEat={addFoodToList(COEAT)} addNoEat={addFoodToList(NOEAT)} data={food} />
+            </FoodSelectionWrapper>
           ))}
         </div>
       </Fragment>
@@ -363,4 +360,17 @@ const StyledSection = styled.div`
     margin-top: calc(-26rem - 2.4rem);
     visibility: hidden;
   }
+
+  ${applyMediaQuery('mobile')} {
+    margin-top: 0;
+  }
+`;
+
+const FoodSelectionWrapper = styled.div`
+  width: 100%;
+  height: calc(223px + 2px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
