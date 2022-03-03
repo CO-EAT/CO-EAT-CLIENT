@@ -2,6 +2,8 @@ import styled, { css } from 'styled-components';
 import { ReactComponent as Plate } from 'assets/img/plate.svg';
 import { colors } from 'constants/colors';
 import usePickInfo from 'cores/hooks/usePickInfo';
+import { applyMediaQuery } from 'styles/mediaQueries';
+import Responsive from './common/Responsive';
 
 const COEAT = 'COEAT';
 const NOEAT = 'NOEAT';
@@ -26,7 +28,9 @@ function FoodSelectionCard(props) {
       <UpBox>
         <CardWrapper>
           <CardName>{menuName}</CardName>
-          <CardDesc>{content}</CardDesc>
+          <Responsive tablet desktop>
+            <CardDesc>{content}</CardDesc>
+          </Responsive>
         </CardWrapper>
         <ImageWrapper>
           <Plate />
@@ -51,7 +55,7 @@ const StyledCard = styled.article`
   display: flex;
   flex-direction: column;
   width: 28rem;
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: white;
   border: 1px solid ${colors.cardBorder};
 
@@ -66,6 +70,10 @@ const StyledCard = styled.article`
     css`
       border: 2px solid ${colors.noEatProgress};
     `}
+
+  ${applyMediaQuery('mobile')} {
+    width: 100%;
+  }
 `;
 
 const InvertedBorder = styled.i`
@@ -93,20 +101,40 @@ const InvertedBorder = styled.i`
           border-radius: 0 0 1.5rem 1.5rem;
           border-left: none;
           left: -2px;
+
+          ${applyMediaQuery('mobile')} {
+            border-radius: 0 0 10px 10px;
+            transform: translate(-35%, -50%) rotate(-90deg);
+            border-right: none;
+          }
         `
       : css`
           transform: translate(25%, -50%) rotate(-90deg);
           border-radius: 1.5rem 1.5rem 0 0;
           border-right: none;
           right: -2px;
+          ${applyMediaQuery('mobile')} {
+            border-radius: 10px 10px 0 0;
+            transform: translate(35%, -50%) rotate(-90deg);
+            border-left: none;
+          }
         `};
 
   background-color: white;
+  ${applyMediaQuery('mobile')} {
+    background-color: ${colors.lightGray};
+    width: 15px;
+    height: 15px;
+  }
   top: 0;
 
   &::after {
     content: '';
     background-color: white;
+    ${applyMediaQuery('mobile')} {
+      background-color: ${colors.lightGray};
+    }
+
     width: 100%;
     height: 4px;
     border-radius: 81px;
@@ -141,16 +169,27 @@ const CardWrapper = styled.div`
   & > *:not(svg) {
     margin-left: 1.5rem;
   }
+  ${applyMediaQuery('mobile')} {
+    & > *:not(svg) {
+      margin-left: 0;
+    }
+
+    margin-bottom: 1rem;
+  }
 `;
 
 const CardName = styled.h2`
-  font-family: Pretendard Variable;
   font-style: normal;
   font-weight: bold;
   font-size: 2.8rem;
   line-height: 3.4rem;
 
   letter-spacing: -0.01rem;
+
+  ${applyMediaQuery('mobile')} {
+    font-size: 18px;
+    line-height: 22px;
+  }
 `;
 
 const CardDesc = styled.p`
@@ -161,6 +200,11 @@ const CardDesc = styled.p`
   letter-spacing: -0.01rem;
   color: #5b5b5b;
   font-weight: lighter;
+
+  ${applyMediaQuery('mobile')} {
+    color: ${colors.noEatProgress};
+    font-size: 13px;
+  }
 `;
 
 const UpBox = styled.div`
@@ -189,6 +233,14 @@ export const ImageWrapper = styled.div`
     position: absolute;
     top: 0;
   }
+
+  ${applyMediaQuery('mobile')} {
+    padding-top: 85px;
+  }
+  ${applyMediaQuery('mobile')} {
+    padding-top: 85px;
+    margin-bottom: 12px;
+  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -198,6 +250,14 @@ const ButtonWrapper = styled.div`
   justify-content: center;
 
   padding: 2rem;
+
+  ${applyMediaQuery('mobile')} {
+    height: 49px;
+    padding: unset;
+    gap: unset;
+
+    overflow: hidden;
+  }
 `;
 
 const BasicButton = styled.button`
@@ -211,6 +271,22 @@ const BasicButton = styled.button`
 
   &:hover {
     transform: scale(1.1);
+  }
+
+  ${applyMediaQuery('mobile')} {
+    height: 100%;
+    padding: 17px 15px;
+    font-size: 13px;
+    line-height: 16px;
+    margin: 0;
+
+    &:hover {
+      transform: unset;
+    }
+  }
+
+  ${applyMediaQuery('mini')} {
+    padding: 1rem 1rem;
   }
 `;
 
@@ -237,6 +313,18 @@ export const MainDish = styled.div`
     top: 0;
     left: 55%;
     transform: translate(-50%, 0);
+    object-fit: cover;
+
+    ${applyMediaQuery('mobile')} {
+      width: 12rem;
+      height: 12rem;
+      top: -15px;
+    }
+
+    ${applyMediaQuery('mini')} {
+      width: 10rem;
+      height: 10rem;
+    }
   }
 `;
 

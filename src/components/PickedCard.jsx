@@ -4,6 +4,8 @@ import { colors } from 'constants/colors';
 import { ReactComponent as CloseBtnImg } from 'assets/closeBtn.svg';
 import { ReactComponent as Plate } from 'assets/img/plate.svg';
 import usePickInfo from 'cores/hooks/usePickInfo';
+import Responsive from './common/Responsive';
+import { applyMediaQuery } from 'styles/mediaQueries';
 
 const COEAT = 'COEAT';
 
@@ -18,12 +20,14 @@ function PickedCard(props) {
   return (
     <StyledMenuSelection>
       <LeftBox>
-        <StyledImageWrapper>
-          <StyledPlate />
-          <StyledMainDish>
-            <img src={img} alt="picked-food-img" />
-          </StyledMainDish>
-        </StyledImageWrapper>
+        <Responsive tablet desktop>
+          <StyledImageWrapper>
+            <StyledPlate />
+            <StyledMainDish>
+              <img src={img} alt="picked-food-img" />
+            </StyledMainDish>
+          </StyledImageWrapper>
+        </Responsive>
 
         <FoodInfoWrapper>
           <h2>{name}</h2>
@@ -45,10 +49,18 @@ const StyledMenuSelection = styled.li`
   display: flex;
   width: 38rem;
   height: 16.844rem;
-  border-radius: 8px;
   background-color: #fff;
   border: 1px solid ${colors.cardBorder};
   margin-bottom: 1.7rem;
+
+  ${applyMediaQuery('mobile')} {
+    width: 150px;
+    height: 84px;
+  }
+  ${applyMediaQuery('mini')} {
+    width: 120px;
+    height: 84px;
+  }
 `;
 
 const InvertedBorder = styled.i`
@@ -57,17 +69,27 @@ const InvertedBorder = styled.i`
   width: 3rem;
   height: 1.5rem;
   transform: translateX(-50%);
+  ${applyMediaQuery('mobile')} {
+    width: 15px;
+    height: 7.5px;
+  }
   ${(props) =>
     props.bottom
       ? css`
           border-radius: 1.5rem 1.5rem 0 0;
           border-bottom: none;
           bottom: 0;
+          ${applyMediaQuery('mobile')} {
+            border-radius: 7.5px 7.5px 0 0;
+          }
         `
       : css`
           border-radius: 0 0 1.5rem 1.5rem;
           top: 0;
           border-top: none;
+          ${applyMediaQuery('mobile')} {
+            border-radius: 0 0 7.5px 7.5px;
+          }
         `};
 
   background-color: #f4f5f6;
@@ -115,6 +137,10 @@ const RightBox = styled.div`
   align-items: center;
 
   padding: 0 2rem;
+
+  ${applyMediaQuery('mobile')} {
+    padding: 0 5px;
+  }
 `;
 
 const FoodInfoWrapper = styled.div`
@@ -122,14 +148,25 @@ const FoodInfoWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 2.8rem;
 
   gap: 1rem;
 
   & > h2 {
     font-family: 'Pretendard Variable';
+    font-size: 2.8rem;
     font-weight: bold;
     letter-spacing: -0.01rem;
+  }
+
+  ${applyMediaQuery('mobile')} {
+    align-items: flex-start;
+    margin-left: 14px;
+    gap: 8.25px;
+
+    & > h2 {
+      font-size: 16px;
+      line-height: 19px;
+    }
   }
 `;
 
@@ -149,6 +186,21 @@ const FoodInfoBadge = styled.div`
 
   color: ${colors.white};
   background-color: ${(props) => (props.badgeType === COEAT ? colors.darkOrange : colors.black)};
+
+  ${applyMediaQuery('mobile')} {
+    font-size: 13px;
+    line-height: 16px;
+
+    width: fit-content;
+    padding: 6px 8px;
+    height: unset;
+    background-color: ${(props) => (props.badgeType === COEAT ? colors.darkOrange : '#434343')};
+  }
+
+  ${applyMediaQuery('mini')} {
+    font-size: 11px;
+    line-height: 14px;
+  }
 `;
 
 const StyledMainDish = styled(MainDish)`
@@ -175,6 +227,9 @@ const CloseBtn = styled.button`
 
   & > svg {
     width: 3rem;
+    ${applyMediaQuery('mobile')} {
+      width: 16px;
+    }
   }
 `;
 

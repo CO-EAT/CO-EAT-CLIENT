@@ -10,16 +10,24 @@ import { postMenuSelection } from 'libs/api';
 import { colors } from 'constants/colors';
 import { MEAL_CATEGORIES } from 'constants/categories';
 import ReactModal from 'react-modal';
-import Modal, { modalStyles } from 'components/common/Modal';
+import Modal, { mobileModalStyles, modalStyles } from 'components/common/Modal';
 import WarnMaxItem from 'components/common/Modal/WarnMaxItem';
 import WarnMinItem from 'components/common/Modal/WarnMinItem';
 import { useNavigate } from 'react-router-dom';
 import usePickInfo from 'cores/hooks/usePickInfo';
+import Responsive from 'components/common/Responsive';
+import { LogoWrapper } from './ResultPage';
+import Logo from 'assets/logo.svg';
+import SmallLogo from 'assets/small-logo.svg';
+import { applyMediaQuery } from 'styles/mediaQueries';
+import useMedia from 'cores/hooks/useMedia';
+import MobilePickCartModal from 'components/PickCartNav.mobile';
 
 const COEAT = 'COEAT';
 const NOEAT = 'NOEAT';
 
 function PickPage() {
+  const { isMobile } = useMedia();
   const { roomStateContext } = useRoomInfo();
   const containerRef = useRef(null);
   const navigator = useNavigate();
@@ -37,6 +45,7 @@ function PickPage() {
     max: false,
   });
   const [checkType, setCheckType] = useState('');
+  const [isScrolling, setIsScrolling] = useState(false);
 
   const categoryPriorityMap = {
     한식: 0,
@@ -71,15 +80,15 @@ function PickPage() {
       const foodHandler = type === COEAT ? handleCoeat : handleNoeat;
       const list = type === COEAT ? coEatList : noEatList;
 
-      if (list.length >= 5) {
+      if (list.length >= 5 && list.every((foodInfo) => foodInfo.id !== foodId)) {
         setRestrictModal((prev) => ({
           ...prev,
           max: true,
         }));
         setCheckType(list === coEatList ? '코잇' : '노잇');
-        return;
+      } else {
+        foodHandler(foodId, foodName, foodImg);
       }
-      foodHandler(foodId, foodName, foodImg);
     };
   };
 
@@ -103,12 +112,9 @@ function PickPage() {
         <header>{foodCategory}</header>
         <div className="ctgFoods">
           {foodInfo.map((food) => (
-            <FoodSelectionCard
-              key={food.id}
-              addCoEat={addFoodToList(COEAT)}
-              addNoEat={addFoodToList(NOEAT)}
-              data={food}
-            />
+            <FoodSelectionWrapper key={food.id}>
+              <FoodSelectionCard addCoEat={addFoodToList(COEAT)} addNoEat={addFoodToList(NOEAT)} data={food} />
+            </FoodSelectionWrapper>
           ))}
         </div>
       </Fragment>
@@ -135,36 +141,64 @@ function PickPage() {
     if (isSuccess) navigator('/result');
   };
 
+  const CurrentCartNav = isMobile ? MobilePickCartModal : PickCartNav;
+
+  const handleScrollByTouch = () => {
+    if (isScrolling) {
+      setTimeout(() => setIsScrolling(false), 500);
+    } else {
+      setIsScrolling(true);
+    }
+  };
+
   return (
     <StyledContainer ref={containerRef} isCartOpen={isCartOpen}>
       <nav>
         <StyledNav>
-          <StyledTitle>
-            <img src={LogoImg} alt="logo" />
-          </StyledTitle>
-          <StyledCategories>
-            <StyledCategory>
-              {MEAL_CATEGORIES.map((category, idx) => (
-                <div
-                  onClick={handleClick}
-                  name={category}
-                  key={idx}
-                  className={category === selectCtg ? 'selected' : ''}>
-                  <a href={`#${category}`}>{category}</a>
-                </div>
-              ))}
-            </StyledCategory>
-            <StyledResultBtn onClick={submitCompleteCoeat}>완료하기</StyledResultBtn>
+          <Responsive mobile>
+            <LogoWrapper>
+              <img src={Logo} className="main-logo" alt="logo" />
+
+              <div>
+                <img src={SmallLogo} className="small-logo" alt="small-logo" />
+                {roomStateContext && <span>{roomStateContext.userInfo.nickname}님</span>}
+              </div>
+            </LogoWrapper>
+          </Responsive>
+          <Responsive tablet desktop>
+            <StyledTitle>
+              <img src={LogoImg} alt="logo" />
+            </StyledTitle>
+          </Responsive>
+          <StyledCategories isCartOpen={isCartOpen}>
+            {!(isMobile && isCartOpen) && (
+              <StyledCategory>
+                {MEAL_CATEGORIES.map((category, idx) => (
+                  <div
+                    onClick={handleClick}
+                    name={category}
+                    key={idx}
+                    className={category === selectCtg ? 'selected' : ''}>
+                    <a href={`#${category}`}>{category}</a>
+                  </div>
+                ))}
+              </StyledCategory>
+            )}
+            {!isMobile && <StyledResultBtn onClick={submitCompleteCoeat}>완료하기</StyledResultBtn>}
           </StyledCategories>
         </StyledNav>
       </nav>
       {loading && <Loader overlay />}
-      <section>
+      <section
+        onTouchStart={isMobile ? handleScrollByTouch : undefined}
+        onTouchEnd={isMobile ? handleScrollByTouch : undefined}>
         <StyledSection>{showFoods()}</StyledSection>
       </section>
-      <PickCartNav isCartOpen={isCartOpen} toggleModal={toggleModal} />
+      {!isScrolling && (
+        <CurrentCartNav isCartOpen={isCartOpen} toggleModal={toggleModal} submitCompleteCoeat={submitCompleteCoeat} />
+      )}
       <ReactModal
-        style={modalStyles}
+        style={isMobile ? mobileModalStyles : modalStyles}
         isOpen={restrictModal.min || restrictModal.max}
         onRequestClose={() => setRestrictModal(false)}>
         <Modal>
@@ -213,6 +247,25 @@ const StyledContainer = styled.div`
     gap: 2.65rem;
     margin-bottom: 10%;
   }
+
+  ${applyMediaQuery('mobile')} {
+    & > nav {
+      width: 100%;
+      padding: 10% 5% 0% 5%;
+      height: unset;
+    }
+
+    & > section {
+      background-color: ${colors.lightGray};
+      padding: 15px;
+    }
+
+    .ctgFoods {
+      width: 100%;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px 12px;
+    }
+  }
 `;
 
 const StyledNav = styled.div`
@@ -235,6 +288,22 @@ const StyledCategories = styled.div`
   align-items: center;
   border-bottom: 0.1rem solid ${colors.gray};
   background-color: white;
+
+  ${applyMediaQuery('mobile')} {
+    position: relative;
+    margin-top: 31px;
+    border-bottom: unset;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      width: 100vw;
+      background-color: ${(props) => (props.isCartOpen ? 'white' : colors.gray)};
+      height: 1px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
 `;
 
 const StyledCategory = styled.div`
@@ -263,6 +332,26 @@ const StyledCategory = styled.div`
   & > div:hover {
     transform: scale(1.1);
     cursor: pointer;
+  }
+
+  ${applyMediaQuery('mobile')} {
+    & > div {
+      font-size: 16px;
+      line-height: 19px;
+      letter-spacing: -0.01rem;
+
+      color: ${colors.lighterGray};
+
+      margin-right: 22px;
+    }
+
+    & > div.selected {
+      border-bottom: 0.5rem solid ${colors.orange};
+    }
+
+    & > div:hover {
+      transform: unset;
+    }
   }
 `;
 
@@ -295,4 +384,17 @@ const StyledSection = styled.div`
     margin-top: calc(-26rem - 2.4rem);
     visibility: hidden;
   }
+
+  ${applyMediaQuery('mobile')} {
+    margin-top: 0;
+  }
+`;
+
+const FoodSelectionWrapper = styled.div`
+  width: 100%;
+  min-height: calc(223px + 2px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

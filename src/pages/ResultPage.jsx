@@ -3,18 +3,23 @@ import styled, { css } from 'styled-components';
 import ResultCard from 'components/ResultCard';
 import PickInfo from 'components/PickInfo';
 import Logo from 'assets/logo.svg';
+import SmallLogo from 'assets/small-logo.svg';
 import CuteLogo from 'assets/cute-meal-logo.png';
+import MobilePaper from 'assets/falling-paper.svg';
 import { ReactComponent as Tooltip } from 'assets/tooltip.svg';
 import { ReactComponent as RefreshBtn } from 'assets/refresh.svg';
 import { ReactComponent as CloseBtn } from 'assets/close.svg';
 import { colors } from 'constants/colors';
-import { LESS_NOEAT } from 'constants/noeat-tooltip-text';
+import { LESS_NOEAT, MOST_COEAT } from 'constants/tooltip-text';
 import useAPI from 'cores/hooks/useAPI';
 import useRoomInfo from 'cores/hooks/useRoomInfo';
 import Loader from 'components/common/Loader';
 import LinkCopy from 'components/LinkCopy';
 import { completeCoeat } from 'libs/api';
 import { useNavigate } from 'react-router-dom';
+import { applyMediaQuery } from 'styles/mediaQueries';
+import Responsive from 'components/common/Responsive';
+import useMedia from 'cores/hooks/useMedia';
 
 const parseFontWeightFromString = (string) => {
   const [before, toBeBold, ...rest] = string.split('__');
@@ -28,6 +33,7 @@ const parseFontWeightFromString = (string) => {
 };
 
 function ResultPage() {
+  const { isMobile } = useMedia();
   const navigator = useNavigate();
   const {
     roomStateContext: {
@@ -75,9 +81,21 @@ function ResultPage() {
 
   return (
     <Container>
-      <img src={Logo} alt="" />
+      <Responsive mobile>
+        <LogoWrapper>
+          <img src={Logo} className="main-logo" alt="logo" />
+
+          <div>
+            <img src={SmallLogo} className="small-logo" alt="small-logo" />
+            <span>{nickname}님</span>
+          </div>
+        </LogoWrapper>
+      </Responsive>
+      <Responsive tablet desktop>
+        <img src={Logo} alt="logo" />
+      </Responsive>
       <ResultHeader>
-        <img src={CuteLogo} alt="" />
+        <img src={isMobile ? MobilePaper : CuteLogo} alt="" />
         <ResultTitle>
           <p>
             <b>오늘 코잇하실 식사</b>는 <strong>{data.mostCoeatMenuName}</strong>에요.
@@ -89,20 +107,24 @@ function ResultPage() {
       </ResultHeader>
       <SecondaryResult>
         더 많은 사람이 함께할 수 있는 <b>{data.lessNoeatMenuName}</b> 어떠세요?
-        <StyledTooltip>
-          <TooltipBtn onMouseEnter={openTooltip} onMouseLeave={closeTooltip}>
-            <Tooltip />
-          </TooltipBtn>
-          {isTooltipOpen && (
-            <TooltipText>
-              <h5>LESS NOEAT</h5>
-              <p>{parseFontWeightFromString(LESS_NOEAT)}</p>
-              <StyledCloseBtn onClick={closeTooltip}>
-                <CloseBtn />
-              </StyledCloseBtn>
-            </TooltipText>
-          )}
-        </StyledTooltip>
+        <Responsive tablet desktop>
+          <StyledTooltip>
+            <TooltipBtn onMouseEnter={openTooltip} onMouseLeave={closeTooltip}>
+              <Tooltip />
+            </TooltipBtn>
+            {isTooltipOpen && (
+              <TooltipText>
+                <h5>MOST COEAT</h5>
+                <p>{MOST_COEAT}</p>
+                <h5>LESS NOEAT</h5>
+                <p>{parseFontWeightFromString(LESS_NOEAT)}</p>
+                <StyledCloseBtn onClick={closeTooltip}>
+                  <CloseBtn />
+                </StyledCloseBtn>
+              </TooltipText>
+            )}
+          </StyledTooltip>
+        </Responsive>
       </SecondaryResult>
       <ResultCardWrapper>
         <ColumnWrapper>
@@ -116,6 +138,24 @@ function ResultPage() {
         </ColumnWrapper>
         <ColumnWrapper>
           <ResultCardHeader>LESS NOEAT</ResultCardHeader>
+          {isMobile && (
+            <StyledTooltip>
+              <TooltipBtn onClick={() => setIsTooltipOpen((currentOpen) => !currentOpen)}>
+                <Tooltip />
+              </TooltipBtn>
+              {isTooltipOpen && (
+                <TooltipText>
+                  <h5>MOST COEAT</h5>
+                  <p>{MOST_COEAT}</p>
+                  <h5>LESS NOEAT</h5>
+                  <p>{parseFontWeightFromString(LESS_NOEAT)}</p>
+                  <StyledCloseBtn onClick={closeTooltip}>
+                    <CloseBtn />
+                  </StyledCloseBtn>
+                </TooltipText>
+              )}
+            </StyledTooltip>
+          )}
           <ResultCard
             coEatCount={data.lessCoeatCount || 0}
             noEatCount={+data.lessNoeatCount || 0}
@@ -123,6 +163,9 @@ function ResultPage() {
             foodName={data.lessNoeatMenuName}
           />
         </ColumnWrapper>
+        <Responsive mobile>
+          <ResultCardBackgroundWrapper />
+        </Responsive>
       </ResultCardWrapper>
       <RefreshWrapper>
         <RefreshText>아직 결과가 안나왔나요? 새로고침을 눌러보세요!</RefreshText>
@@ -138,8 +181,8 @@ function ResultPage() {
             <TotalMembers>참여 인원수 {data.peopleCount}명</TotalMembers>
           </LeftBox>
           <RightBox>
-            <label>링크공유</label>
-            <LinkCopy removeStyle />
+            {!isMobile && <label>링크공유</label>}
+            <LinkCopy removeStyle isResultPage />
           </RightBox>
         </TotalEatHeader>
         <TotalEatGrid>
@@ -172,11 +215,16 @@ const Container = styled.main`
     width: 10.9rem;
     margin-right: auto;
   }
+
+  ${applyMediaQuery('mobile')} {
+    padding: 10% 5%;
+    gap: 45px;
+  }
 `;
 
 const ResultHeader = styled.header`
   position: relative;
-  padding: 8rem 0 0 0;
+  padding-top: 8rem;
 
   & > img {
     width: 80%;
@@ -184,6 +232,13 @@ const ResultHeader = styled.header`
     top: 0;
     z-index: -1;
     opacity: 0.7;
+  }
+  ${applyMediaQuery('mobile')} {
+    & > img {
+      width: 100%;
+    }
+    width: 100%;
+    padding-top: 50px;
   }
 `;
 
@@ -196,6 +251,11 @@ const ResultTitle = styled.h2`
   letter-spacing: -0.01rem;
   white-space: pre-line;
   font-weight: 400;
+
+  ${applyMediaQuery('mobile')} {
+    font-size: 22px;
+    line-height: 34px;
+  }
 
   & b,
   & strong {
@@ -221,6 +281,12 @@ const SecondaryResult = styled.div`
   & > b {
     font-weight: bold;
   }
+
+  ${applyMediaQuery('mobile')} {
+    font-size: 15px;
+    letter-spacing: -0.3px;
+    padding: 10px 30px;
+  }
 `;
 
 const ResultCardHeader = styled.h4`
@@ -228,11 +294,34 @@ const ResultCardHeader = styled.h4`
   font-family: 'Montserrat';
   font-size: 2.3rem;
   font-weight: bold;
+
+  ${applyMediaQuery('mobile')} {
+    font-size: 14px;
+    letter-spacing: -0.01rem;
+    color: ${(props) => (props.orange ? colors.orange : colors.noEatProgress)};
+  }
 `;
 
 const ResultCardWrapper = styled.div`
   display: flex;
   gap: 2rem;
+
+  ${applyMediaQuery('mobile')} {
+    position: relative;
+    width: 100%;
+  }
+`;
+
+const ResultCardBackgroundWrapper = styled.div`
+  position: absolute;
+  top: 60%;
+  transform: translateY(-50%);
+  height: 140%;
+  width: 100vw;
+  background-color: ${colors.lightGray};
+  z-index: -1;
+
+  left: -5%;
 `;
 
 const ColumnWrapper = styled.div`
@@ -240,6 +329,11 @@ const ColumnWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+
+  ${applyMediaQuery('mobile')} {
+    position: relative;
+    flex: 1;
+  }
 `;
 
 const StyledTooltip = styled.div`
@@ -252,11 +346,26 @@ const StyledTooltip = styled.div`
   top: 50%;
 
   transform: translateY(-50%);
+
+  ${applyMediaQuery('mobile')} {
+    & svg {
+      width: 13px;
+      height: 13px;
+    }
+    top: 0;
+    right: 0;
+    transform: unset;
+  }
 `;
 
 const TooltipBtn = styled.button`
   background-color: transparent;
   border: none;
+
+  ${applyMediaQuery('mobile')} {
+    display: flex;
+    align-items: center;
+  }
 `;
 
 const TooltipText = styled.div`
@@ -295,12 +404,34 @@ const TooltipText = styled.div`
       font-weight: bold;
     }
   }
+
+  ${applyMediaQuery('mobile')} {
+    width: 300px;
+    position: absolute;
+
+    bottom: 0;
+    left: 100%;
+    z-index: 1200;
+    transform: translate(-100%, 100%);
+
+    & h5 {
+      font-size: 14px;
+    }
+
+    & p {
+      font-size: 12px;
+    }
+  }
 `;
 
 const RefreshWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
+
+  ${applyMediaQuery('mobile')} {
+    transform: translateY(-15px);
+  }
 `;
 
 const RefreshText = styled.p`
@@ -309,6 +440,13 @@ const RefreshText = styled.p`
   letter-spacing: -0.01rem;
 
   color: ${colors.subText};
+
+  ${applyMediaQuery('mobile')} {
+    font-size: 14px;
+    line-height: 17px;
+    color: ${colors.noEatProgress};
+    letter-spacing: -0.1px;
+  }
 `;
 
 const StyeldRefreshBtn = styled.button`
@@ -316,9 +454,19 @@ const StyeldRefreshBtn = styled.button`
   background-color: transparent;
   padding: 0;
 
+  display: flex;
+  align-items: center;
+
   & > svg {
     width: 2.6rem;
     height: 2.6rem;
+    ${applyMediaQuery('mobile')} {
+      & path {
+        fill: ${colors.orange};
+      }
+      width: 15px;
+      height: 15px;
+    }
   }
 
   @keyframes rotate360 {
@@ -348,6 +496,10 @@ const LeftBox = styled.div`
   display: flex;
   align-items: center;
   gap: 2rem;
+
+  ${applyMediaQuery('mobile')} {
+    width: 100%;
+  }
 `;
 
 const RightBox = styled.div`
@@ -367,11 +519,20 @@ const RightBox = styled.div`
     background-color: transparent;
     border: none;
   }
+
+  ${applyMediaQuery('mobile')} {
+    width: 100%;
+  }
 `;
 
 const TotalEatTitle = styled.h5`
   font-size: 2.8rem;
   font-weight: bold;
+
+  ${applyMediaQuery('mobile')} {
+    font-size: 20px;
+    line-height: 24px;
+  }
 `;
 
 const TotalEatHeader = styled.div`
@@ -381,6 +542,11 @@ const TotalEatHeader = styled.div`
   align-items: center;
 
   margin-bottom: 2rem;
+
+  ${applyMediaQuery('mobile')} {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
 `;
 
 const TotalMembers = styled.span`
@@ -390,6 +556,12 @@ const TotalMembers = styled.span`
 
   & > b {
     color: ${colors.black};
+  }
+
+  ${applyMediaQuery('mobile')} {
+    font-size: 15px;
+    line-height: 18px;
+    letter-spacing: 0;
   }
 `;
 
@@ -415,7 +587,7 @@ const CompleteBtn = styled.button`
 
   font-size: 2.4rem;
   font-family: 'Montserrat';
-  letter-spacing: -0.01rem;
+  letter-spacing: -0.1px;
 
   &:disabled {
     cursor: auto;
@@ -426,6 +598,13 @@ const CompleteBtn = styled.button`
     css`
       background-color: ${colors.darkOrange};
     `};
+
+  ${applyMediaQuery('mobile')} {
+    font-size: 16px;
+    line-height: 20px;
+
+    padding: 19px 24px;
+  }
 `;
 
 const StyledCloseBtn = styled.button`
@@ -435,4 +614,30 @@ const StyledCloseBtn = styled.button`
 
   background-color: transparent;
   border: none;
+`;
+
+export const LogoWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & img.main-logo {
+    width: 107px;
+
+    ${applyMediaQuery('mobile')} {
+      width: 67px;
+    }
+  }
+
+  & > div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    & > span {
+      font-size: 14px;
+      letter-spacing: -0.01rem;
+    }
+  }
 `;

@@ -9,6 +9,7 @@ export const modalStyles = {
     right: 0,
     bottom: 0,
     backgroundColor: 'rgba(255, 255, 255, 0.75)',
+    zIndex: 9999,
   },
   content: {
     position: 'absolute',
@@ -28,6 +29,14 @@ export const modalStyles = {
   },
 };
 
+export const mobileModalStyles = {
+  ...modalStyles,
+  content: {
+    ...modalStyles.content,
+    padding: '10px 68px',
+  },
+};
+
 const Modal = ({ children }) => {
   return <StyledWrapper>{children}</StyledWrapper>;
 };
@@ -40,25 +49,5 @@ const StyledWrapper = styled.div`
   align-items: center;
   justify-content: center;
 
-  & > div:first-child {
-    margin-top: 2.6rem;
-    margin-bottom: 1rem;
-    font-size: 2.8rem;
-    font-weight: 700;
-  }
-
-  & > div:nth-child(2) {
-    font-size: 2.2rem;
-    margin-bottom: 4rem;
-  }
-
-  & > button {
-    width: 16.3rem;
-    height: 5.8rem;
-    background-color: #ff7a00;
-    border: none;
-    font-size: 2.2rem;
-    color: white;
-    font-weight: 700;
-  }
+  gap: 10px;
 `;

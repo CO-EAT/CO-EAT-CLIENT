@@ -10,16 +10,19 @@ function CartModal({ toggleModal }) {
   const { coEatList, noEatList } = usePickInfo();
 
   return (
-    <>
+    <MobileModalWrapper vh={window?.innerHeight || '667px'}>
+      <MobileHeader>
+        <h2>나의 코잇/노잇</h2>
+        <button type="button" onClick={toggleModal}>
+          X
+        </button>
+      </MobileHeader>
       <StyledCartWrapper>
-        <CloseButton onClick={toggleModal}>X</CloseButton>
         <StyledListWrapper COEAT>
           <div>
-            <StyledTitle>
+            <StyledTitle COEAT>
               <span>COEAT</span>
-              <StyledUnderLine COEAT />
             </StyledTitle>
-            <span>{coEatList.length}</span>
           </div>
           <StyledList>
             {coEatList.map((coEatFood) => (
@@ -29,11 +32,9 @@ function CartModal({ toggleModal }) {
         </StyledListWrapper>
         <StyledListWrapper>
           <div>
-            <StyledTitle>
+            <StyledTitle NOEAT>
               <span>NOEAT</span>
-              <StyledUnderLine NOEAT />
             </StyledTitle>
-            <span>{noEatList.length}</span>
           </div>
           <StyledList>
             {noEatList.map((noEatFood) => (
@@ -42,7 +43,7 @@ function CartModal({ toggleModal }) {
           </StyledList>
         </StyledListWrapper>
       </StyledCartWrapper>
-    </>
+    </MobileModalWrapper>
   );
 }
 
@@ -50,27 +51,12 @@ export default CartModal;
 
 const StyledCartWrapper = styled.div`
   display: flex;
-  position: absolute;
-  bottom: 9.2rem;
-  height: calc(100vh - 26rem - 9.2rem - 1.5rem);
-  ${applyMediaQuery('mobile')} {
-    height: calc(100vh - 26rem - 83px - 1.5rem);
-    bottom: 83px;
-  }
   width: 100%;
+  height: 100%;
   background-color: #f4f5f6;
   font-size: 8rem;
   color: black;
   overflow: scroll;
-  border-radius: 20px 20px 0 0;
-`;
-
-const CloseButton = styled.button`
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-  border: 0;
-  background-color: transparent;
 `;
 
 const StyledTitle = styled.header`
@@ -81,32 +67,26 @@ const StyledTitle = styled.header`
   margin-right: 2.1rem;
   color: black;
   font-family: 'Montserrat';
-`;
 
-const StyledUnderLine = styled.div`
-  width: 10rem;
-  height: 0.8rem;
-  background: ${(prop) => (prop.COEAT ? '#ff912d' : 'black')};
-  margin-top: 0.4rem;
+  border-bottom: 0.8rem solid ${(prop) => (prop.COEAT ? '#ff912d' : 'black')};
 `;
 
 const StyledListWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   flex: 1 1 50%;
-  width: 30%;
   background-color: #f4f5f6;
   border-right: 1px solid #e6e6e6;
+  padding: 0 12px;
+  margin: 0 auto;
 
   & > div {
+    width: 150px;
     display: flex;
+    justify-content: flex-start;
     font-size: 2.4rem;
-    text-align: center;
-    margin-top: 4.6rem;
+    margin: 31px auto 12px auto;
     color: ${(prop) => (prop.COEAT ? '#ff912d' : 'black')};
-
-    margin-bottom: 5.2rem;
   }
 `;
 
@@ -114,4 +94,45 @@ const StyledList = styled.ul`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  margin: 0 auto;
+
+  ${applyMediaQuery('mini')} {
+    margin: unset;
+  }
+`;
+
+const MobileHeader = styled.div`
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 24px;
+
+  & > h2 {
+    font-size: 22px;
+    line-height: 26px;
+    letter-spacing: -0.1px;
+    font-weight: bold;
+    color: black;
+  }
+
+  & > button {
+    background-color: transparent;
+    border: none;
+    font-size: 22px;
+    line-height: 26px;
+  }
+`;
+
+const MobileModalWrapper = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  position: absolute;
+  height: ${(props) => `calc(${props.vh}px - 80px - 116px)`};
+
+  bottom: 116px;
 `;

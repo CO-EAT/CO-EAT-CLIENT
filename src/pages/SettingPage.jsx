@@ -202,6 +202,7 @@ const StyledInputContainer = styled.div`
   justify-content: center;
   width: 100%;
   height: fit-content;
+  margin-bottom: 9rem;
 `;
 
 const StyledInputField = styled.div`
@@ -260,7 +261,6 @@ const StyledWarnContainer = styled.div`
   width: 100%;
   height: 5rem;
   position: relative;
-  top: -10rem;
 
   ${applyMediaQuery('mobile')} {
     width: 80%;
@@ -291,7 +291,6 @@ const CustomStyledMainButton = styled(StyledMainButton)`
     width: fit-content;
     height: fit-content;
     padding: 1.7rem 4.9rem;
-    top: -10rem;
 
     & > svg {
       display: none;

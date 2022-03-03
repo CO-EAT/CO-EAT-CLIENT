@@ -80,7 +80,6 @@ const StyledLinkContainer = styled.div`
     border: 0;
     outline: 0;
     width: 100%;
-    height: 100%;
     background-color: transparent;
     font-size: 2.8rem;
     padding: 0 2rem;
@@ -94,6 +93,7 @@ const StyledLinkContainer = styled.div`
   }
 
   ${applyMediaQuery('mobile')} {
+    margin-top: 2.3rem;
     width: 100%;
     height: 7rem;
     padding: 2rem 1rem 2rem 3rem;

@@ -10,4 +10,6 @@ export const colors = {
   cardBorder: '#dddddd',
   noEatProgress: '#909090',
   subText: '#666666',
+  lightGray: '#FAFAFA',
+  lighterGray: '#BEBEBE',
 };
