@@ -213,6 +213,10 @@ const UpBox = styled.div`
   flex-direction: column;
 
   border-bottom: 1px dashed ${colors.cardBorder};
+
+  ${applyMediaQuery('mobile')} {
+    border-bottom: unset;
+  }
 `;
 const DownBox = styled.div`
   position: relative;
@@ -240,7 +244,7 @@ export const ImageWrapper = styled.div`
   }
   ${applyMediaQuery('mobile')} {
     padding-top: 85px;
-    margin-bottom: 12px;
+    margin-bottom: 24px;
   }
 `;
 
