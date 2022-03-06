@@ -30,6 +30,7 @@ function PickPage() {
   const { isMobile } = useMedia();
   const { roomStateContext } = useRoomInfo();
   const containerRef = useRef(null);
+  const observerRef = useRef(null);
   const navigator = useNavigate();
   const { data, loading } = useAPI({
     method: 'GET',
@@ -113,7 +114,12 @@ function PickPage() {
         <div className="ctgFoods">
           {foodInfo.map((food) => (
             <FoodSelectionWrapper key={food.id}>
-              <FoodSelectionCard addCoEat={addFoodToList(COEAT)} addNoEat={addFoodToList(NOEAT)} data={food} />
+              <FoodSelectionCard
+                addCoEat={addFoodToList(COEAT)}
+                addNoEat={addFoodToList(NOEAT)}
+                data={food}
+                imgCallbackRef={observeFood}
+              />
             </FoodSelectionWrapper>
           ))}
         </div>
@@ -151,8 +157,29 @@ function PickPage() {
     }
   };
 
+  const observeFood = (refElement) => {
+    if (refElement && observerRef.current) {
+      observerRef.current.observe(refElement);
+    }
+  };
+
+  const handleIntersection = (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting && !entry.target.dataset.isloading) {
+        entry.target.src = entry.target.dataset.lazysrc;
+        entry.target.dataset.isloading = 'loaded';
+      }
+    });
+  };
+
   useEffect(() => {
-    return initializePickList;
+    observerRef.current = new IntersectionObserver(handleIntersection, {
+      threshold: 0.3,
+    });
+    return () => {
+      initializePickList();
+      observerRef.current.disconnect();
+    };
   }, []);
 
   return (
