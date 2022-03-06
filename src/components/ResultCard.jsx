@@ -17,7 +17,7 @@ function ResultCard(props) {
         <ImageWrapper>
           <Plate />
           <MainDish>
-            <img src={`${process.env.PUBLIC_URL}/${imgSrc}`} alt="food-img" />
+            <img src={imgSrc} alt="food-img" />
           </MainDish>
         </ImageWrapper>
       </UpBox>
@@ -212,11 +212,17 @@ export const MainDish = styled.div`
     position: absolute;
     top: 0;
   }
-
   ${applyMediaQuery('mobile')} {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
     & > img {
-      width: 100px;
-      height: 100px;
+      width: 12rem;
+      height: 12rem;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -60%);
     }
   }
 `;

@@ -62,7 +62,7 @@ function ResultPage() {
     const result = await completeCoeat(inviteCode, nickname);
     if (result) {
       setIsCompleted(true);
-      if (window) window.sessionStorage.removeItem('roomInfo');
+      if (window) window.localStorage.removeItem('roomInfo');
       navigator('/done');
     }
   };
@@ -70,6 +70,8 @@ function ResultPage() {
   if (error) {
     return <div>Something Wrong</div>;
   }
+
+  if (data === '종료된 링크입니다.') navigator('/done');
 
   if (!data || loading) {
     return (
@@ -285,7 +287,7 @@ const SecondaryResult = styled.div`
   ${applyMediaQuery('mobile')} {
     font-size: 15px;
     letter-spacing: -0.3px;
-    padding: 10px 30px;
+    padding: 10px 20px;
   }
 `;
 

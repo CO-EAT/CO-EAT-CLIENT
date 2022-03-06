@@ -342,7 +342,7 @@ const StyledCategory = styled.div`
 
       color: ${colors.lighterGray};
 
-      margin-right: 22px;
+      margin-right: 15px;
     }
 
     & > div.selected {
