@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo, Fragment } from 'react';
+import { useState, useRef, useMemo, Fragment, useEffect } from 'react';
 import styled from 'styled-components';
 import LogoImg from 'assets/logo.svg';
 import Loader from 'components/common/Loader';
@@ -37,7 +37,7 @@ function PickPage() {
   });
 
   const [selectCtg, setSelectCtg] = useState(MEAL_CATEGORIES[0]);
-  const { coEatList, noEatList, handleCoeat, handleNoeat } = usePickInfo();
+  const { coEatList, noEatList, handleCoeat, handleNoeat, initializePickList } = usePickInfo();
 
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [restrictModal, setRestrictModal] = useState({
@@ -150,6 +150,10 @@ function PickPage() {
       setIsScrolling(true);
     }
   };
+
+  useEffect(() => {
+    return initializePickList;
+  }, []);
 
   return (
     <StyledContainer ref={containerRef} isCartOpen={isCartOpen}>

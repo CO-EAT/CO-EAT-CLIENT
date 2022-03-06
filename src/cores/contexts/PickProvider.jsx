@@ -6,6 +6,8 @@ export const REMOVE_COEAT = 'pick/REMOVE_COEAT';
 export const ADD_NOEAT = 'pick/ADD_NOEAT';
 export const REMOVE_NOEAT = 'pick/REMOVE_NOEAT';
 
+export const INIT_PICK = 'pick/INIT_PICK';
+
 const initialPickInfo = {
   coEatList: [],
   noEatList: [],
@@ -35,6 +37,8 @@ const pickReducer = (state, action) => {
         ...state,
         noEatList: state.noEatList.filter((noEat) => noEat.id !== action.value.id),
       };
+    case INIT_PICK:
+      return initialPickInfo;
     default:
       throw new Error('Failed to dispatch PickInfo');
   }

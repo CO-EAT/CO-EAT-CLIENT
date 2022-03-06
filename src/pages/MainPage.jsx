@@ -335,7 +335,6 @@ const StyledLeft = styled.div`
 `;
 
 const StyledRight = styled.div`
-  width: 16rem;
   height: 7.3rem;
   background-color: ${(props) => (props.noeat ? '#F5F5F5' : '#ffefe0')};
   color: ${(props) => (props.noeat ? '#888888' : '#ff7a00')};

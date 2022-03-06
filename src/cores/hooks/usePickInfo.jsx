@@ -1,6 +1,7 @@
 import {
   ADD_COEAT,
   ADD_NOEAT,
+  INIT_PICK,
   PickDispatchContext,
   PickStateContext,
   REMOVE_COEAT,
@@ -50,7 +51,12 @@ function usePickInfo() {
     }
   };
 
-  return { coEatList, noEatList, handleCoeat, handleNoeat };
+  const initializePickList = () =>
+    pickDispatchContext({
+      type: INIT_PICK,
+    });
+
+  return { coEatList, noEatList, handleCoeat, handleNoeat, initializePickList };
 }
 
 export default usePickInfo;
