@@ -17,12 +17,25 @@ const MainPage = () => {
   const { setInviteCode, setUserInfo } = useRoomInfo();
 
   const navigate = useNavigate();
-  let inviteCode; // ** 테스트용 사용가능한 초대 코드 :  2F0-JV, wZ-GL- **
+  let inviteCode;
+
+  const isAlreadyCoeated = () => {
+    if (window) {
+      const roomInfo = window.localStorage.getItem('roomInfo');
+      try {
+        const parsedRoomInfo = JSON.parse(roomInfo);
+        return !!parsedRoomInfo.userInfo.nickname && !isHost;
+      } catch {
+        return false;
+      }
+    }
+
+    return false;
+  };
 
   useEffect(() => {
-    if (window) window.sessionStorage.removeItem('roomInfo');
     inviteCode = searchParams.get('inviteCode');
-    if (!inviteCode) setIsHost(true); // host인 경우
+    if (!inviteCode) setIsHost(true);
   }, []);
 
   const SetButtonValue = () => {
@@ -40,11 +53,13 @@ const MainPage = () => {
     });
 
     if (isHost) {
+      if (window) window.localStorage.removeItem('roomInfo');
       navigate('/setting');
     } else {
       // 일반 참가자로 참여한 경우, 링크의 유효성 검사를 진행한다.
       if (!(await requestEnterGroup(inviteCode))) {
         // 링크가 유효한 경우, 다음 페이지로 이동
+        if (window) window.localStorage.removeItem('roomInfo');
         setInviteCode(inviteCode);
         navigate('/setting');
       } else {
@@ -53,6 +68,8 @@ const MainPage = () => {
       }
     }
   };
+
+  const pushToResult = () => navigate('/result');
 
   return (
     <StyledContainer>
@@ -95,12 +112,19 @@ const MainPage = () => {
           </StyledBodyDesc>
         </StyledBodyContent>
       </StyledMainBody>
-      <StyledMainButton isHost={isHost} onClick={handleClick}>
-        <span>
-          <SetButtonValue />
-        </span>
-        <GoIcon />
-      </StyledMainButton>
+      <ButtonWrapper>
+        <StyledMainButton isHost={isHost} onClick={handleClick}>
+          <span>
+            <SetButtonValue />
+          </span>
+          <GoIcon />
+        </StyledMainButton>
+        {isAlreadyCoeated() && (
+          <StyledMainButton onClick={pushToResult}>
+            <span>결과보기</span>
+          </StyledMainButton>
+        )}
+      </ButtonWrapper>
     </StyledContainer>
   );
 };
@@ -117,7 +141,7 @@ export const StyledContainer = styled.section`
   margin: 0 auto;
 
   ${applyMediaQuery('mobile')} {
-    padding: 0 10%;
+    padding: 0 5%;
     justify-content: center;
   }
 `;
@@ -268,8 +292,7 @@ const StyledCoeat = styled.div`
   ${applyMediaQuery('mobile')} {
     flex-direction: column;
     align-items: center;
-    /* gap: 0.8rem; */
-    margin-bottom: 1.2rem;
+    margin-bottom: 26px;
   }
 
   font-size: 2.4rem;
@@ -298,20 +321,20 @@ const StyledLeft = styled.div`
     margin: 0;
 
     & > p {
-      font-size: 14px;
+      font-size: 16px;
+      line-height: 19px;
       text-align: center;
-      line-height: 19.2px;
     }
 
     .subtitle {
       font-size: 14px;
-      margin-bottom: 1.5rem;
+      line-height: 17px;
+      margin-bottom: 15px;
     }
   }
 `;
 
 const StyledRight = styled.div`
-  width: 16rem;
   height: 7.3rem;
   background-color: ${(props) => (props.noeat ? '#F5F5F5' : '#ffefe0')};
   color: ${(props) => (props.noeat ? '#888888' : '#ff7a00')};
@@ -325,8 +348,11 @@ const StyledRight = styled.div`
     height: fit-content;
     text-align: center;
     font-size: 13px;
-    font-family: 'Pretendard-Variable';
+    font-family: 'Pretendard Variable';
     padding: 0.8rem 2.4rem;
+
+    position: static;
+    top: unset;
   }
 `;
 
@@ -373,5 +399,17 @@ export const StyledMainButton = styled.button`
       width: 6rem;
       height: 6rem;
     }
+  }
+`;
+
+const ButtonWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  gap: 2.5rem;
+
+  ${applyMediaQuery('mobile')} {
+    gap: 15px;
   }
 `;

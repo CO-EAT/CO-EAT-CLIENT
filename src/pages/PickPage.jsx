@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo, Fragment } from 'react';
+import { useState, useRef, useMemo, Fragment, useEffect } from 'react';
 import styled from 'styled-components';
 import LogoImg from 'assets/logo.svg';
 import Loader from 'components/common/Loader';
@@ -30,6 +30,7 @@ function PickPage() {
   const { isMobile } = useMedia();
   const { roomStateContext } = useRoomInfo();
   const containerRef = useRef(null);
+  const observerRef = useRef(null);
   const navigator = useNavigate();
   const { data, loading } = useAPI({
     method: 'GET',
@@ -37,7 +38,7 @@ function PickPage() {
   });
 
   const [selectCtg, setSelectCtg] = useState(MEAL_CATEGORIES[0]);
-  const { coEatList, noEatList, handleCoeat, handleNoeat } = usePickInfo();
+  const { coEatList, noEatList, handleCoeat, handleNoeat, initializePickList } = usePickInfo();
 
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [restrictModal, setRestrictModal] = useState({
@@ -113,7 +114,12 @@ function PickPage() {
         <div className="ctgFoods">
           {foodInfo.map((food) => (
             <FoodSelectionWrapper key={food.id}>
-              <FoodSelectionCard addCoEat={addFoodToList(COEAT)} addNoEat={addFoodToList(NOEAT)} data={food} />
+              <FoodSelectionCard
+                addCoEat={addFoodToList(COEAT)}
+                addNoEat={addFoodToList(NOEAT)}
+                data={food}
+                imgCallbackRef={observeFood}
+              />
             </FoodSelectionWrapper>
           ))}
         </div>
@@ -150,6 +156,31 @@ function PickPage() {
       setIsScrolling(true);
     }
   };
+
+  const observeFood = (refElement) => {
+    if (refElement && observerRef.current) {
+      observerRef.current.observe(refElement);
+    }
+  };
+
+  const handleIntersection = (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting && !entry.target.dataset.isloading) {
+        entry.target.src = entry.target.dataset.lazysrc;
+        entry.target.dataset.isloading = 'loaded';
+      }
+    });
+  };
+
+  useEffect(() => {
+    observerRef.current = new IntersectionObserver(handleIntersection, {
+      threshold: 0.3,
+    });
+    return () => {
+      initializePickList();
+      observerRef.current.disconnect();
+    };
+  }, []);
 
   return (
     <StyledContainer ref={containerRef} isCartOpen={isCartOpen}>
@@ -342,7 +373,7 @@ const StyledCategory = styled.div`
 
       color: ${colors.lighterGray};
 
-      margin-right: 22px;
+      margin-right: 15px;
     }
 
     & > div.selected {

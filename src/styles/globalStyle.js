@@ -23,6 +23,8 @@ const GlobalStyle = createGlobalStyle`
     ::-webkit-scrollbar {
       display: none;
     }
+
+    font-family: 'Pretendard Variable';
   }
 
   button:hover {

@@ -4,12 +4,13 @@ import { colors } from 'constants/colors';
 import usePickInfo from 'cores/hooks/usePickInfo';
 import { applyMediaQuery } from 'styles/mediaQueries';
 import Responsive from './common/Responsive';
+import SmallLogo from 'assets/small-logo.svg';
 
 const COEAT = 'COEAT';
 const NOEAT = 'NOEAT';
 
 function FoodSelectionCard(props) {
-  const { data, addCoEat, addNoEat } = props;
+  const { data, addCoEat, addNoEat, imgCallbackRef } = props;
   const { menuName, content, menuImg, id } = data;
   const { coEatList, noEatList } = usePickInfo();
 
@@ -35,7 +36,7 @@ function FoodSelectionCard(props) {
         <ImageWrapper>
           <Plate />
           <MainDish>
-            <img src={menuImg} alt="food-img" />
+            <img ref={imgCallbackRef} data-lazysrc={menuImg} data-isloading="" src={SmallLogo} alt="food-img" />
           </MainDish>
         </ImageWrapper>
       </UpBox>
@@ -212,6 +213,10 @@ const UpBox = styled.div`
   flex-direction: column;
 
   border-bottom: 1px dashed ${colors.cardBorder};
+
+  ${applyMediaQuery('mobile')} {
+    border-bottom: unset;
+  }
 `;
 const DownBox = styled.div`
   position: relative;
@@ -239,7 +244,7 @@ export const ImageWrapper = styled.div`
   }
   ${applyMediaQuery('mobile')} {
     padding-top: 85px;
-    margin-bottom: 12px;
+    margin-bottom: 24px;
   }
 `;
 

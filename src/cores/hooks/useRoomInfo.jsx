@@ -5,13 +5,13 @@ const ROOM_INFO = 'roomInfo';
 const INVITE_CODE = 'inviteCode';
 const USER_INFO = 'userInfo';
 
-const setDataToSessionStorage = (key, val) => {
+const setDataToLocalStorage = (key, val) => {
   if (!window) return;
 
-  const ss = window.sessionStorage;
-  const prevItem = ss.getItem(ROOM_INFO);
+  const ls = window.localStorage;
+  const prevItem = ls.getItem(ROOM_INFO);
   if (prevItem) {
-    ss.setItem(
+    ls.setItem(
       ROOM_INFO,
       JSON.stringify({
         ...JSON.parse(prevItem),
@@ -19,7 +19,7 @@ const setDataToSessionStorage = (key, val) => {
       }),
     );
   } else {
-    ss.setItem(ROOM_INFO, JSON.stringify({ [key]: val }));
+    ls.setItem(ROOM_INFO, JSON.stringify({ [key]: val }));
   }
 };
 
@@ -34,7 +34,7 @@ function useRoomInfo() {
       value: inviteCode,
     });
 
-    setDataToSessionStorage(INVITE_CODE, inviteCode);
+    setDataToLocalStorage(INVITE_CODE, inviteCode);
   };
 
   const setUserInfo = (userInfo) => {
@@ -44,13 +44,13 @@ function useRoomInfo() {
       value: userInfo,
     });
 
-    setDataToSessionStorage(USER_INFO, userInfo);
+    setDataToLocalStorage(USER_INFO, userInfo);
   };
 
   useEffect(() => {
     if (window) {
-      const ss = window.sessionStorage;
-      const prevRoomInfo = ss.getItem(ROOM_INFO);
+      const ls = window.localStorage;
+      const prevRoomInfo = ls.getItem(ROOM_INFO);
       if (!prevRoomInfo) return;
 
       const roomInfo = JSON.parse(prevRoomInfo);
