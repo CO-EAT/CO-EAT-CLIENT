@@ -179,6 +179,7 @@ export const ImageWrapper = styled.div`
   position: relative;
   padding-top: calc(15rem + 2rem);
   width: 100%;
+  height: 100%;
 
   display: flex;
   justify-content: center;
@@ -203,12 +204,14 @@ export const MainDish = styled.div`
   top: -1rem;
   left: 2rem;
   width: 100%;
+  height: 100%;
 
   & > img {
     border-radius: 50%;
     overflow: hidden;
-    width: 15rem;
-    height: 15rem;
+    max-width: 80%;
+    max-height: 100%;
+    object-fit: cover;
     position: absolute;
     top: 0;
   }
