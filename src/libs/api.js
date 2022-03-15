@@ -59,3 +59,15 @@ export const completeCoeat = async (inviteCode, nickname) => {
     return null;
   }
 };
+
+export const checkResultExist = async (inviteCode) => {
+  try {
+    const result = await client.get(`/result/${inviteCode}`);
+
+    if (result.status === 200) return true;
+    else if (result.status == 204) return false;
+    return false;
+  } catch (error) {
+    return false;
+  }
+};

@@ -4,20 +4,26 @@ import { ReactComponent as Sticker } from 'assets/sticker.svg';
 import { ReactComponent as Clip } from 'assets/clip.svg';
 import { ReactComponent as RiceIcon } from 'assets/rice.svg';
 import { ReactComponent as GoIcon } from 'assets/go.svg';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
-import { requestEnterGroup } from 'libs/api';
+import { checkResultExist, requestEnterGroup } from 'libs/api';
 import useRoomInfo from 'cores/hooks/useRoomInfo';
 import { applyMediaQuery } from 'styles/mediaQueries';
+import Modal, { mobileModalStyles, modalStyles } from 'components/common/Modal';
+import Basic from 'components/common/Modal/Basic';
+import useMedia from 'cores/hooks/useMedia';
+import ReactModal from 'react-modal';
 
 const MainPage = () => {
   const [isHost, setIsHost] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchParams] = useSearchParams();
   const { setInviteCode, setUserInfo } = useRoomInfo();
+  const { isMobile } = useMedia();
 
   const navigate = useNavigate();
-  let inviteCode;
+  const inviteCode = useRef();
 
   const isAlreadyCoeated = () => {
     if (window) {
@@ -34,8 +40,9 @@ const MainPage = () => {
   };
 
   useEffect(() => {
-    inviteCode = searchParams.get('inviteCode');
-    if (!inviteCode) setIsHost(true);
+    const inviteCodeInParam = searchParams.get('inviteCode');
+    inviteCode.current = inviteCodeInParam;
+    if (!inviteCodeInParam) setIsHost(true);
   }, []);
 
   const SetButtonValue = () => {
@@ -57,10 +64,10 @@ const MainPage = () => {
       navigate('/setting');
     } else {
       // 일반 참가자로 참여한 경우, 링크의 유효성 검사를 진행한다.
-      if (!(await requestEnterGroup(inviteCode))) {
+      if (!(await requestEnterGroup(inviteCode.current))) {
         // 링크가 유효한 경우, 다음 페이지로 이동
         if (window) window.localStorage.removeItem('roomInfo');
-        setInviteCode(inviteCode);
+        setInviteCode(inviteCode.current);
         navigate('/setting');
       } else {
         // 링크가 유효하지 않은 경우
@@ -69,7 +76,11 @@ const MainPage = () => {
     }
   };
 
-  const pushToResult = () => navigate('/result');
+  const pushToResult = async () => {
+    const isResultExist = await checkResultExist(inviteCode.current);
+    if (isResultExist) navigate('/result');
+    else setIsModalOpen(true);
+  };
 
   return (
     <StyledContainer>
@@ -125,6 +136,15 @@ const MainPage = () => {
           </StyledMainButton>
         )}
       </ButtonWrapper>
+      <ReactModal style={isMobile ? mobileModalStyles : modalStyles} isOpen={isModalOpen}>
+        <Modal>
+          <Basic
+            modalTitle="결과 없음"
+            modalBody="아직 코잇 결과가 나오지 않았어요."
+            closeModal={() => setIsModalOpen(false)}
+          />
+        </Modal>
+      </ReactModal>
     </StyledContainer>
   );
 };
