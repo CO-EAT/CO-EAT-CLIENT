@@ -164,12 +164,12 @@ function PickPage() {
   };
 
   const handleIntersection = (entries) => {
+    const LOADED = 'loaded';
     entries.forEach((entry) => {
-      if (entry.isIntersecting && !entry.target.dataset.isloading) {
+      if (entry.isIntersecting && !entry.target.classList.contains(LOADED)) {
         entry.target.src = entry.target.dataset.lazysrc;
         entry.target.addEventListener('load', function detectLoad(e) {
-          e.currentTarget.dataset.isloading = 'loaded';
-          e.currentTarget.classList.add('loaded');
+          e.currentTarget.classList.add(LOADED);
           e.currentTarget.removeEventListener('load', detectLoad);
         });
       }

@@ -36,8 +36,7 @@ function FoodSelectionCard(props) {
         <ImageWrapper>
           <Plate />
           <MainDish>
-            <img ref={imgCallbackRef} data-lazysrc={menuImg} data-isloading="" src={SmallLogo} alt="food-img" />
-            {/* <img ref={imgCallbackRef} data-lazysrc={SmallLogo} data-isloading="" src={SmallLogo} alt="food-img" /> */}
+            <img ref={imgCallbackRef} data-lazysrc={menuImg} src={SmallLogo} alt="food-img" />
           </MainDish>
         </ImageWrapper>
       </UpBox>
