@@ -1,14 +1,18 @@
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQueries';
 
-function Basic({ modalTitle, modalBody, closeModal }) {
+function Basic({ modalTitle, modalBody, closeModal, buttonList }) {
   return (
     <>
       <WarnTitle>{modalTitle}</WarnTitle>
       <WarnContent>{modalBody}</WarnContent>
-      <CloseButton onClick={closeModal}>
-        <span>확인</span>
-      </CloseButton>
+      {buttonList ? (
+        <ButtonWrapper>{buttonList.map((button) => button)}</ButtonWrapper>
+      ) : (
+        <CloseButton onClick={closeModal}>
+          <span>확인</span>
+        </CloseButton>
+      )}
     </>
   );
 }
@@ -25,6 +29,10 @@ const WarnTitle = styled.div`
     font-size: 20px;
     line-height: 24px;
   }
+  ${applyMediaQuery('mini')} {
+    font-size: 16px;
+    line-height: 20px;
+  }
 `;
 
 const WarnContent = styled.div`
@@ -36,6 +44,11 @@ const WarnContent = styled.div`
   ${applyMediaQuery('mobile')} {
     font-size: 16px;
     line-height: 19px;
+    color: #606060;
+  }
+  ${applyMediaQuery('mini')} {
+    font-size: 12px;
+    line-height: 15px;
     color: #606060;
   }
 `;
@@ -60,6 +73,25 @@ const CloseButton = styled.button`
       line-height: 19px;
     }
   }
+  ${applyMediaQuery('mini')} {
+    width: 120px;
+    height: 48px;
+
+    & > span {
+      font-family: 'Pretendard Variable';
+
+      font-size: 16px;
+      line-height: 19px;
+    }
+  }
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+  gap: 31px;
+
+  width: 100%;
 `;
 
 export default Basic;

@@ -142,10 +142,7 @@ const MobileModalWrapper = styled.div`
   flex-direction: column;
 
   position: absolute;
-  height: ${(props) => {
-    console.log(props);
-    return `calc(${props.vh}px - 80px - 116px)`;
-  }};
+  height: ${(props) => `calc(${props.vh}px - 80px - 116px)`};
 
   bottom: 116px;
 `;

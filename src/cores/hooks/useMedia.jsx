@@ -6,6 +6,10 @@ function useMedia() {
     query: deviceInfo.mobile,
   });
 
+  const isMini = useMediaQuery({
+    query: deviceInfo.mini,
+  });
+
   const isTablet = useMediaQuery({
     query: deviceInfo.tablet,
   });
@@ -14,7 +18,7 @@ function useMedia() {
     query: deviceInfo.desktop,
   });
 
-  return { isMobile, isTablet, isDesktop };
+  return { isMobile, isTablet, isDesktop, isMini };
 }
 
 export default useMedia;
