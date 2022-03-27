@@ -167,7 +167,11 @@ function PickPage() {
     entries.forEach((entry) => {
       if (entry.isIntersecting && !entry.target.dataset.isloading) {
         entry.target.src = entry.target.dataset.lazysrc;
-        entry.target.dataset.isloading = 'loaded';
+        entry.target.addEventListener('load', function detectLoad(e) {
+          e.currentTarget.dataset.isloading = 'loaded';
+          e.currentTarget.classList.add('loaded');
+          e.currentTarget.removeEventListener('load', detectLoad);
+        });
       }
     });
   };

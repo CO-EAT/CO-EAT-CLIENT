@@ -37,6 +37,7 @@ function FoodSelectionCard(props) {
           <Plate />
           <MainDish>
             <img ref={imgCallbackRef} data-lazysrc={menuImg} data-isloading="" src={SmallLogo} alt="food-img" />
+            {/* <img ref={imgCallbackRef} data-lazysrc={SmallLogo} data-isloading="" src={SmallLogo} alt="food-img" /> */}
           </MainDish>
         </ImageWrapper>
       </UpBox>
@@ -308,6 +309,7 @@ export const MainDish = styled.div`
   position: absolute;
   top: 0;
   width: 100%;
+  height: 100%;
 
   & > img {
     border-radius: 50%;
@@ -315,7 +317,7 @@ export const MainDish = styled.div`
     width: 15rem;
     height: 15rem;
     position: absolute;
-    top: 0;
+    top: -5px;
     left: 55%;
     transform: translate(-50%, 0);
     object-fit: cover;
@@ -330,6 +332,11 @@ export const MainDish = styled.div`
       width: 10rem;
       height: 10rem;
     }
+  }
+
+  & > img.loaded {
+    width: 130%;
+    height: 100%;
   }
 `;
 
