@@ -37,6 +37,14 @@ export const mobileModalStyles = {
   },
 };
 
+export const miniModalStyles = {
+  ...modalStyles,
+  content: {
+    ...modalStyles.content,
+    padding: '10px 40px',
+  },
+};
+
 const Modal = ({ children }) => {
   return <StyledWrapper>{children}</StyledWrapper>;
 };

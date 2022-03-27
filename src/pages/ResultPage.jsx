@@ -20,6 +20,9 @@ import { useNavigate } from 'react-router-dom';
 import { applyMediaQuery } from 'styles/mediaQueries';
 import Responsive from 'components/common/Responsive';
 import useMedia from 'cores/hooks/useMedia';
+import Modal, { miniModalStyles, mobileModalStyles, modalStyles } from 'components/common/Modal';
+import Cancelable, { ConfirmButton, PrevButton } from 'components/common/Modal/Cancelable';
+import ReactModal from 'react-modal';
 
 const parseFontWeightFromString = (string) => {
   const [before, toBeBold, ...rest] = string.split('__');
@@ -33,7 +36,7 @@ const parseFontWeightFromString = (string) => {
 };
 
 function ResultPage() {
-  const { isMobile } = useMedia();
+  const { isMobile, isMini } = useMedia();
   const navigator = useNavigate();
   const {
     roomStateContext: {
@@ -55,6 +58,7 @@ function ResultPage() {
 
   const [isCompleted, setIsCompleted] = useState(false);
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+  const [isConfirmCompleteOpen, setIsConfirmCompleteOpen] = useState(false);
 
   const openTooltip = () => setIsTooltipOpen(true);
   const closeTooltip = () => setIsTooltipOpen(false);
@@ -200,9 +204,29 @@ function ResultPage() {
         </TotalEatGrid>
       </TotalEatWrapper>
       {isHost && (
-        <CompleteBtn disabled={isCompleted} isCompleted={isCompleted} onClick={handleClickCompleteBtn}>
-          {isCompleted ? 'Completed!' : 'COEAT COMPLETE'}
-        </CompleteBtn>
+        <>
+          <CompleteBtn disabled={isCompleted} isCompleted={isCompleted} onClick={() => setIsConfirmCompleteOpen(true)}>
+            {isCompleted ? 'Completed!' : 'COEAT COMPLETE'}
+          </CompleteBtn>
+          <ReactModal
+            style={isMobile ? (isMini ? miniModalStyles : mobileModalStyles) : modalStyles}
+            isOpen={isConfirmCompleteOpen}>
+            <Modal>
+              <Cancelable
+                modalTitle="정말 COEAT을 완료하시겠어요?"
+                modalBody="확인 버튼을 누르면 해당 코잇 방이 사라져요."
+                buttonList={[
+                  <ConfirmButton key="확인" onClick={handleClickCompleteBtn}>
+                    확인
+                  </ConfirmButton>,
+                  <PrevButton key="돌아가기" onClick={() => setIsConfirmCompleteOpen(false)}>
+                    돌아가기
+                  </PrevButton>,
+                ]}
+              />
+            </Modal>
+          </ReactModal>
+        </>
       )}
     </Container>
   );
@@ -262,6 +286,10 @@ const ResultTitle = styled.h2`
 
   ${applyMediaQuery('mobile')} {
     font-size: 22px;
+    line-height: 34px;
+  }
+  ${applyMediaQuery('mini')} {
+    font-size: 20px;
     line-height: 34px;
   }
 
