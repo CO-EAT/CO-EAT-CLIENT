@@ -28,7 +28,7 @@ const NOEAT = 'NOEAT';
 
 function PickPage() {
   const { isMobile } = useMedia();
-  const { roomStateContext } = useRoomInfo();
+  const { roomStateContext, cleanRoomInfo } = useRoomInfo();
   const containerRef = useRef(null);
   const observerRef = useRef(null);
   const navigator = useNavigate();
@@ -176,6 +176,12 @@ function PickPage() {
     });
   };
 
+  const handleLogoClick = () => {
+    cleanRoomInfo();
+    initializePickList();
+    navigator('/');
+  };
+
   useEffect(() => {
     observerRef.current = new IntersectionObserver(handleIntersection, {
       threshold: 0.3,
@@ -192,7 +198,7 @@ function PickPage() {
         <StyledNav>
           <Responsive mobile>
             <LogoWrapper>
-              <img src={Logo} className="main-logo" alt="logo" />
+              <img src={Logo} className="main-logo" alt="logo" onClick={handleLogoClick} />
 
               <div>
                 <img src={SmallLogo} className="small-logo" alt="small-logo" />
@@ -202,7 +208,7 @@ function PickPage() {
           </Responsive>
           <Responsive tablet desktop>
             <StyledTitle>
-              <img src={LogoImg} alt="logo" />
+              <img src={LogoImg} alt="logo" onClick={handleLogoClick} />
             </StyledTitle>
           </Responsive>
           <StyledCategories isCartOpen={isCartOpen}>
@@ -315,6 +321,11 @@ const StyledTitle = styled.div`
   & > img {
     width: 10.9rem;
     height: 3.7rem;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+    }
   }
 `;
 const StyledCategories = styled.div`

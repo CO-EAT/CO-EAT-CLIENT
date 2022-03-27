@@ -47,6 +47,10 @@ function useRoomInfo() {
     setDataToLocalStorage(USER_INFO, userInfo);
   };
 
+  const cleanRoomInfo = () => {
+    if (window) window.localStorage.clear();
+  };
+
   useEffect(() => {
     if (window) {
       const ls = window.localStorage;
@@ -62,7 +66,7 @@ function useRoomInfo() {
     }
   }, []);
 
-  return { roomStateContext, setInviteCode, setUserInfo };
+  return { roomStateContext, setInviteCode, setUserInfo, cleanRoomInfo };
 }
 
 export default useRoomInfo;
