@@ -40,6 +40,7 @@ function ResultPage() {
       inviteCode,
       userInfo: { isHost, nickname },
     },
+    cleanRoomInfo,
   } = useRoomInfo();
 
   const { data, loading, mutate, error } = useAPI(
@@ -67,6 +68,11 @@ function ResultPage() {
     }
   };
 
+  const handleLogoClick = () => {
+    cleanRoomInfo();
+    navigator('/');
+  };
+
   if (error) {
     return <div>Something Wrong</div>;
   }
@@ -85,7 +91,7 @@ function ResultPage() {
     <Container>
       <Responsive mobile>
         <LogoWrapper>
-          <img src={Logo} className="main-logo" alt="logo" />
+          <img src={Logo} className="main-logo" alt="logo" onClick={handleLogoClick} />
 
           <div>
             <img src={SmallLogo} className="small-logo" alt="small-logo" />
@@ -94,7 +100,7 @@ function ResultPage() {
         </LogoWrapper>
       </Responsive>
       <Responsive tablet desktop>
-        <img src={Logo} alt="logo" />
+        <img src={Logo} alt="logo" onClick={handleLogoClick} />
       </Responsive>
       <ResultHeader>
         <img src={isMobile ? MobilePaper : CuteLogo} alt="" />
@@ -279,6 +285,10 @@ const SecondaryResult = styled.div`
   border-radius: 33.5px;
   background-color: ${colors.gray};
   padding: 2rem 3rem;
+
+  text-align: center;
+  word-break: keep-all;
+  word-wrap: break-word;
 
   & > b {
     font-weight: bold;
@@ -624,11 +634,16 @@ export const LogoWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  & img.main-logo {
+  & > img.main-logo {
     width: 107px;
 
     ${applyMediaQuery('mobile')} {
       width: 67px;
+    }
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1);
     }
   }
 

@@ -36,8 +36,7 @@ function FoodSelectionCard(props) {
         <ImageWrapper>
           <Plate />
           <MainDish>
-            <img ref={imgCallbackRef} data-lazysrc={menuImg} data-isloading="" src={SmallLogo} alt="food-img" />
-            {/* <img ref={imgCallbackRef} data-lazysrc={SmallLogo} data-isloading="" src={SmallLogo} alt="food-img" /> */}
+            <img ref={imgCallbackRef} data-lazysrc={menuImg} src={SmallLogo} alt="food-img" />
           </MainDish>
         </ImageWrapper>
       </UpBox>
@@ -228,7 +227,7 @@ const DownBox = styled.div`
 
 export const ImageWrapper = styled.div`
   position: relative;
-  padding-top: calc(15rem + 2rem);
+  padding-top: calc(15rem + 5rem);
   width: 100%;
 
   display: flex;
@@ -239,11 +238,11 @@ export const ImageWrapper = styled.div`
     position: absolute;
     top: 0;
   }
-
   ${applyMediaQuery('mobile')} {
-    padding-top: 85px;
+    padding-top: 120px;
+    margin-bottom: 24px;
   }
-  ${applyMediaQuery('mobile')} {
+  ${applyMediaQuery('mini')} {
     padding-top: 85px;
     margin-bottom: 24px;
   }
@@ -311,21 +310,22 @@ export const MainDish = styled.div`
   width: 100%;
   height: 100%;
 
+  ${applyMediaQuery('mobile')} {
+    height: 120%;
+  }
+
   & > img {
-    border-radius: 50%;
-    overflow: hidden;
     width: 15rem;
     height: 15rem;
     position: absolute;
-    top: -5px;
-    left: 55%;
-    transform: translate(-50%, 0);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
     object-fit: cover;
 
     ${applyMediaQuery('mobile')} {
       width: 12rem;
       height: 12rem;
-      top: -15px;
     }
 
     ${applyMediaQuery('mini')} {

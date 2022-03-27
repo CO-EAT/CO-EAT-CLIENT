@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import PickedCard from 'components/PickedCard';
 import usePickInfo from 'cores/hooks/usePickInfo';
 import { applyMediaQuery } from 'styles/mediaQueries';
+import { GrFormClose } from 'react-icons/gr';
 
 const COEAT = 'COEAT';
 const NOEAT = 'NOEAT';
@@ -12,7 +13,9 @@ function CartModal({ toggleModal }) {
   return (
     <>
       <StyledCartWrapper>
-        <CloseButton onClick={toggleModal}>X</CloseButton>
+        <CloseButton onClick={toggleModal}>
+          <GrFormClose />
+        </CloseButton>
         <StyledListWrapper COEAT>
           <div>
             <StyledTitle>
@@ -71,6 +74,8 @@ const CloseButton = styled.button`
   right: 2rem;
   border: 0;
   background-color: transparent;
+
+  font-size: 4.5rem;
 `;
 
 const StyledTitle = styled.header`

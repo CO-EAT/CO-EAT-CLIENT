@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import { ReactComponent as Plate } from 'assets/img/plate.svg';
 import { colors } from 'constants/colors';
 import { applyMediaQuery } from 'styles/mediaQueries';
+import { ImageWrapper, MainDish } from './FoodSelectionCard';
 
 function ResultCard(props) {
   const { coEatCount = 22, noEatCount = 6, imgSrc, foodName } = props;
@@ -17,7 +18,7 @@ function ResultCard(props) {
         <ImageWrapper>
           <Plate />
           <MainDish>
-            <img src={imgSrc} alt="food-img" />
+            <img className="loaded" src={imgSrc} alt="food-img" />
           </MainDish>
         </ImageWrapper>
       </UpBox>
@@ -152,6 +153,8 @@ const CardName = styled.h2`
 `;
 
 const UpBox = styled.div`
+  width: 100%;
+
   display: flex;
   flex-direction: column;
 
@@ -172,61 +175,6 @@ const DownBox = styled.div`
   padding: 3rem;
   ${applyMediaQuery('mobile')} {
     padding: 14px 9px;
-  }
-`;
-
-export const ImageWrapper = styled.div`
-  position: relative;
-  padding-top: calc(15rem + 2rem);
-  width: 100%;
-  height: 100%;
-
-  display: flex;
-  justify-content: center;
-
-  & > svg {
-    position: absolute;
-    top: 0;
-    left: 3rem;
-  }
-
-  ${applyMediaQuery('mobile')} {
-    padding-top: 120px;
-
-    & > svg {
-      left: 30px;
-    }
-  }
-`;
-
-export const MainDish = styled.div`
-  position: absolute;
-  top: -1rem;
-  left: 2rem;
-  width: 100%;
-  height: 100%;
-
-  & > img {
-    border-radius: 50%;
-    overflow: hidden;
-    max-width: 80%;
-    max-height: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-  }
-  ${applyMediaQuery('mobile')} {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    & > img {
-      width: 12rem;
-      height: 12rem;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -60%);
-    }
   }
 `;
 
