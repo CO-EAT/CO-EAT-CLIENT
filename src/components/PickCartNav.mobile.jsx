@@ -12,7 +12,7 @@ function MobilePickCartModal({ isCartOpen, toggleModal, submitCompleteCoeat }) {
   return (
     <CartOpenProvider theme={{ isCartOpen }}>
       <StyledCartNavWrapper>
-        {isCartOpen && <CartModal toggleModal={toggleModal} />}
+        {isCartOpen && <CartModal />}
         <StyledCartNav>
           <StyledCartInfo>
             <span>COEAT</span>
@@ -20,9 +20,14 @@ function MobilePickCartModal({ isCartOpen, toggleModal, submitCompleteCoeat }) {
             <span>NOEAT</span>
             <span>{noEatList.length}/5</span>
           </StyledCartInfo>
-          <OrangeButton onClick={isCartOpen ? submitCompleteCoeat : toggleModal}>
-            {isCartOpen ? '완료' : '다음'}
-          </OrangeButton>
+          {isCartOpen ? (
+            <ButtonWrapper>
+              <PrevButton onClick={toggleModal}>이전</PrevButton>
+              <NextButton onClick={submitCompleteCoeat}>완료</NextButton>
+            </ButtonWrapper>
+          ) : (
+            <NextButton onClick={toggleModal}>다음</NextButton>
+          )}
         </StyledCartNav>
       </StyledCartNavWrapper>
     </CartOpenProvider>
@@ -98,7 +103,15 @@ const StyledCartInfo = styled.div`
     `};
 `;
 
-const OrangeButton = styled.button`
+const ButtonWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+`;
+
+const NextButton = styled.button`
   flex: 1;
   background-color: ${colors.orange};
   height: 100%;
@@ -115,7 +128,11 @@ const OrangeButton = styled.button`
     theme.isCartOpen &&
     css`
       width: 100%;
-      padding-bottom: unset;
+      padding-bottom: 15px;
       flex: unset;
     `};
+`;
+
+const PrevButton = styled(NextButton)`
+  background-color: ${colors.prevBtnGray};
 `;

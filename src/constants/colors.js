@@ -12,4 +12,5 @@ export const colors = {
   subText: '#666666',
   lightGray: '#FAFAFA',
   lighterGray: '#BEBEBE',
+  prevBtnGray: '#434343',
 };

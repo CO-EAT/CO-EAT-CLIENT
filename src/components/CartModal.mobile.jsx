@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PickedCard from 'components/PickedCard';
 import usePickInfo from 'cores/hooks/usePickInfo';
@@ -6,16 +7,25 @@ import { applyMediaQuery } from 'styles/mediaQueries';
 const COEAT = 'COEAT';
 const NOEAT = 'NOEAT';
 
-function CartModal({ toggleModal }) {
+function CartModal() {
   const { coEatList, noEatList } = usePickInfo();
+  const [windowHeight, setwindowHeight] = useState(window?.innerHeight || 667);
+
+  useEffect(() => {
+    function handleHeightResize() {
+      if (window) setwindowHeight(window.innerHeight);
+    }
+    window.addEventListener('resize', handleHeightResize);
+
+    return () => {
+      window.removeEventListener('resize', handleHeightResize);
+    };
+  }, []);
 
   return (
-    <MobileModalWrapper vh={window?.innerHeight || '667px'}>
+    <MobileModalWrapper vh={windowHeight || 667}>
       <MobileHeader>
         <h2>나의 코잇/노잇</h2>
-        <button type="button" onClick={toggleModal}>
-          X
-        </button>
       </MobileHeader>
       <StyledCartWrapper>
         <StyledListWrapper COEAT>
@@ -132,7 +142,10 @@ const MobileModalWrapper = styled.div`
   flex-direction: column;
 
   position: absolute;
-  height: ${(props) => `calc(${props.vh}px - 80px - 116px)`};
+  height: ${(props) => {
+    console.log(props);
+    return `calc(${props.vh}px - 80px - 116px)`;
+  }};
 
   bottom: 116px;
 `;
