@@ -335,7 +335,7 @@ export const MainDish = styled.div`
   }
 
   & > img.loaded {
-    width: 130%;
+    width: 120%;
     height: 100%;
   }
 `;
