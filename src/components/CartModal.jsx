@@ -30,6 +30,7 @@ function CartModal({ toggleModal }) {
             ))}
           </StyledList>
         </StyledListWrapper>
+        <Delimiter />
         <StyledListWrapper>
           <div>
             <StyledTitle>
@@ -66,11 +67,12 @@ const StyledCartWrapper = styled.div`
   color: black;
   overflow: scroll;
   border-radius: 20px 20px 0 0;
+  padding: 0 calc(calc(100% - 120rem) / 2);
 `;
 
 const CloseButton = styled.button`
   position: absolute;
-  top: 2rem;
+  top: 3.5rem;
   right: 2rem;
   border: 0;
   background-color: transparent;
@@ -101,8 +103,6 @@ const StyledListWrapper = styled.div`
   align-items: flex-start;
   flex: 1;
   background-color: #f4f5f6;
-  border-right: 1px solid #e6e6e6;
-  padding-left: 11.8rem;
   padding-top: 5rem;
 
   & > div {
@@ -118,4 +118,12 @@ const StyledList = styled.ul`
   display: flex;
   flex-direction: column;
   justify-content: center;
+`;
+
+const Delimiter = styled.div`
+  width: 2px;
+  height: 90%;
+  background-color: #e6e6e6;
+  margin: 5rem 10rem;
+  margin-bottom: 0;
 `;
