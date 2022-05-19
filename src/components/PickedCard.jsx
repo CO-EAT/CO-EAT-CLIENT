@@ -53,12 +53,8 @@ const StyledMenuSelection = styled.li`
   border: 1px solid ${colors.cardBorder};
   margin-bottom: 1.7rem;
 
-  ${applyMediaQuery('mobile')} {
-    width: 150px;
-    height: 84px;
-  }
-  ${applyMediaQuery('mini')} {
-    width: 120px;
+  ${applyMediaQuery('mobile', 'mini')} {
+    width: 100%;
     height: 84px;
   }
 `;
@@ -128,6 +124,7 @@ const LeftBox = styled.div`
   justify-content: flex-start;
 
   border-right: 1px dashed ${colors.cardBorder};
+  gap: 5px;
 `;
 const RightBox = styled.div`
   position: relative;
@@ -205,8 +202,10 @@ const FoodInfoBadge = styled.div`
 
 const StyledMainDish = styled(MainDish)`
   & > img {
-    width: 10rem;
-    height: 10rem;
+    width: 150%;
+    height: auto;
+    max-height: 100%;
+    transform: translate(-50%, -50%);
   }
 `;
 

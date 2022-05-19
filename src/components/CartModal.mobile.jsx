@@ -84,18 +84,19 @@ const StyledTitle = styled.header`
 const StyledListWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1 1 50%;
+  width: calc(50% - 15px);
   background-color: #f4f5f6;
-  border-right: 1px solid #e6e6e6;
-  padding: 0 12px;
-  margin: 0 auto;
+  gap: 12px;
+  padding: 15px;
+  ${applyMediaQuery('mini')} {
+    padding: 10px;
+  }
 
   & > div {
     width: 150px;
     display: flex;
     justify-content: flex-start;
     font-size: 2.4rem;
-    margin: 31px auto 12px auto;
     color: ${(prop) => (prop.COEAT ? '#ff912d' : 'black')};
   }
 `;
@@ -104,12 +105,6 @@ const StyledList = styled.ul`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  margin: 0 auto;
-
-  ${applyMediaQuery('mini')} {
-    margin: unset;
-  }
 `;
 
 const MobileHeader = styled.div`
@@ -117,7 +112,7 @@ const MobileHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 24px;
+  padding: 15px;
 
   & > h2 {
     font-size: 22px;

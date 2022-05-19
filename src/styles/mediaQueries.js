@@ -1,18 +1,10 @@
 import { deviceInfo } from 'constants/deviceInfo';
 
-const { mini, mobile, tablet, desktop } = deviceInfo;
-
-const deviceMediaQuery = {
-  mini: `screen and ${mini}`,
-  mobile: `screen and ${mobile}`,
-  tablet: `screen and ${tablet}`,
-  desktop: `screen and ${desktop}`,
-};
-
-export const applyMediaQuery = (device) => `@media ${deviceMediaQuery[device]}`;
+export const applyMediaQuery = (...deviceList) =>
+  '@media screen and ' + deviceList.map((device) => deviceInfo[device]).join(',');
 
 const media = {
-  device: deviceMediaQuery,
+  device: deviceInfo,
 };
 
 export default media;

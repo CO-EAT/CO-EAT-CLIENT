@@ -98,19 +98,18 @@ const StyledUnderLine = styled.div`
 const StyledListWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  flex: 1 1 50%;
-  width: 30%;
+  align-items: flex-start;
+  flex: 1;
   background-color: #f4f5f6;
   border-right: 1px solid #e6e6e6;
+  padding-left: 11.8rem;
+  padding-top: 5rem;
 
   & > div {
     display: flex;
     font-size: 2.4rem;
     text-align: center;
-    margin-top: 4.6rem;
     color: ${(prop) => (prop.COEAT ? '#ff912d' : 'black')};
-
     margin-bottom: 5.2rem;
   }
 `;
