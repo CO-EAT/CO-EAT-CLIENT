@@ -113,12 +113,12 @@ function ResultPage() {
             <b>오늘 코잇하실 식사</b>는 <strong>{data.mostCoeatMenuName}</strong>에요.
           </p>
           <p>
-            <b>다함께 코잇</b>하러 가보실까요?
+            <b>다 함께 코잇</b>하러 가보실까요?
           </p>
         </ResultTitle>
       </ResultHeader>
       <SecondaryResult>
-        더 많은 사람이 함께할 수 있는 <b>{data.lessNoeatMenuName}</b> 어떠세요?
+        더 많은 사람이 함께할 수 있는 {isMobile && <br />} <b>{data.lessNoeatMenuName}</b> 어떠세요?
         <Responsive tablet desktop>
           <StyledTooltip>
             <TooltipBtn onMouseEnter={openTooltip} onMouseLeave={closeTooltip}>
@@ -169,6 +169,7 @@ function ResultPage() {
             </StyledTooltip>
           )}
           <ResultCard
+            isTooltipOpen={isTooltipOpen}
             coEatCount={data.lessCoeatCount || 0}
             noEatCount={+data.lessNoeatCount || 0}
             imgSrc={data.lessNoeatMenuImg}
@@ -246,6 +247,7 @@ const Container = styled.main`
   & > img {
     width: 10.9rem;
     margin-right: auto;
+    cursor: pointer;
   }
 
   ${applyMediaQuery('mobile')} {
@@ -308,6 +310,7 @@ const SecondaryResult = styled.div`
   position: relative;
   width: fit-content;
   font-size: 3rem;
+  line-height: 150%;
   font-weight: 400;
   letter-spacing: -0.01rem;
   border-radius: 33.5px;
@@ -318,7 +321,7 @@ const SecondaryResult = styled.div`
   word-break: keep-all;
   word-wrap: break-word;
 
-  & > b {
+  & b {
     font-weight: bold;
   }
 
@@ -377,43 +380,29 @@ const ColumnWrapper = styled.div`
 `;
 
 const StyledTooltip = styled.div`
-  & > svg {
-    width: 3rem;
-    height: 3rem;
-  }
   position: absolute;
-  right: -10%;
+  right: 0;
   top: 50%;
-
-  transform: translateY(-50%);
-
+  transform: translate(100%, -45%);
   ${applyMediaQuery('mobile')} {
-    & svg {
-      width: 13px;
-      height: 13px;
-    }
-    top: 0;
+    transform: translate(25%, -27%) scale(0.43);
     right: 0;
-    transform: unset;
+    top: 0;
   }
 `;
 
 const TooltipBtn = styled.button`
   background-color: transparent;
   border: none;
-
-  ${applyMediaQuery('mobile')} {
-    display: flex;
-    align-items: center;
-  }
 `;
 
 const TooltipText = styled.div`
   position: absolute;
   bottom: 0;
-  right: 0;
+  right: -30px;
 
-  transform: translate(calc(100% - 3rem), 100%);
+  z-index: 9999;
+  transform: translate(calc(100% - 30px), 100%);
 
   padding: 4rem;
   width: 56.2rem;
@@ -446,7 +435,7 @@ const TooltipText = styled.div`
   }
 
   ${applyMediaQuery('mobile')} {
-    width: 300px;
+    max-width: 500px;
     position: absolute;
 
     bottom: 0;
@@ -501,9 +490,6 @@ const StyeldRefreshBtn = styled.button`
     width: 2.6rem;
     height: 2.6rem;
     ${applyMediaQuery('mobile')} {
-      & path {
-        fill: ${colors.orange};
-      }
       width: 15px;
       height: 15px;
     }

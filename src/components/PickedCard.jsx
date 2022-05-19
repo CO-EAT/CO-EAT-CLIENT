@@ -161,8 +161,8 @@ const FoodInfoWrapper = styled.div`
     gap: 8.25px;
 
     & > h2 {
-      font-size: 16px;
-      line-height: 19px;
+      font-size: 14px;
+      line-height: 17px;
     }
   }
 `;

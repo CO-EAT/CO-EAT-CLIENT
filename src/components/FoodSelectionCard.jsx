@@ -291,7 +291,7 @@ const BasicButton = styled.button`
   }
 
   ${applyMediaQuery('mini')} {
-    padding: 1rem 1rem;
+    padding: 1rem;
   }
 `;
 
@@ -335,8 +335,12 @@ export const MainDish = styled.div`
   }
 
   & > img.loaded {
-    width: 120%;
+    width: 100%;
     height: 100%;
+    ${applyMediaQuery('mini')} {
+      width: 120%;
+      max-height: 100%;
+    }
   }
 `;
 

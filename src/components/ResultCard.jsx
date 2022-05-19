@@ -5,7 +5,7 @@ import { applyMediaQuery } from 'styles/mediaQueries';
 import { ImageWrapper, MainDish } from './FoodSelectionCard';
 
 function ResultCard(props) {
-  const { coEatCount = 22, noEatCount = 6, imgSrc, foodName } = props;
+  const { coEatCount = 22, noEatCount = 6, imgSrc, foodName, isTooltipOpen } = props;
 
   const calcCoEatRatio = () => (coEatCount / (coEatCount + noEatCount)) * 100;
 
@@ -15,12 +15,12 @@ function ResultCard(props) {
         <CardWrapper>
           <CardName>{foodName}</CardName>
         </CardWrapper>
-        <ImageWrapper>
+        <ResultImageWrapper isTooltipOpen={isTooltipOpen}>
           <Plate />
           <MainDish>
             <img className="loaded" src={imgSrc} alt="food-img" />
           </MainDish>
-        </ImageWrapper>
+        </ResultImageWrapper>
       </UpBox>
       <DownBox>
         <InvertedBorder left />
@@ -216,6 +216,14 @@ const CONOProgress = styled.div`
     height: 1rem;
     background-color: ${colors.orange};
   }
+`;
+
+const ResultImageWrapper = styled(ImageWrapper)`
+  ${(props) =>
+    props.isTooltipOpen &&
+    css`
+      z-index: -1;
+    `};
 `;
 
 export default ResultCard;

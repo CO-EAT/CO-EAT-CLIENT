@@ -20,14 +20,16 @@ function MobilePickCartModal({ isCartOpen, toggleModal, submitCompleteCoeat }) {
             <span>NOEAT</span>
             <span>{noEatList.length}/5</span>
           </StyledCartInfo>
-          {isCartOpen ? (
-            <ButtonWrapper>
-              <PrevButton onClick={toggleModal}>이전</PrevButton>
-              <NextButton onClick={submitCompleteCoeat}>완료</NextButton>
-            </ButtonWrapper>
-          ) : (
-            <NextButton onClick={toggleModal}>다음</NextButton>
-          )}
+          <ButtonWrapper>
+            {isCartOpen ? (
+              <>
+                <PrevButton onClick={toggleModal}>이전</PrevButton>
+                <NextButton onClick={submitCompleteCoeat}>완료</NextButton>
+              </>
+            ) : (
+              <NextButton onClick={toggleModal}>다음</NextButton>
+            )}
+          </ButtonWrapper>
         </StyledCartNav>
       </StyledCartNavWrapper>
     </CartOpenProvider>
@@ -43,13 +45,12 @@ const StyledCartNavWrapper = styled.div`
   position: sticky;
   bottom: 0;
   width: 100%;
-  height: 83px;
   color: #fff;
 
   ${({ theme }) =>
     theme.isCartOpen &&
     css`
-      height: 116px;
+      height: 96px;
     `};
 `;
 
@@ -62,7 +63,7 @@ const StyledCartNav = styled.div`
   height: 100%;
   background-color: #000;
 
-  flex-direction: ${({ theme }) => theme.isCartOpen && 'column'};
+  flex-direction: column;
 `;
 
 const StyledCartInfo = styled.div`
@@ -71,6 +72,7 @@ const StyledCartInfo = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 10px 0;
 
   & > span {
     font-size: 14px;
@@ -91,8 +93,6 @@ const StyledCartInfo = styled.div`
     margin-right: 3rem;
     color: ${colors.darkOrange};
   }
-
-  padding-bottom: 30px;
   ${({ theme }) =>
     theme.isCartOpen &&
     css`
@@ -121,14 +121,14 @@ const NextButton = styled.button`
   font-size: 16px;
   line-height: 19px;
 
-  padding-bottom: 30px;
+  padding: 20px 0;
   margin: 0;
 
   ${({ theme }) =>
     theme.isCartOpen &&
     css`
       width: 100%;
-      padding-bottom: 15px;
+      padding: 20px 0;
       flex: unset;
     `};
 `;
