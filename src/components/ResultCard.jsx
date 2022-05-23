@@ -222,7 +222,9 @@ const ResultImageWrapper = styled(ImageWrapper)`
   ${(props) =>
     props.isTooltipOpen &&
     css`
-      z-index: -1;
+      ${applyMediaQuery('mobile')} {
+        z-index: -1;
+      }
     `};
 `;
 

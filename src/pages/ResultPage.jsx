@@ -16,7 +16,7 @@ import useRoomInfo from 'cores/hooks/useRoomInfo';
 import Loader from 'components/common/Loader';
 import LinkCopy from 'components/LinkCopy';
 import { completeCoeat } from 'libs/api';
-import { useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { applyMediaQuery } from 'styles/mediaQueries';
 import Responsive from 'components/common/Responsive';
 import useMedia from 'cores/hooks/useMedia';
@@ -46,13 +46,18 @@ function ResultPage() {
     cleanRoomInfo,
   } = useRoomInfo();
 
+  const { state } = useLocation();
+  const inviteCodeInState = state?.inviteCode;
+
+  const currentInvitecode = inviteCode || inviteCodeInState;
+
   const { data, loading, mutate, error } = useAPI(
     {
       method: 'GET',
-      url: `/result/${inviteCode}`,
+      url: `/result/${currentInvitecode}`,
     },
     {
-      inviteCode,
+      inviteCode: currentInvitecode,
     },
   );
 
@@ -64,7 +69,7 @@ function ResultPage() {
   const closeTooltip = () => setIsTooltipOpen(false);
 
   const handleClickCompleteBtn = async () => {
-    const result = await completeCoeat(inviteCode, nickname);
+    const result = await completeCoeat(currentInvitecode, nickname);
     if (result) {
       setIsCompleted(true);
       if (window) window.localStorage.removeItem('roomInfo');
@@ -81,6 +86,10 @@ function ResultPage() {
     return <div>Something Wrong</div>;
   }
 
+  if (data === undefined && !loading) {
+    alert('투표가 진행되지 않았어요.');
+    navigator('/');
+  }
   if (data === '종료된 링크입니다.') navigator('/done');
 
   if (!data || loading) {
@@ -229,6 +238,7 @@ function ResultPage() {
           </ReactModal>
         </>
       )}
+      {!isHost && <JoinLink to={`/?inviteCode=${currentInvitecode}`}>참여하기</JoinLink>}
     </Container>
   );
 }
@@ -604,7 +614,7 @@ const Delimiter = styled.div`
   height: 2.4rem;
 `;
 
-const CompleteBtn = styled.button`
+const ButtonStyle = css`
   background-color: ${colors.orange};
   color: ${colors.white};
   border: none;
@@ -615,6 +625,17 @@ const CompleteBtn = styled.button`
   font-family: 'Montserrat';
   letter-spacing: -0.1px;
 
+  ${applyMediaQuery('mobile')} {
+    font-size: 16px;
+    line-height: 20px;
+
+    padding: 19px 24px;
+  }
+`;
+
+const CompleteBtn = styled.button`
+  ${ButtonStyle}
+
   &:disabled {
     cursor: auto;
   }
@@ -624,13 +645,6 @@ const CompleteBtn = styled.button`
     css`
       background-color: ${colors.darkOrange};
     `};
-
-  ${applyMediaQuery('mobile')} {
-    font-size: 16px;
-    line-height: 20px;
-
-    padding: 19px 24px;
-  }
 `;
 
 const StyledCloseBtn = styled.button`
@@ -670,5 +684,17 @@ export const LogoWrapper = styled.div`
       font-size: 14px;
       letter-spacing: -0.01rem;
     }
+  }
+`;
+
+const JoinLink = styled(Link)`
+  ${ButtonStyle}
+  text-decoration: none;
+
+  ${applyMediaQuery('desktop')} {
+    padding: 24px 96px;
+  }
+  ${applyMediaQuery('mobile', 'tablet', 'mini')} {
+    padding: 19px 71px;
   }
 `;

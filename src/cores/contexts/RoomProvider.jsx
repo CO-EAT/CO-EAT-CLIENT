@@ -7,7 +7,7 @@ const initialRoomInfo = {
   inviteCode: '',
   userInfo: {
     nickname: '',
-    isHost: true,
+    isHost: false,
   },
 };
 

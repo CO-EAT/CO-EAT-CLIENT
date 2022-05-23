@@ -78,7 +78,13 @@ const MainPage = () => {
 
   const pushToResult = async () => {
     const isResultExist = await checkResultExist(inviteCode.current);
-    if (isResultExist) navigate('/result');
+    if (!isHost)
+      navigate('/result', {
+        state: {
+          inviteCode: inviteCode.current,
+        },
+      });
+    else if (isResultExist) navigate('/result');
     else setIsModalOpen(true);
   };
 
@@ -95,8 +101,8 @@ const MainPage = () => {
         </StyledContent>
       </StyledMainHeader>
       <StyledMainBody>
-        <Clip />
         <StyledBodyContent>
+          <Clip />
           <StyledBodyTitle>
             <RiceIcon />
             <span>HOW TO USE COEAT?</span>
@@ -130,7 +136,7 @@ const MainPage = () => {
           </span>
           <GoIcon />
         </StyledMainButton>
-        {isAlreadyCoeated() && (
+        {(isAlreadyCoeated() || !isHost) && (
           <StyledMainButton onClick={pushToResult}>
             <span>결과보기</span>
           </StyledMainButton>
@@ -230,21 +236,6 @@ const StyledMainBody = styled.article`
   margin-top: 4rem;
   position: relative;
   width: 100%;
-
-  & > svg {
-    position: relative;
-    top: 1rem;
-  }
-
-  ${applyMediaQuery('mobile')} {
-    margin-top: -4.5rem;
-
-    & > svg {
-      width: 20%;
-      position: relative;
-      top: 9%;
-    }
-  }
 `;
 
 const StyledBodyContent = styled.div`
@@ -253,12 +244,24 @@ const StyledBodyContent = styled.div`
   align-items: center;
   width: 68rem;
 
-  ${applyMediaQuery('mobile')} {
-    width: calc(100% - 4.4rem);
-  }
-
+  margin-top: 30px;
   border: 1.5rem solid #f5f5f5;
   border-radius: 4rem;
+
+  position: relative;
+  & > svg {
+    position: absolute;
+    top: 0;
+    transform: translateY(-100%);
+  }
+
+  ${applyMediaQuery('mobile')} {
+    width: calc(100% - 4.4rem);
+
+    & > svg {
+      transform: translateY(-75%) scale(50%);
+    }
+  }
 `;
 
 const StyledBodyTitle = styled.div`

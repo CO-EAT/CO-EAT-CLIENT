@@ -46,7 +46,6 @@ function PickPage() {
     max: false,
   });
   const [checkType, setCheckType] = useState('');
-  const [isScrolling, setIsScrolling] = useState(false);
 
   const categoryPriorityMap = {
     한식: 0,
@@ -100,7 +99,7 @@ function PickPage() {
       max: false,
     });
 
-  const handleClick = (e) => {
+  const handleClickHashAnchor = (e) => {
     setSelectCtg(e.currentTarget.getAttribute('name'));
   };
 
@@ -111,14 +110,14 @@ function PickPage() {
       <Fragment key={foodCategory}>
         <span id={foodCategory} className="toBeScroll" />
         <header>{foodCategory}</header>
-        <div className="ctgFoods">
+        <div className="ctgFoods" data-food-category={foodCategory} ref={observeElement}>
           {foodInfo.map((food) => (
             <FoodSelectionWrapper key={food.id}>
               <FoodSelectionCard
                 addCoEat={addFoodToList(COEAT)}
                 addNoEat={addFoodToList(NOEAT)}
                 data={food}
-                imgCallbackRef={observeFood}
+                imgCallbackRef={observeElement}
               />
             </FoodSelectionWrapper>
           ))}
@@ -149,30 +148,42 @@ function PickPage() {
 
   const CurrentCartNav = isMobile ? MobilePickCartModal : PickCartNav;
 
-  const handleScrollByTouch = () => {
-    if (isScrolling) {
-      setTimeout(() => setIsScrolling(false), 500);
-    } else {
-      setIsScrolling(true);
-    }
-  };
-
-  const observeFood = (refElement) => {
+  const observeElement = (refElement) => {
     if (refElement && observerRef.current) {
       observerRef.current.observe(refElement);
     }
   };
 
-  const handleIntersection = (entries) => {
+  const handleImageIntersection = (entry) => {
     const LOADED = 'loaded';
-    entries.forEach((entry) => {
-      if (entry.isIntersecting && !entry.target.classList.contains(LOADED)) {
-        entry.target.src = entry.target.dataset.lazysrc;
-        entry.target.addEventListener('load', function detectLoad(e) {
-          e.currentTarget.classList.add(LOADED);
-          e.currentTarget.removeEventListener('load', detectLoad);
-        });
+    if (!entry.target.classList.contains(LOADED)) {
+      entry.target.src = entry.target.dataset.lazysrc;
+      entry.target.addEventListener('load', function detectLoad(e) {
+        e.currentTarget.classList.add(LOADED);
+        e.currentTarget.removeEventListener('load', detectLoad);
+      });
+    }
+  };
+
+  const handleHashAnchorIntersection = (entry) => {
+    if (entry.isIntersecting) {
+      const targetDataset = entry.target?.dataset;
+      if (targetDataset) {
+        const { foodCategory } = targetDataset;
+        if (foodCategory) {
+          setSelectCtg(foodCategory);
+          navigator(`/pick#${foodCategory}`, { replace: true });
+        }
       }
+    }
+  };
+
+  const handleIntersection = (entries) => {
+    entries.forEach((entry) => {
+      if (entry.target.classList.contains('ctgFoods')) {
+        handleHashAnchorIntersection(entry);
+      }
+      if (entry.isIntersecting && entry.target instanceof HTMLImageElement) handleImageIntersection(entry);
     });
   };
 
@@ -216,7 +227,7 @@ function PickPage() {
               <StyledCategory>
                 {MEAL_CATEGORIES.map((category, idx) => (
                   <div
-                    onClick={handleClick}
+                    onClick={handleClickHashAnchor}
                     name={category}
                     key={idx}
                     className={category === selectCtg ? 'selected' : ''}>
@@ -230,14 +241,10 @@ function PickPage() {
         </StyledNav>
       </nav>
       {loading && <Loader overlay />}
-      <section
-        onTouchStart={isMobile ? handleScrollByTouch : undefined}
-        onTouchEnd={isMobile ? handleScrollByTouch : undefined}>
+      <section>
         <StyledSection>{showFoods()}</StyledSection>
       </section>
-      {!isScrolling && (
-        <CurrentCartNav isCartOpen={isCartOpen} toggleModal={toggleModal} submitCompleteCoeat={submitCompleteCoeat} />
-      )}
+      <CurrentCartNav isCartOpen={isCartOpen} toggleModal={toggleModal} submitCompleteCoeat={submitCompleteCoeat} />
       <ReactModal
         style={isMobile ? mobileModalStyles : modalStyles}
         isOpen={restrictModal.min || restrictModal.max}
@@ -261,7 +268,6 @@ const StyledContainer = styled.div`
   width: 100%;
   height: 100%;
   overflow: ${(prop) => (prop.isCartOpen ? 'hidden' : 'auto')};
-  scroll-behavior: smooth;
 
   & > nav {
     display: flex;

@@ -25,7 +25,7 @@ function Router() {
         <Route path="/create" element={<HostPage />} />
         <Route path="/setting" element={<SettingPage />} />
         <Route path="/pick" element={checkIsValidAccess(<PickPage />)} />
-        <Route path="/result" element={checkIsValidAccess(<ResultPage />)} />
+        <Route path="/result" element={<ResultPage />} />
         <Route path="/done" element={<DonePage />} />
         <Route path="/error" element={<NonExistLinkPage />} />
       </Routes>
