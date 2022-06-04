@@ -44,8 +44,16 @@ function FoodSelectionCard(props) {
         <InvertedBorder left isCoeat={getIsCurrentSelected(COEAT)} isNoeat={getIsCurrentSelected(NOEAT)} />
         <InvertedBorder right isCoeat={getIsCurrentSelected(COEAT)} isNoeat={getIsCurrentSelected(NOEAT)} />
         <ButtonWrapper>
-          <CoEatButton onClick={handleClickCONOEatBtn('COEAT', id, menuName, menuImg)}>COEAT</CoEatButton>
-          <NoEatButton onClick={handleClickCONOEatBtn('NOEAT', id, menuName, menuImg)}>NOEAT</NoEatButton>
+          <CoEatButton
+            isCoeat={getIsCurrentSelected(COEAT)}
+            onClick={handleClickCONOEatBtn('COEAT', id, menuName, menuImg)}>
+            COEAT
+          </CoEatButton>
+          <NoEatButton
+            isNoeat={getIsCurrentSelected(NOEAT)}
+            onClick={handleClickCONOEatBtn('NOEAT', id, menuName, menuImg)}>
+            NOEAT
+          </NoEatButton>
         </ButtonWrapper>
       </DownBox>
     </StyledCard>
@@ -298,10 +306,23 @@ const BasicButton = styled.button`
 const CoEatButton = styled(BasicButton)`
   background-color: ${colors.lightOrange};
   color: ${colors.orange};
+
+  ${(props) =>
+    props.isCoeat &&
+    css`
+      background-color: ${colors.orange};
+      color: ${colors.lightOrange};
+    `};
 `;
 const NoEatButton = styled(BasicButton)`
   background-color: ${colors.gray};
   color: ${colors.darkGray};
+  ${(props) =>
+    props.isNoeat &&
+    css`
+      background-color: ${colors.noEatProgress};
+      color: ${colors.gray};
+    `};
 `;
 
 export const MainDish = styled.div`
