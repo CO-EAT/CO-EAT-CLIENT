@@ -136,7 +136,7 @@ const Setting = () => {
         </CustomStyledTitle>
         <CustomStyledContent>
           <p className="bold">사용하실 닉네임을 입력해주세요</p>
-          <p>이름이든, 별칭이든 다 괜찮아요</p>
+          <p>이름이든, 별칭이든 다 괜찮아요</p>
         </CustomStyledContent>
       </StyledMainHeader>
       <StyledInputContainer>
