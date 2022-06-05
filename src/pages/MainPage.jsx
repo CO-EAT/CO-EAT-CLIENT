@@ -27,7 +27,7 @@ const MainPage = () => {
 
   const isAlreadyCoeated = () => {
     if (window) {
-      const roomInfo = window.localStorage.getItem('roomInfo');
+      const roomInfo = window.sessionStorage.getItem('roomInfo');
       try {
         const parsedRoomInfo = JSON.parse(roomInfo);
         return !!parsedRoomInfo.userInfo.nickname && !isHost;
@@ -60,13 +60,13 @@ const MainPage = () => {
     });
 
     if (isHost) {
-      if (window) window.localStorage.removeItem('roomInfo');
+      if (window) window.sessionStorage.removeItem('roomInfo');
       navigate('/setting');
     } else {
       // 일반 참가자로 참여한 경우, 링크의 유효성 검사를 진행한다.
       if (!(await requestEnterGroup(inviteCode.current))) {
         // 링크가 유효한 경우, 다음 페이지로 이동
-        if (window) window.localStorage.removeItem('roomInfo');
+        if (window) window.sessionStorage.removeItem('roomInfo');
         setInviteCode(inviteCode.current);
         navigate('/setting');
       } else {
@@ -78,13 +78,13 @@ const MainPage = () => {
 
   const pushToResult = async () => {
     const isResultExist = await checkResultExist(inviteCode.current);
-    if (!isHost)
+    if (isResultExist)
       navigate('/result', {
         state: {
           inviteCode: inviteCode.current,
+          isBeforeCoeat: true,
         },
       });
-    else if (isResultExist) navigate('/result');
     else setIsModalOpen(true);
   };
 

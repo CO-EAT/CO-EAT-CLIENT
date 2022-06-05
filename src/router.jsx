@@ -12,7 +12,7 @@ function Router() {
   const { roomStateContext } = useRoomInfo();
   const checkIsValidAccess = (pageToBeRender) => {
     const { inviteCode, userInfo } = roomStateContext;
-    const storedRoomState = localStorage?.getItem('roomInfo');
+    const storedRoomState = sessionStorage?.getItem('roomInfo');
     if (!storedRoomState && (!inviteCode || !userInfo.nickname)) return <Navigate to="/" />;
     if (storedRoomState && !JSON.parse(storedRoomState).inviteCode) return <Navigate to="/" />;
     return pageToBeRender;

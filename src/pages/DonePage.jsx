@@ -9,7 +9,7 @@ function DonePage() {
   const navigator = useNavigate();
   const handleClick = () => {
     if (window) {
-      const ls = window.localStorage;
+      const ls = window.sessionStorage;
       ls.removeItem('roomInfo');
     }
 

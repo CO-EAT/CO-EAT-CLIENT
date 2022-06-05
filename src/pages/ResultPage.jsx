@@ -47,7 +47,7 @@ function ResultPage() {
   } = useRoomInfo();
 
   const { state } = useLocation();
-  const inviteCodeInState = state?.inviteCode;
+  const { isBeforeCoeat, inviteCode: inviteCodeInState } = state;
 
   const currentInvitecode = inviteCode || inviteCodeInState;
 
@@ -72,7 +72,7 @@ function ResultPage() {
     const result = await completeCoeat(currentInvitecode, nickname);
     if (result) {
       setIsCompleted(true);
-      if (window) window.localStorage.removeItem('roomInfo');
+      if (window) window.sessionStorage.removeItem('roomInfo');
       navigator('/done');
     }
   };
@@ -83,13 +83,10 @@ function ResultPage() {
   };
 
   if (error) {
-    return <div>Something Wrong</div>;
+    alert('결과 조회에 실패했어요.');
+    navigator(`/?inviteCode=${currentInvitecode}`);
   }
 
-  if (data === undefined && !loading) {
-    alert('투표가 진행되지 않았어요.');
-    navigator('/');
-  }
   if (data === '종료된 링크입니다.') navigator('/done');
 
   if (!data || loading) {
@@ -108,7 +105,7 @@ function ResultPage() {
 
           <div>
             <img src={SmallLogo} className="small-logo" alt="small-logo" />
-            <span>{nickname}님</span>
+            {nickname && <span>{nickname}님</span>}
           </div>
         </LogoWrapper>
       </Responsive>
@@ -238,7 +235,7 @@ function ResultPage() {
           </ReactModal>
         </>
       )}
-      {!isHost && <JoinLink to={`/?inviteCode=${currentInvitecode}`}>참여하기</JoinLink>}
+      {!isHost && isBeforeCoeat && <JoinLink to={`/?inviteCode=${currentInvitecode}`}>참여하기</JoinLink>}
     </Container>
   );
 }
