@@ -47,9 +47,7 @@ function ResultPage() {
   } = useRoomInfo();
 
   const { state } = useLocation();
-  const { isBeforeCoeat, inviteCode: inviteCodeInState } = state;
-
-  const currentInvitecode = inviteCode || inviteCodeInState;
+  const currentInvitecode = inviteCode || state?.inviteCode;
 
   const { data, loading, mutate, error } = useAPI(
     {
@@ -235,7 +233,7 @@ function ResultPage() {
           </ReactModal>
         </>
       )}
-      {!isHost && isBeforeCoeat && <JoinLink to={`/?inviteCode=${currentInvitecode}`}>참여하기</JoinLink>}
+      {!isHost && state?.isBeforeCoeat && <JoinLink to={`/?inviteCode=${currentInvitecode}`}>참여하기</JoinLink>}
     </Container>
   );
 }
