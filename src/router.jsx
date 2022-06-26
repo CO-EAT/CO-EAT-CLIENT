@@ -7,6 +7,7 @@ import SettingPage from 'pages/SettingPage';
 import NonExistLinkPage from 'pages/NonExistLinkPage';
 import useRoomInfo from 'cores/hooks/useRoomInfo';
 import DonePage from 'pages/DonePage';
+import LinkPage from 'pages/LinkPage';
 
 function Router() {
   const { roomStateContext } = useRoomInfo();
@@ -25,6 +26,7 @@ function Router() {
         <Route path="/create" element={<HostPage />} />
         <Route path="/setting" element={<SettingPage />} />
         <Route path="/pick" element={checkIsValidAccess(<PickPage />)} />
+        <Route path="/share" element={checkIsValidAccess(<LinkPage />)} />
         <Route path="/result" element={<ResultPage />} />
         <Route path="/done" element={<DonePage />} />
         <Route path="/error" element={<NonExistLinkPage />} />

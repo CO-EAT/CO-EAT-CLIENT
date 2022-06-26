@@ -385,6 +385,7 @@ export const StyledMainButton = styled.button`
   position: relative;
   margin-top: 6rem;
   margin-bottom: 11rem;
+  border-radius: 2px;
   width: 28rem;
   height: 7.8rem;
   padding: 2.4rem 9.3rem;

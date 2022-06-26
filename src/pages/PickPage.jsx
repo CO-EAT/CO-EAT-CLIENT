@@ -143,7 +143,7 @@ function PickPage() {
       getIdArrayFromEatList(coEatList),
       getIdArrayFromEatList(noEatList),
     );
-    if (isSuccess) navigator('/result');
+    if (isSuccess) navigator('/share');
   };
 
   const CurrentCartNav = isMobile ? MobilePickCartModal : PickCartNav;

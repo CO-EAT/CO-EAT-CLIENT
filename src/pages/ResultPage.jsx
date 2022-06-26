@@ -684,10 +684,13 @@ export const LogoWrapper = styled.div`
 
 const JoinLink = styled(Link)`
   ${ButtonStyle}
+  font-family: initial;
+  font-size: 2.4rem;
+  font-weight: 700;
   text-decoration: none;
 
   ${applyMediaQuery('desktop')} {
-    padding: 24px 96px;
+    padding: 24px 71px;
   }
   ${applyMediaQuery('mobile', 'tablet', 'mini')} {
     padding: 19px 71px;

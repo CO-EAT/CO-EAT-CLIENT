@@ -11,23 +11,19 @@ import {
   CustomLogo,
 } from 'pages/MainPage';
 import styled from 'styled-components';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { applyMediaQuery } from 'styles/mediaQueries';
+import LinkCopy from 'components/LinkCopy';
 import useRoomInfo from 'cores/hooks/useRoomInfo';
 
-const HostPage = () => {
+const LinkPage = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const inviteCode = location.state;
-  const { setInviteCode } = useRoomInfo();
+  const {
+    roomStateContext: { inviteCode },
+  } = useRoomInfo();
 
   const handleClick = () => {
-    if (inviteCode) {
-      setInviteCode(inviteCode);
-      navigate('/pick');
-    } else {
-      navigate('/');
-    }
+    navigate('/result');
   };
 
   //   색종이를 랜덤으로 출력
@@ -45,41 +41,39 @@ const HostPage = () => {
   return (
     <StContainer>
       <StyledDecoration>{randomPaperFlakes()}</StyledDecoration>
-      <StyledMainHeader style={{ marginBottom: '7rem' }}>
-        <CustomStyledTitle>
-          <Sticker />
-          <CustomLogo />
-        </CustomStyledTitle>
+      <CustomStyledTitle>
+        <Sticker />
+        <CustomLogo />
+      </CustomStyledTitle>
+      <StyledMainHeader>
         <CustomStyledContent>
           <img src={CheckImg} alt="CheckImg" />
-          <p>방이 만들어졌습니다!</p>
-          <p className="big">링크 공유를 위해</p>
-          <p className="big">투표에 먼저 참여해주세요!</p>
+          <p>선택은 완료하였습니다</p>
+          <p className="big">링크를 공유해보세요!</p>
+          <p className="small">오늘 같이 식사를 할 코잇러에게 링크를 공유하여</p>
+          <p className="small">식사메뉴를 함께 정해보세요!</p>
         </CustomStyledContent>
       </StyledMainHeader>
+      <LinkCopy inviteCode={inviteCode} />
       <CustomStyledMainButton onClick={handleClick}>
-        <span>Let`s COEAT!</span>
+        <span>결과보기</span>
         <GoIcon />
       </CustomStyledMainButton>
     </StContainer>
   );
 };
 
-export default HostPage;
+export default LinkPage;
 
 const StContainer = styled(StyledContainer)`
-  justify-content: space-around;
-
-  ${applyMediaQuery('mobile')} {
-    justify-content: unset;
-  }
+  justify-content: space-between;
+  padding: 7.5rem 2.4rem;
 `;
 
 const CustomStyledTitle = styled(StyledTitle)`
   ${applyMediaQuery('mobile')} {
     margin-right: 0;
     margin-bottom: 0;
-    margin-top: 8.8rem;
 
     & > svg:first-child {
       display: none;
@@ -99,16 +93,16 @@ const CustomStyledContent = styled(StyledContent)`
   }
 
   & > p {
-    padding: 0;
-    margin: 0;
     font-size: 3.2rem;
-    line-height: 150%;
   }
 
-  & > p:first-of-type {
-    margin-bottom: 1.6rem;
+  & > p:last-child {
+    font-weight: normal;
   }
+
   .big {
+    margin-top: 1.8rem;
+    margin-bottom: 4.3rem;
     font-size: 4rem;
     font-weight: 700;
   }
@@ -123,7 +117,7 @@ const CustomStyledContent = styled(StyledContent)`
     & > img {
       width: 4rem;
       height: 4rem;
-      margin-top: 14.1rem;
+      margin-top: 3rem;
       margin-bottom: 2.7rem;
     }
 
@@ -132,6 +126,7 @@ const CustomStyledContent = styled(StyledContent)`
     }
 
     .big {
+      margin-bottom: 2rem;
       font-size: 22px;
     }
 

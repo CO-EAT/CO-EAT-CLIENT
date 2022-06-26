@@ -10,6 +10,7 @@ import {
   CustomLogo,
 } from 'pages/MainPage';
 import { StyledAlertBox } from 'components/LinkCopy';
+import Loader from 'components/common/Loader';
 import styled from 'styled-components';
 import { colors } from 'constants/colors';
 import { useEffect, useRef, useState } from 'react';
@@ -24,6 +25,7 @@ const Setting = () => {
   const [user, setUser] = useState('');
   const [isTextEmpty, setIsTextEmpty] = useState(false);
   const [isMaxLength, setIsMaxLength] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const outerInputRef = useRef();
   const innerInputRef = useRef();
@@ -98,6 +100,7 @@ const Setting = () => {
   };
 
   const handleAdd = async () => {
+    setIsLoading(true);
     if (!user) {
       warnRefs.current.forEach((a) => a.restart());
       setIsTextEmpty(true);
@@ -125,10 +128,12 @@ const Setting = () => {
       setIsMaxLength(true);
       return;
     }
+    setIsLoading(false);
   };
 
   return (
     <StyledContainer>
+      {isLoading && <Loader />}
       <StyledMainHeader>
         <CustomStyledTitle>
           <Sticker />
