@@ -123,7 +123,7 @@ const CustomStyledContent = styled(StyledContent)`
     & > img {
       width: 4rem;
       height: 4rem;
-      margin-top: 14.1rem;
+      margin-top: 10vh;
       margin-bottom: 2.7rem;
     }
 
