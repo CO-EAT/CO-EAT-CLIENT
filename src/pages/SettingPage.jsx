@@ -100,7 +100,6 @@ const Setting = () => {
   };
 
   const handleAdd = async () => {
-    setIsLoading(true);
     if (!user) {
       warnRefs.current.forEach((a) => a.restart());
       setIsTextEmpty(true);
@@ -108,6 +107,7 @@ const Setting = () => {
     }
 
     if (isUserValid()) {
+      setIsLoading(true);
       setUserInfo({
         nickname: user,
         isHost: isHost,
@@ -115,6 +115,7 @@ const Setting = () => {
 
       if (isHost) {
         // Host 유저를 생성한다.
+
         const newInviteCode = await createUser();
         navigate('/create', { state: newInviteCode });
       } else {
