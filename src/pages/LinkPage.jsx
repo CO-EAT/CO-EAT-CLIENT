@@ -48,7 +48,7 @@ const LinkPage = () => {
       <StyledMainHeader>
         <CustomStyledContent>
           <img src={CheckImg} alt="CheckImg" />
-          <p>선택은 완료하였습니다</p>
+          <p>선택을 완료하였습니다</p>
           <p className="big">링크를 공유해보세요!</p>
           <p className="small">오늘 같이 식사를 할 코잇러에게 링크를 공유하여</p>
           <p className="small">식사메뉴를 함께 정해보세요!</p>
