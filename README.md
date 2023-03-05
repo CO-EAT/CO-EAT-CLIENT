@@ -30,10 +30,10 @@
             </a>
         </td>
         <td style="min-width: 150px;">
-            <a href="https://github.com/q-bit-junior">
-              <img src="https://github.com/q-bit-junior.png" width="100">
+            <a href="https://github.com/Gyuminn">
+              <img src="https://github.com/Gyuminn.png" width="100">
               <br />
-              <b>김규민 <br> (q-bit-junior)</b>
+              <b>김규민 <br> (Gyuminn)</b>
             </a> 
         </td>
         <td style="min-width: 150px;">
